@@ -1,5 +1,6 @@
 import React from "react";
 import Dockable from "./lib/dockable";
+import "./theme.css";
 
 class App extends React.Component {
   state = {
@@ -21,7 +22,12 @@ class App extends React.Component {
 
   render() {
     return (
-      <div style={{ width: "100vw", height: "100vh", overflow: "hidden" }}>
+      <div
+        style={{
+          width: "100vw",
+          height: "100vh",
+        }}
+      >
         <Dockable
           initialState={this.state.panels}
           onUpdate={(workspace) => this.setState({ panels: workspace })}

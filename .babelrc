@@ -1,0 +1,4 @@
+{
+  "presets": [["@babel/preset-react", { "absoluteRuntime": false }]],
+  "plugins": ["@babel/plugin-proposal-class-properties"]
+}
