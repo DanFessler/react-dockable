@@ -33,5 +33,9 @@
   "repository": "",
   "keywords": [
     "react-component"
-  ]
+  ],
+  "dependencies": {
+    "array-move": "^4.0.0",
+    "react-beautiful-dnd": "^13.1.0"
+  }
 }

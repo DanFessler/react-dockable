@@ -1,0 +1,200 @@
+.container {
+  display: flex;
+  position: relative;
+  /* overflow: hidden; */
+  flex-shrink: 0;
+  box-sizing: border-box;
+  /* background-color: rgba(0, 0, 0, 0.33); */
+  width: 100%;
+}
+
+.window {
+  /* margin: 1px; */
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  flex-grow: 1;
+  box-shadow: 0 0px 1px RGBA(0, 0, 0, 0.5);
+  /* border: 1px solid rgba(0, 0, 0, 0.5); */
+  border-radius: var(--windowRadius);
+  background-color: var(--primary);
+}
+
+/* .container::before {
+  content: "";
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: calc(100% - 2px);
+  height: calc(100% - 2px);
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  pointer-events: none;
+  border-radius: var(--windowRadius);
+} */
+
+.content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  /* border: 1px solid transparent; */
+  /* border-top: 1px solid RGBA(255, 255, 255, 0.03); */
+  /* box-shadow: 0 0px 1px rgba(0, 0, 0, 1); */
+  /* height: 100%; */
+  /* background-color: red; */
+  overflow: hidden;
+  font-size: 13px;
+}
+
+.tabBar {
+  display: flex;
+  flex-shrink: 0;
+  height: 34px;
+  background-color: var(--secondary);
+  /* box-shadow: 0 -1px 1px rgba(0, 0, 0, 0.125) inset; */
+  /* background: linear-gradient(180deg, #353535, var(--secondary) 100%); */
+  overflow: hidden;
+  /* border-bottom: 2px solid var(--primary); */
+}
+
+.tabBarHover::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  /* box-shadow: inset 0 3px 1px cyan, inset 0 -3px 1px cyan, inset 3px 0 1px cyan,
+    inset -3px 0 1px cyan; */
+  border: 4px solid cyan;
+  box-sizing: border-box;
+  z-index: 999;
+}
+
+.tab {
+  /* max-width: 320px; */
+  /* flex-grow: 1; */
+  position: relative;
+  /* padding: 0px 12px 2px; */
+  /* margin-right: 1px; */
+  display: flex;
+  /* height: calc(100% + 1px); */
+  /* height: 100%; */
+
+  /* line-height: 21px; */
+  box-sizing: border-box;
+  border-width: 1px 1px 0px 1px;
+  border-style: solid;
+  border-left-color: transparent;
+  border-right-color: transparent;
+  border-top-color: transparent;
+
+  color: var(--textAlpha);
+  cursor: pointer;
+  /* border-radius: 3px 3px 0 0; */
+  white-space: nowrap;
+  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+}
+.tab.active {
+  color: var(--text);
+  background-color: var(--primary);
+  border-top-color: RGBA(255, 255, 255, 0.03);
+  /* border-radius: 2px; */
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.75);
+}
+
+.tab:not(.active):hover {
+  background-color: var(--primaryAlpha);
+}
+
+.title {
+  overflow: hidden;
+  padding: 0 16px;
+  flex-shrink: 1;
+  flex-grow: 1;
+  /* text-align: left; */
+  font-size: 14px;
+  /* text-transform: uppercase; */
+}
+
+.closeBox {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  /* background-color: rgba(0, 0, 0, 0.25); */
+  border-radius: 2px;
+  box-sizing: border-box;
+  position: relative;
+  /* top: 3px; */
+  /* margin-left: 4px; */
+  /* opacity: 0.5; */
+  background-image: url("../images/closebox.svg");
+  background-size: 50%;
+  background-repeat: no-repeat;
+  background-position: center;
+  /* margin-left: 4px; */
+  margin: 8px;
+}
+
+.closeBox:hover {
+  background-color: rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+}
+
+.burgerMenuContainer {
+  position: relative;
+  box-sizing: border-box;
+  width: 32px;
+  /* height: 32px; */
+  flex-shrink: 0;
+  flex-grow: 0;
+  transition: width 0.1s linear;
+  /* background-color: var(--primary); */
+}
+
+.burgerMenu {
+  background-image: url("../images/hamburger.svg");
+  width: 12px;
+  height: 100%;
+  margin: 0 auto;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.5;
+}
+
+.burgerMenuContainer:hover {
+  background-color: var(--primaryAlpha);
+  cursor: pointer;
+}
+
+.tabSpacer {
+  display: flex;
+  flex-grow: 1;
+  flex-shrink: 1;
+  width: 0;
+}
+
+.dropBorder {
+  height: 16px;
+  position: fixed;
+  z-index: 999;
+}
+.dropBorder:after {
+  border-radius: 2px;
+  content: "";
+  position: absolute;
+  height: 8px;
+  width: 100%;
+  margin: 4px 0;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  transition: 0.1s background-color;
+  pointer-events: none;
+}
+.dropBorder:hover:after {
+  background-color: cyan;
+}

@@ -1,0 +1,10 @@
+.theme {
+  --primary: rgba(238, 0, 0, 0.822);
+  --primaryAlpha: rgba(75, 75, 75, 0.5);
+  --secondary: rgb(60, 60, 60);
+  --text: #e6e6e6;
+  --textAlpha: #e6e6e680;
+  --borderColor: #2c2c2c;
+  --windowRadius: 2px;
+  background-color: var(--borderColor);
+}

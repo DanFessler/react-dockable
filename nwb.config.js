@@ -1,12 +1,19 @@
 module.exports = {
-  type: 'react-component',
+  type: "react-component",
   npm: {
     esModules: true,
     umd: {
-      global: 'ReactDockable',
+      global: "ReactDockable",
       externals: {
-        react: 'React'
-      }
-    }
-  }
-}
+        react: "React",
+      },
+    },
+  },
+  webpack: {
+    rules: {
+      css: {
+        modules: { auto: true },
+      },
+    },
+  },
+};

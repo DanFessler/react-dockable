@@ -1,0 +1,67 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  text-align: left;
+  color: black;
+  /* background-color: red; */
+}
+
+.contextMenu {
+  position: absolute;
+  background-color: white;
+  z-index: 1;
+  /* border: 1px solid grey; */
+  padding: 4px 0;
+  border-radius: 2px;
+  font-size: 12px;
+  box-shadow: 0 2px 5px RGBA(0, 0, 0, 0.5);
+  overflow: hidden;
+  border: 1px solid rgb(0, 0, 0, 0.125);
+}
+
+.contextMenuItem {
+  padding: 5px 16px;
+  height: 26px;
+  box-sizing: border-box;
+  overflow: hidden;
+  white-space: nowrap;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+.contextMenuItem span {
+  vertical-align: top;
+}
+.contextMenuItem:hover {
+  background-color: RGB(225, 235, 240);
+}
+
+.contextMenuDivider {
+  height: 1px;
+  margin: 4px 0;
+  background-color: #ccc;
+}
+
+.radio {
+  display: inline-block;
+  padding-right: 4px;
+  width: 16px;
+  font-size: 10px;
+  font-weight: bold;
+}
+
+.checkbox {
+  display: inline-block;
+  position: relative;
+  padding-right: 4px;
+  top: -2px;
+  width: 16px;
+  font-size: 12px;
+  font-weight: bold;
+}
