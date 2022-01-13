@@ -7,7 +7,6 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 import React, { createRef } from "react";
-import css from "./css/Panel.module.css";
 
 var Panel = /*#__PURE__*/function (_React$Component) {
   _inheritsLoose(Panel, _React$Component);
@@ -51,9 +50,9 @@ var Panel = /*#__PURE__*/function (_React$Component) {
     var _ref;
 
     return /*#__PURE__*/React.createElement("div", {
-      className: css.container + " " + (this.props.className || ""),
+      className: "pg-panel " + (this.props.className || ""),
       ref: this.element,
-      style: (_ref = {}, _ref[this.getPropertyName("size")] = this.props.data.size, _ref[this.getPropertyName("minSize")] = this.props.data.minSize, _ref[this.getPropertyName("maxSize")] = this.props.data.maxSize || "auto", _ref.flexGrow = !this.props.data.maxSize && this.props.data.resize === "stretch" ? "1" : "0", _ref.backgroundColor = this.props.color, _ref)
+      style: (_ref = {}, _ref[this.getPropertyName("size")] = this.props.data.size, _ref[this.getPropertyName("minSize")] = this.props.data.minSize, _ref[this.getPropertyName("maxSize")] = this.props.data.maxSize || "auto", _ref.flexGrow = !this.props.data.maxSize && this.props.data.resize === "stretch" ? "1" : "0", _ref.backgroundColor = this.props.color, _ref.userSelect = "none", _ref.display = "flex", _ref)
     }, this.props.children);
   };
 

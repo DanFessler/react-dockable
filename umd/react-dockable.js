@@ -95,7 +95,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 11);
+/******/ 	return __webpack_require__(__webpack_require__.s = 8);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -148,7 +148,7 @@ if (true) {
   // DCE check should happen before ReactDOM bundle executes so that
   // DevTools can report bad minification during injection.
   checkDCE();
-  module.exports = __webpack_require__(16);
+  module.exports = __webpack_require__(13);
 } else {}
 
 
@@ -167,19 +167,12 @@ module.exports = {"container":"_2abfi_11WMRZ1oW6DqWZ7P","toolbarContainer":"_54j
 
 
 if (true) {
-  module.exports = __webpack_require__(15);
+  module.exports = __webpack_require__(12);
 } else {}
 
 
 /***/ }),
 /* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-module.exports = {"container":"_2CLfXHKYgdCaNqKNh1saEC","handle":"_33S38E5YoCKwGgPICCIuw6"};
-
-/***/ }),
-/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -289,35 +282,21 @@ module.exports = hoistNonReactStatics;
 
 
 /***/ }),
-/* 8 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
 module.exports = {"container":"_214PO8uBvJTHYS7HDSVKrl","theme":"_11dEsV8NWnssA_ij-UcUav"};
 
 /***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(17);
+
+
+/***/ }),
 /* 9 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-module.exports = {"container":"dncHh5gkjFb40f3hpq1VC"};
-
-/***/ }),
-/* 10 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-module.exports = {"container":"_3Z_wTrvH0bRlfGUpHuBAw1"};
-
-/***/ }),
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(20);
-
-
-/***/ }),
-/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -330,12 +309,12 @@ module.exports = __webpack_require__(20);
 if (false) { var throwOnDirectAccess, ReactIs; } else {
   // By explicitly using `prop-types` you are opting into new production behavior.
   // http://fb.me/prop-types-in-prod
-  module.exports = __webpack_require__(13)();
+  module.exports = __webpack_require__(10)();
 }
 
 
 /***/ }),
-/* 13 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -348,7 +327,7 @@ if (false) { var throwOnDirectAccess, ReactIs; } else {
 
 
 
-var ReactPropTypesSecret = __webpack_require__(14);
+var ReactPropTypesSecret = __webpack_require__(11);
 
 function emptyFunction() {}
 function emptyFunctionWithReset() {}
@@ -406,7 +385,7 @@ module.exports = function() {
 
 
 /***/ }),
-/* 14 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -425,7 +404,7 @@ module.exports = ReactPropTypesSecret;
 
 
 /***/ }),
-/* 15 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -447,7 +426,7 @@ exports.isValidElementType=function(a){return"string"===typeof a||"function"===t
 
 
 /***/ }),
-/* 16 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -462,7 +441,7 @@ exports.isValidElementType=function(a){return"string"===typeof a||"function"===t
 /*
  Modernizr 3.0.0pre (Custom Build) | MIT
 */
-var aa=__webpack_require__(0),m=__webpack_require__(17),r=__webpack_require__(18);function y(a){for(var b="https://reactjs.org/docs/error-decoder.html?invariant="+a,c=1;c<arguments.length;c++)b+="&args[]="+encodeURIComponent(arguments[c]);return"Minified React error #"+a+"; visit "+b+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings."}if(!aa)throw Error(y(227));var ba=new Set,ca={};function da(a,b){ea(a,b);ea(a+"Capture",b)}
+var aa=__webpack_require__(0),m=__webpack_require__(14),r=__webpack_require__(15);function y(a){for(var b="https://reactjs.org/docs/error-decoder.html?invariant="+a,c=1;c<arguments.length;c++)b+="&args[]="+encodeURIComponent(arguments[c]);return"Minified React error #"+a+"; visit "+b+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings."}if(!aa)throw Error(y(227));var ba=new Set,ca={};function da(a,b){ea(a,b);ea(a+"Capture",b)}
 function ea(a,b){ca[a]=b;for(a=0;a<b.length;a++)ba.add(b[a])}
 var fa=!("undefined"===typeof window||"undefined"===typeof window.document||"undefined"===typeof window.document.createElement),ha=/^[:A-Z_a-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD][:A-Z_a-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD\-.0-9\u00B7\u0300-\u036F\u203F-\u2040]*$/,ia=Object.prototype.hasOwnProperty,
 ja={},ka={};function la(a){if(ia.call(ka,a))return!0;if(ia.call(ja,a))return!1;if(ha.test(a))return ka[a]=!0;ja[a]=!0;return!1}function ma(a,b,c,d){if(null!==c&&0===c.type)return!1;switch(typeof b){case "function":case "symbol":return!0;case "boolean":if(d)return!1;if(null!==c)return!c.acceptsBooleans;a=a.toLowerCase().slice(0,5);return"data-"!==a&&"aria-"!==a;default:return!1}}
@@ -751,7 +730,7 @@ exports.unstable_renderSubtreeIntoContainer=function(a,b,c,d){if(!rk(c))throw Er
 
 
 /***/ }),
-/* 17 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -848,19 +827,19 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 
 /***/ }),
-/* 18 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 if (true) {
-  module.exports = __webpack_require__(19);
+  module.exports = __webpack_require__(16);
 } else {}
 
 
 /***/ }),
-/* 19 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -887,7 +866,7 @@ exports.unstable_wrapCallback=function(a){var b=P;return function(){var c=P;P=b;
 
 
 /***/ }),
-/* 20 */
+/* 17 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1644,7 +1623,7 @@ if (false) {}
 
 
 // EXTERNAL MODULE: ./node_modules/prop-types/index.js
-var prop_types = __webpack_require__(12);
+var prop_types = __webpack_require__(9);
 
 // CONCATENATED MODULE: ./node_modules/react-redux/es/components/Context.js
 
@@ -1884,7 +1863,7 @@ function _objectWithoutPropertiesLoose(source, excluded) {
   return target;
 }
 // EXTERNAL MODULE: ./node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js
-var hoist_non_react_statics_cjs = __webpack_require__(7);
+var hoist_non_react_statics_cjs = __webpack_require__(6);
 var hoist_non_react_statics_cjs_default = /*#__PURE__*/__webpack_require__.n(hoist_non_react_statics_cjs);
 
 // EXTERNAL MODULE: ./node_modules/react-is/index.js
@@ -11783,10 +11762,6 @@ function arrayMoveImmutable(array, fromIndex, toIndex) {
 	return array;
 }
 
-// EXTERNAL MODULE: ./src/react-panelgroup/css/Panel.module.css
-var Panel_module = __webpack_require__(9);
-var Panel_module_default = /*#__PURE__*/__webpack_require__.n(Panel_module);
-
 // CONCATENATED MODULE: ./src/react-panelgroup/Panel.js
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
@@ -11795,7 +11770,6 @@ function Panel_inheritsLoose(subClass, superClass) { subClass.prototype = Object
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function Panel_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 
 
 
@@ -11841,9 +11815,9 @@ var Panel_Panel = /*#__PURE__*/function (_React$Component) {
     var _ref;
 
     return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("div", {
-      className: Panel_module_default.a.container + " " + (this.props.className || ""),
+      className: "pg-panel " + (this.props.className || ""),
       ref: this.element,
-      style: (_ref = {}, _ref[this.getPropertyName("size")] = this.props.data.size, _ref[this.getPropertyName("minSize")] = this.props.data.minSize, _ref[this.getPropertyName("maxSize")] = this.props.data.maxSize || "auto", _ref.flexGrow = !this.props.data.maxSize && this.props.data.resize === "stretch" ? "1" : "0", _ref.backgroundColor = this.props.color, _ref)
+      style: (_ref = {}, _ref[this.getPropertyName("size")] = this.props.data.size, _ref[this.getPropertyName("minSize")] = this.props.data.minSize, _ref[this.getPropertyName("maxSize")] = this.props.data.maxSize || "auto", _ref.flexGrow = !this.props.data.maxSize && this.props.data.resize === "stretch" ? "1" : "0", _ref.backgroundColor = this.props.color, _ref.userSelect = "none", _ref.display = "flex", _ref)
     }, this.props.children);
   };
 
@@ -11851,12 +11825,7 @@ var Panel_Panel = /*#__PURE__*/function (_React$Component) {
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
 
 /* harmony default export */ var react_panelgroup_Panel = (Panel_Panel);
-// EXTERNAL MODULE: ./src/react-panelgroup/css/Divider.module.css
-var Divider_module = __webpack_require__(6);
-var Divider_module_default = /*#__PURE__*/__webpack_require__.n(Divider_module);
-
 // CONCATENATED MODULE: ./src/react-panelgroup/Divider.js
-
 
 
 function Divider(_ref) {
@@ -11893,20 +11862,16 @@ function Divider(_ref) {
   }
 
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("div", {
-    className: Divider_module_default.a.container + " " + (className || ""),
-    style: (_ref2 = {}, _ref2[getPropertyName("size")] = size, _ref2.backgroundColor = color, _ref2),
+    className: "pg-divider " + (className || ""),
+    style: (_ref2 = {}, _ref2[getPropertyName("size")] = size, _ref2.backgroundColor = color, _ref2.userSelect = "none", _ref2.flexShrink = 0, _ref2.position = "relative", _ref2),
     onPointerDown: onDragStart
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("div", {
-    className: Divider_module_default.a.handle,
-    style: (_ref3 = {}, _ref3[getPropertyName("size")] = size + bleed * 2, _ref3[getPropertyName("position")] = -bleed, _ref3.cursor = getCursor(), _ref3)
+    className: "pg-handle",
+    style: (_ref3 = {}, _ref3[getPropertyName("size")] = size + bleed * 2, _ref3[getPropertyName("position")] = -bleed, _ref3.cursor = getCursor(), _ref3.position = "absolute", _ref3.width = "100%", _ref3.height = "100%", _ref3.top = 0, _ref3.left = 0, _ref3.zIndex = 1, _ref3)
   }));
 }
 
 /* harmony default export */ var react_panelgroup_Divider = (Divider);
-// EXTERNAL MODULE: ./src/react-panelgroup/css/PanelGroup.module.css
-var PanelGroup_module = __webpack_require__(10);
-var PanelGroup_module_default = /*#__PURE__*/__webpack_require__.n(PanelGroup_module);
-
 // CONCATENATED MODULE: ./src/react-panelgroup/PanelGroup.js
 function PanelGroup_extends() { PanelGroup_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return PanelGroup_extends.apply(this, arguments); }
 
@@ -11917,7 +11882,6 @@ function PanelGroup_inheritsLoose(subClass, superClass) { subClass.prototype = O
 function PanelGroup_setPrototypeOf(o, p) { PanelGroup_setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return PanelGroup_setPrototypeOf(o, p); }
 
 function PanelGroup_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 
 
 
@@ -12128,11 +12092,14 @@ var PanelGroup_PanelGroup = /*#__PURE__*/function (_React$Component) {
     var _this3 = this;
 
     return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("div", {
-      className: PanelGroup_module_default.a.container + " " + (this.props.className || ""),
+      className: "pg-panelGroup " + (this.props.className || ""),
       ref: this.containerRef,
       style: {
         cursor: this.getCursor(),
-        flexDirection: this.props.direction
+        flexDirection: this.props.direction,
+        display: "flex",
+        height: "100%",
+        flexGrow: 1
       }
     }, external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Children.map(this.props.children, function (child, i) {
       return [
@@ -12797,7 +12764,7 @@ var WindowPanel_WindowPanel = /*#__PURE__*/function (_Component2) {
 
 /* harmony default export */ var dockable_WindowPanel = (WindowPanel_WindowPanel);
 // EXTERNAL MODULE: ./src/dockable/css/Dockable.module.css
-var Dockable_module = __webpack_require__(8);
+var Dockable_module = __webpack_require__(7);
 var Dockable_module_default = /*#__PURE__*/__webpack_require__.n(Dockable_module);
 
 // CONCATENATED MODULE: ./src/dockable/Dockable.js

@@ -11,7 +11,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 import React, { createRef } from "react";
 import Panel from "./Panel.js";
 import Divider from "./Divider.js";
-import css from "./css/PanelGroup.module.css";
 
 var PanelGroup = /*#__PURE__*/function (_React$Component) {
   _inheritsLoose(PanelGroup, _React$Component);
@@ -218,11 +217,14 @@ var PanelGroup = /*#__PURE__*/function (_React$Component) {
     var _this3 = this;
 
     return /*#__PURE__*/React.createElement("div", {
-      className: css.container + " " + (this.props.className || ""),
+      className: "pg-panelGroup " + (this.props.className || ""),
       ref: this.containerRef,
       style: {
         cursor: this.getCursor(),
-        flexDirection: this.props.direction
+        flexDirection: this.props.direction,
+        display: "flex",
+        height: "100%",
+        flexGrow: 1
       }
     }, React.Children.map(this.props.children, function (child, i) {
       return [

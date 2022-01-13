@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
 import "./index.css";
-import css from "./theme.module.css";
+// import css from "./theme.module.css";
 
 import Dockable from "../../src/dockable";
 

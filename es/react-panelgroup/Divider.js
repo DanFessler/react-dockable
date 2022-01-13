@@ -1,5 +1,4 @@
 import React from "react";
-import css from "./css/Divider.module.css";
 
 function Divider(_ref) {
   var _ref2, _ref3;
@@ -35,12 +34,12 @@ function Divider(_ref) {
   }
 
   return /*#__PURE__*/React.createElement("div", {
-    className: css.container + " " + (className || ""),
-    style: (_ref2 = {}, _ref2[getPropertyName("size")] = size, _ref2.backgroundColor = color, _ref2),
+    className: "pg-divider " + (className || ""),
+    style: (_ref2 = {}, _ref2[getPropertyName("size")] = size, _ref2.backgroundColor = color, _ref2.userSelect = "none", _ref2.flexShrink = 0, _ref2.position = "relative", _ref2),
     onPointerDown: onDragStart
   }, /*#__PURE__*/React.createElement("div", {
-    className: css.handle,
-    style: (_ref3 = {}, _ref3[getPropertyName("size")] = size + bleed * 2, _ref3[getPropertyName("position")] = -bleed, _ref3.cursor = getCursor(), _ref3)
+    className: "pg-handle",
+    style: (_ref3 = {}, _ref3[getPropertyName("size")] = size + bleed * 2, _ref3[getPropertyName("position")] = -bleed, _ref3.cursor = getCursor(), _ref3.position = "absolute", _ref3.width = "100%", _ref3.height = "100%", _ref3.top = 0, _ref3.left = 0, _ref3.zIndex = 1, _ref3)
   }));
 }
 

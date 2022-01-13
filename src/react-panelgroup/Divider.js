@@ -1,5 +1,4 @@
 import React from "react";
-import css from "./css/Divider.module.css";
 
 function Divider({
   size = 1,
@@ -7,7 +6,7 @@ function Divider({
   color = "transparent",
   onDragStart,
   direction,
-  className
+  className,
 }) {
   function getCursor() {
     return direction === "row" ? "ew-resize" : "ns-resize";
@@ -29,16 +28,28 @@ function Divider({
 
   return (
     <div
-      className={`${css.container} ${className || ""}`}
-      style={{ [getPropertyName("size")]: size, backgroundColor: color }}
+      className={`pg-divider ${className || ""}`}
+      style={{
+        [getPropertyName("size")]: size,
+        backgroundColor: color,
+        userSelect: "none",
+        flexShrink: 0,
+        position: "relative",
+      }}
       onPointerDown={onDragStart}
     >
       <div
-        className={css.handle}
+        className={"pg-handle"}
         style={{
           [getPropertyName("size")]: size + bleed * 2,
           [getPropertyName("position")]: -bleed,
-          cursor: getCursor()
+          cursor: getCursor(),
+          position: "absolute",
+          width: "100%",
+          height: "100%",
+          top: 0,
+          left: 0,
+          zIndex: 1,
         }}
       ></div>
     </div>

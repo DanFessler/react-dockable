@@ -2,8 +2,6 @@ import React, { createRef } from "react";
 import Panel from "./Panel.js";
 import Divider from "./Divider.js";
 
-import css from "./css/PanelGroup.module.css";
-
 class PanelGroup extends React.Component {
   state = {
     panels: [],
@@ -211,11 +209,14 @@ class PanelGroup extends React.Component {
   render() {
     return (
       <div
-        className={`${css.container} ${this.props.className || ""}`}
+        className={`pg-panelGroup ${this.props.className || ""}`}
         ref={this.containerRef}
         style={{
           cursor: this.getCursor(),
           flexDirection: this.props.direction,
+          display: "flex",
+          height: "100%",
+          flexGrow: 1,
         }}
       >
         {React.Children.map(this.props.children, (child, i) => {

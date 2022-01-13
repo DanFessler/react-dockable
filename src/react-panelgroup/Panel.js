@@ -1,5 +1,4 @@
 import React, { createRef } from "react";
-import css from "./css/Panel.module.css";
 
 class Panel extends React.Component {
   element = createRef();
@@ -23,7 +22,7 @@ class Panel extends React.Component {
   render() {
     return (
       <div
-        className={`${css.container} ${this.props.className || ""}`}
+        className={`pg-panel ${this.props.className || ""}`}
         ref={this.element}
         style={{
           [this.getPropertyName("size")]: this.props.data.size,
@@ -33,7 +32,9 @@ class Panel extends React.Component {
             !this.props.data.maxSize && this.props.data.resize === "stretch"
               ? "1"
               : "0",
-          backgroundColor: this.props.color
+          backgroundColor: this.props.color,
+          userSelect: "none",
+          display: "flex",
         }}
       >
         {this.props.children}
