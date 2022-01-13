@@ -14,7 +14,6 @@ module.exports = {
       css: {
         modules: { auto: true },
       },
-      extractCSS: false,
     },
   },
 };
