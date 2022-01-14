@@ -1,0 +1,59 @@
+.container {
+  flex-grow: 1;
+  width: 100%;
+  /* overflow-y: auto; */
+}
+
+.toolbarContainer {
+  width: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4px;
+  margin-right: 2px;
+  border-radius: 3px;
+  background-color: var(--primary);
+}
+
+.button {
+  box-sizing: border-box;
+  margin-bottom: 8px;
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+  display: flex;
+  overflow: hidden;
+  flex-grow: 0;
+}
+
+.icon {
+  filter: invert(100%);
+  background-size: auto 80%;
+  background-repeat: no-repeat;
+  background-position: center center;
+  /* background-image: url("../images/paint-bucket.svg"); */
+  flex-grow: 1;
+  flex-shrink: 0;
+}
+
+.dropBorder {
+  width: 16px;
+  position: fixed;
+  z-index: 999;
+}
+.dropBorder:after {
+  border-radius: 2px;
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 100%;
+  margin: 0 4px;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  transition: 0.1s background-color;
+  pointer-events: none;
+}
+.dropBorder:hover:after {
+  background-color: cyan;
+}
