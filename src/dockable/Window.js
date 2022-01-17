@@ -20,12 +20,15 @@ class Window extends Component {
       },
     },
   ];
+
   static defaultProps = {
     padding: 8,
   };
+
   componentDidUpdate() {
     this.props.onTabSwitch(this.getSize(this.props.selected));
   }
+
   getSize = (tab) => {
     let widget = React.Children.toArray(this.props.children)[
       tab !== undefined ? tab : this.props.selected
@@ -35,22 +38,27 @@ class Window extends Component {
       size + 34 // content size // tab bar
     );
   };
+
   handleContextClick = (e) => {
     let ref = this.GetSelectedWidget();
-
-    let actions = ref.props.actions
-      ? ref.props.actions.call(ref, ref).concat(this.defaultActions)
-      : this.defaultActions;
 
     let clientRect = e.target.getBoundingClientRect(); //this.refs.contextMenuButton.getBoundingClientRect();
     console.log(clientRect);
 
     this.props.onContextClick(
-      actions,
+      this.getActions(ref),
       clientRect.left,
       clientRect.top + clientRect.height
     );
   };
+
+  getActions(ref, includeDefault = false) {
+    const defaultActions = includeDefault ? this.defaultActions : [];
+
+    return ref.props.actions
+      ? ref.props.actions.call(ref, ref).concat(defaultActions)
+      : defaultActions;
+  }
 
   renderBorders = () => [
     this.containerRef.current && this.props.draggingTab ? (
@@ -94,6 +102,8 @@ class Window extends Component {
       this.props.children.length - 1
     );
 
+    const selectedWidget = this.GetSelectedWidget();
+
     return (
       <div
         className={css.container}
@@ -119,12 +129,15 @@ class Window extends Component {
               windowId={this.props.windowId}
               hoverBorder={this.props.hoverBorder}
               onClose={this.props.onTabClosed.bind(this, this.props.windowId)}
-              hideMenu={this.props.hideMenu}
+              hideMenu={
+                // hide the context menu if there aren't any actions to show
+                this.props.hideMenu || !this.getActions(selectedWidget).length
+              }
               tabHeight={this.props.tabHeight}
             />
           )}
 
-          <div className={css.content}>{this.GetSelectedWidget()}</div>
+          <div className={css.content}>{selectedWidget}</div>
         </div>
         {this.renderBorders()}
       </div>
@@ -153,6 +166,7 @@ class TabBar extends Component {
         borderRadius: snapshot.isDragging ? 1 : 0,
       };
     }
+
     return (
       <Droppable droppableId={this.props.windowId} direction="horizontal">
         {(provided, snapshot) => (
