@@ -36,7 +36,8 @@ class Window extends Component {
     );
   };
   handleContextClick = (e) => {
-    let ref = this.widgetRef.current;
+    let ref = this.GetSelectedWidget();
+
     let actions = ref.props.actions
       ? ref.props.actions.call(ref, ref).concat(this.defaultActions)
       : this.defaultActions;
@@ -83,6 +84,10 @@ class Window extends Component {
     ) : null,
   ];
 
+  GetSelectedWidget() {
+    return React.Children.toArray(this.props.children)[this.props.selected];
+  }
+
   render() {
     let selected = Math.min(
       Math.max(this.props.selected, 0),
@@ -119,16 +124,7 @@ class Window extends Component {
             />
           )}
 
-          <div className={css.content}>
-            {this.props.children
-              ? React.cloneElement(
-                  React.Children.toArray(this.props.children)[
-                    this.props.selected
-                  ],
-                  { ref: this.widgetRef }
-                )
-              : null}
-          </div>
+          <div className={css.content}>{this.GetSelectedWidget()}</div>
         </div>
         {this.renderBorders()}
       </div>

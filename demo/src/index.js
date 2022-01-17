@@ -39,11 +39,31 @@ export default class Demo extends Component {
         >
           <MyComponent id="MyComponentA" title="Component A" />
           <MyComponent id="MyComponentB" title="Component B" />
-          <MyComponent id="MyComponentC" title="Component C" />
+          <AnotherComponent
+            id="MyComponentC"
+            title="Component C"
+            actions={() => [
+              {
+                type: "actions",
+                actions: {
+                  "Default Thing 2": () => {
+                    console.log("I did the default thing 2");
+                  },
+                  "Another Default Thing 2": () => {
+                    console.log("I did another default thing 2");
+                  },
+                },
+              },
+            ]}
+          />
         </Dockable>
       </div>
     );
   }
+}
+
+function AnotherComponent() {
+  return <div>test</div>;
 }
 
 class MyComponent extends React.Component {
