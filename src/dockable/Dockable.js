@@ -13,14 +13,7 @@ class Dockable extends Component {
   };
 
   state = {
-    contextMenu: {
-      show: false,
-      position: {
-        x: 0,
-        y: 0,
-      },
-      actions: [{ poop: function () {} }],
-    },
+    contextMenu: null,
     panels: [],
     draggingTab: false,
     hoverBorder: null,
@@ -129,25 +122,22 @@ class Dockable extends Component {
   };
 
   handleTabClosed = (panelId, windowId, tabId) => {
-    console.log("CLOSING", panelId, windowId, tabId);
+    let newPanels = JSON.parse(JSON.stringify(this.getPanels()));
+    newPanels[panelId].windows[windowId].widgets.splice(tabId, 1);
+    newPanels = this.cleanup(newPanels);
+    this.updatePanels(newPanels);
+
+    // TODO: for some reason I commented out code for an onclose callback, should revisit
     // let callback = React.Children.toArray(this.props.children).find(widget => {
     //   return (
     //     widget.props.id ===
     //     this.getPanels()[panelId].windows[windowId].widgets[tabId]
     //   );
     // }).props.onClose;
-
-    let newPanels = JSON.parse(JSON.stringify(this.getPanels()));
-    newPanels[panelId].windows[windowId].widgets.splice(tabId, 1);
-    newPanels = this.cleanup(newPanels);
-    this.updatePanels(newPanels);
-
     // if (callback) callback();
   };
 
   handleWindowClosed = (panelId, windowId) => {
-    console.log("CLOSING", panelId, windowId);
-
     let newPanels = JSON.parse(JSON.stringify(this.getPanels()));
 
     newPanels[panelId].windows[windowId].widgets = [];
@@ -290,7 +280,7 @@ class Dockable extends Component {
             ))}
           </PanelGroup>
         </DragDropContext>
-        {this.state.contextMenu.show && (
+        {this.state.contextMenu && this.state.contextMenu.show && (
           <ContextMenu
             left={this.state.contextMenu.position.x}
             top={this.state.contextMenu.position.y}

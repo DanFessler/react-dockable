@@ -45,7 +45,6 @@ class Window extends Component {
     let ref = this.GetSelectedWidget();
 
     let clientRect = e.target.getBoundingClientRect(); //this.refs.contextMenuButton.getBoundingClientRect();
-    console.log(clientRect);
 
     this.props.onContextClick(
       this.getActions(ref),
