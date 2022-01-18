@@ -55,80 +55,59 @@ function ContextMenu({ left, top, actions, onClickOut }) {
         ref={containerRef}
       >
         {actions.map((actionGroup, i, arr) => {
-          switch (actionGroup.type) {
-            case "actions":
-              return (
-                <React.Fragment key={i}>
-                  {Object.keys(actionGroup.actions).map((action, a, arr) => (
-                    <div
-                      key={a}
-                      className={css.contextMenuItem}
-                      onClick={handleAction.bind(
-                        null,
-                        actionGroup.actions[action]
-                      )}
-                    >
-                      <div>{action}</div>
-                      <div style={{ marginLeft: 16, color: "#666" }}>
-                        Ctrl+Z
-                      </div>
-                    </div>
-                  ))}
-                  {i !== arr.length - 1 ? (
-                    <div className={css.contextMenuDivider} />
-                  ) : null}
-                </React.Fragment>
-              );
-            case "enum":
-              return (
-                <React.Fragment key={i}>
-                  {actionGroup.options.map((action, a, arr) => (
-                    <div
-                      key={a}
-                      className={css.contextMenuItem}
-                      onClick={handleSelection.bind(
-                        null,
-                        actionGroup.onChange,
-                        a
-                      )}
-                    >
-                      <div className={css.radio}>
-                        {actionGroup.selected === a ? "⚫" : "⚪"}
-                      </div>
-                      <span>{action}</span>
-                    </div>
-                  ))}
-                  {i !== arr.length - 1 ? (
-                    <div className={css.contextMenuDivider} />
-                  ) : null}
-                </React.Fragment>
-              );
-            case "bools":
-              return (
-                <React.Fragment key={i}>
-                  {Object.keys(actionGroup.options).map((option, a, arr) => (
-                    <div
-                      key={a}
-                      className={css.contextMenuItem}
-                      onClick={handleAction.bind(
-                        null,
-                        actionGroup.options[option].function
-                      )}
-                    >
-                      <div className={css.checkbox}>
-                        {actionGroup.options[option].value === true ? "✔" : " "}
-                      </div>
-                      <span>{option}</span>
-                    </div>
-                  ))}
-                  {i !== arr.length - 1 ? (
-                    <div className={css.contextMenuDivider} />
-                  ) : null}
-                </React.Fragment>
-              );
-            default:
-              return null;
-          }
+          const types = {
+            actions: () =>
+              Object.keys(actionGroup.actions).map((action, a, arr) => (
+                <div
+                  key={a}
+                  className={css.contextMenuItem}
+                  onClick={handleAction.bind(null, actionGroup.actions[action])}
+                >
+                  <div>{action}</div>
+                  <div style={{ marginLeft: 16, color: "#666" }}>Ctrl+Z</div>
+                </div>
+              )),
+
+            enum: () =>
+              actionGroup.options.map((action, a, arr) => (
+                <div
+                  key={a}
+                  className={css.contextMenuItem}
+                  onClick={handleSelection.bind(null, actionGroup.onChange, a)}
+                >
+                  <div className={css.radio}>
+                    {actionGroup.selected === a ? "⚫" : "⚪"}
+                  </div>
+                  <span>{action}</span>
+                </div>
+              )),
+
+            bools: () =>
+              Object.keys(actionGroup.options).map((option, a, arr) => (
+                <div
+                  key={a}
+                  className={css.contextMenuItem}
+                  onClick={handleAction.bind(
+                    null,
+                    actionGroup.options[option].function
+                  )}
+                >
+                  <div className={css.checkbox}>
+                    {actionGroup.options[option].value === true ? "✔" : " "}
+                  </div>
+                  <span>{option}</span>
+                </div>
+              )),
+          };
+
+          return (
+            <React.Fragment key={i}>
+              {types[actionGroup.type]()}
+              {i !== arr.length - 1 ? (
+                <div className={css.contextMenuDivider} />
+              ) : null}
+            </React.Fragment>
+          );
         })}
       </div>
     </div>
