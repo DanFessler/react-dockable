@@ -12,7 +12,7 @@ const MissingWidget = widget(
     }
   },
   {
-    title: "Missing Widget"
+    title: "Missing Widget",
   }
 );
 
@@ -24,10 +24,10 @@ class WindowPanel extends Component {
         return {
           size: 10,
           minSize: 10,
-          resize: "dynamic"
+          resize: "dynamic",
         };
-      })
-    ]
+      }),
+    ],
   };
   windowRefs = [];
   handleTabSwitch = (i, size) => {
@@ -41,7 +41,7 @@ class WindowPanel extends Component {
 
     this.handleResize(newPanels);
   };
-  handleResize = windows => {
+  handleResize = (windows) => {
     this.props.onUpdate(this.props.index, windows);
   };
   renderBorders = () => [
@@ -51,13 +51,13 @@ class WindowPanel extends Component {
         className={css.dropBorder}
         onMouseOver={this.props.onHoverBorder.bind(this, [
           this.props.index,
-          null
+          null,
         ])}
         onMouseOut={this.props.onHoverBorder.bind(this, null)}
         style={{
           height: this.containerRef.current.getBoundingClientRect().height,
           top: this.containerRef.current.getBoundingClientRect().top,
-          left: this.containerRef.current.getBoundingClientRect().left - 9
+          left: this.containerRef.current.getBoundingClientRect().left - 9,
         }}
       />
     ) : null,
@@ -67,7 +67,7 @@ class WindowPanel extends Component {
         className={css.dropBorder}
         onMouseOver={this.props.onHoverBorder.bind(this, [
           this.props.index + 1,
-          null
+          null,
         ])}
         onMouseOut={this.props.onHoverBorder.bind(this, null)}
         style={{
@@ -76,14 +76,14 @@ class WindowPanel extends Component {
           left:
             this.containerRef.current.getBoundingClientRect().left +
             this.containerRef.current.getBoundingClientRect().width -
-            6
+            6,
         }}
       />
-    ) : null
+    ) : null,
   ];
   filterVisibleWidgets(thisWindow) {
     return thisWindow.widgets.filter(
-      widget =>
+      (widget) =>
         !(
           this.getWidgetComponent(widget).props.hidden ||
           this.props.hidden[widget]
@@ -94,9 +94,9 @@ class WindowPanel extends Component {
   getFilteredWindows() {
     if (!this.props.hidden) return this.props.windows;
 
-    return this.props.windows.filter(windows => {
+    return this.props.windows.filter((windows) => {
       return (
-        windows.widgets.filter(widget => {
+        windows.widgets.filter((widget) => {
           return !this.props.hidden[widget];
         }).length > 0
       );
@@ -105,7 +105,7 @@ class WindowPanel extends Component {
 
   getWidgetComponent(id) {
     return React.Children.toArray(this.props.widgets).find(
-      child => child.props.id === id
+      (child) => child.props.id === id
     );
   }
   render() {
@@ -132,7 +132,7 @@ class WindowPanel extends Component {
                 isLast={windowIndex === this.props.windows.length - 1}
                 draggingTab={this.props.draggingTab}
                 hoverBorder={this.props.hoverBorder}
-                onHoverBorder={i => {
+                onHoverBorder={(i) => {
                   this.props.onHoverBorder(
                     i === null ? null : [this.props.index, i]
                   );
@@ -154,7 +154,7 @@ class WindowPanel extends Component {
                     componentId
                   );
                 }}
-                ref={input => {
+                ref={(input) => {
                   this.windowRefs[windowIndex] = input;
                 }}
                 onTabSwitch={this.handleTabSwitch.bind(null, windowIndex)}
@@ -164,6 +164,13 @@ class WindowPanel extends Component {
                     parseInt(panelId, 10),
                     parseInt(windowId, 10),
                     tabId
+                  );
+                }}
+                onWindowClosed={(winId) => {
+                  var [panelId, windowId] = winId.split(",");
+                  this.props.onWindowClosed(
+                    parseInt(panelId, 10),
+                    parseInt(windowId, 10)
                   );
                 }}
                 hideTabs={thisWindow.hideTabs || this.props.hideTabs}

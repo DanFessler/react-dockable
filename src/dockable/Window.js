@@ -7,15 +7,17 @@ import css from "./css/Window.module.css";
 class Window extends Component {
   widgetRef = React.createRef();
   containerRef = React.createRef();
+
   defaultActions = [
     {
       type: "actions",
       actions: {
-        "Default Thing": function () {
-          console.log("I did the default thing");
+        "Close Tab": () => {
+          // console.log
+          this.props.onTabClosed(this.props.windowId, this.props.windowId);
         },
-        "Another Default Thing": function () {
-          console.log("I did another default thing");
+        "Close Tab Group": () => {
+          this.props.onWindowClosed(this.props.windowId);
         },
       },
     },
@@ -52,7 +54,7 @@ class Window extends Component {
     );
   };
 
-  getActions(ref, includeDefault = false) {
+  getActions(ref, includeDefault = true) {
     const defaultActions = includeDefault ? this.defaultActions : [];
 
     return ref.props.actions

@@ -145,6 +145,17 @@ class Dockable extends Component {
     // if (callback) callback();
   };
 
+  handleWindowClosed = (panelId, windowId) => {
+    console.log("CLOSING", panelId, windowId);
+
+    let newPanels = JSON.parse(JSON.stringify(this.getPanels()));
+
+    newPanels[panelId].windows[windowId].widgets = [];
+    newPanels = this.cleanup(newPanels);
+
+    this.updatePanels(newPanels);
+  };
+
   handleDragStart = (result) => {
     this.setState({ draggingTab: true });
   };
@@ -267,6 +278,7 @@ class Dockable extends Component {
                 widgets={this.props.children}
                 onUpdate={this.handleWindowResize}
                 onTabClosed={this.handleTabClosed}
+                onWindowClosed={this.handleWindowClosed}
                 spacing={this.props.spacing || 0}
                 hideMenus={this.props.hideMenus}
                 hideTabs={this.props.hideTabs}
