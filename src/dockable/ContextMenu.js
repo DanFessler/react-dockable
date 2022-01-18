@@ -1,9 +1,11 @@
-import React, { Component, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import css from "./css/ContextMenu.module.css";
+
+// TODO:
+// handle bool is unused or unfinished
 
 function ContextMenu({ left, top, actions, onClickOut }) {
   const [offset, setOffset] = useState({ x: 0, y: 0 });
-
   const containerRef = useRef(null);
 
   useEffect(() => {
@@ -26,14 +28,17 @@ function ContextMenu({ left, top, actions, onClickOut }) {
   function handleClickOut(e) {
     onClickOut();
   }
+
   function handleAction(action) {
     action();
     onClickOut();
   }
+
   function handleSelection(callback, i) {
     callback(i);
     onClickOut();
   }
+
   function handleBool(toggleFunction) {
     toggleFunction();
     onClickOut();
