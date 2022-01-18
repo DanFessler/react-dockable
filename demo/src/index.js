@@ -12,7 +12,7 @@ export default class Demo extends Component {
         windows: [
           {
             selected: 0,
-            widgets: ["MyComponentA", "MyComponentB"],
+            widgets: ["MyComponentA", "MyComponentB", "MyComponentC"],
           },
           {
             selected: 0,
