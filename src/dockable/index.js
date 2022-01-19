@@ -1,5 +1,5 @@
 import Dockable from "./Dockable";
-import widget from "./Widget";
+import createWidget, { Widget } from "./Widget";
 
 export default Dockable;
-export { widget };
+export { createWidget, Widget };

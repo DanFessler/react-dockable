@@ -3,7 +3,8 @@ import { render } from "react-dom";
 import "./index.css";
 // import css from "./theme.module.css";
 
-import Dockable from "../../src/dockable";
+import Dockable, { Widget } from "../../src/dockable";
+import TestWidget from "./TestWidget";
 
 export default class Demo extends Component {
   state = {
@@ -37,39 +38,23 @@ export default class Demo extends Component {
           spacing={3}
           // themeClass={css.theme}
         >
-          <MyComponent id="MyComponentA" title="Component A" />
-          <MyComponent id="MyComponentB" title="Component B" />
-          <AnotherComponent
-            id="MyComponentC"
-            title="Component C"
-            actions={() => [
-              {
-                type: "actions",
-                actions: {
-                  "Default Thing 2": () => {
-                    console.log("I did the default thing 2");
-                  },
-                  "Another Default Thing 2": () => {
-                    console.log("I did another default thing 2");
-                  },
-                },
-              },
-            ]}
-          />
+          <Widget id="MyComponentA" title="Component A">
+            <MyFuncComponent text="test content" />
+          </Widget>
+
+          <Widget id="MyComponentB" title="Component B">
+            <MyFuncComponent text="test content" />
+          </Widget>
+
+          <TestWidget />
         </Dockable>
       </div>
     );
   }
 }
 
-function AnotherComponent() {
-  return <div>test</div>;
-}
-
-class MyComponent extends React.Component {
-  render() {
-    return <div style={{ padding: 8 }}>{this.props.title}</div>;
-  }
+function MyFuncComponent({ text }) {
+  return <div style={{ padding: 8 }}>{text}</div>;
 }
 
 render(<Demo />, document.querySelector("#demo"));
