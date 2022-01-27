@@ -4,7 +4,6 @@ import "./index.css";
 // import css from "./theme.module.css";
 
 import Dockable, { Widget } from "../../src/dockable";
-import TestWidget from "./TestWidget";
 
 export default class Demo extends Component {
   state = {
@@ -46,7 +45,9 @@ export default class Demo extends Component {
             <MyFuncComponent text="test content" />
           </Widget>
 
-          <TestWidget />
+          <Widget id="MyComponentC" title="Component C">
+            <MyFuncComponent text="test content" />
+          </Widget>
         </Dockable>
       </div>
     );
