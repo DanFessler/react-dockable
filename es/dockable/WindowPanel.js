@@ -170,6 +170,13 @@ var WindowPanel = /*#__PURE__*/function (_Component2) {
 
           _this4.props.onTabClosed(parseInt(panelId, 10), parseInt(windowId, 10), tabId);
         },
+        onWindowClosed: function onWindowClosed(winId) {
+          var _winId$split2 = winId.split(","),
+              panelId = _winId$split2[0],
+              windowId = _winId$split2[1];
+
+          _this4.props.onWindowClosed(parseInt(panelId, 10), parseInt(windowId, 10));
+        },
         hideTabs: thisWindow.hideTabs || _this4.props.hideTabs,
         hideMenu: _this4.props.hideMenus,
         style: thisWindow.style,

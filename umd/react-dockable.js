@@ -95,7 +95,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 8);
+/******/ 	return __webpack_require__(__webpack_require__.s = 17);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -148,7 +148,7 @@ if (true) {
   // DCE check should happen before ReactDOM bundle executes so that
   // DevTools can report bad minification during injection.
   checkDCE();
-  module.exports = __webpack_require__(13);
+  module.exports = __webpack_require__(8);
 } else {}
 
 
@@ -167,7 +167,7 @@ module.exports = {"container":"_2abfi_11WMRZ1oW6DqWZ7P","toolbarContainer":"_54j
 
 
 if (true) {
-  module.exports = __webpack_require__(12);
+  module.exports = __webpack_require__(16);
 } else {}
 
 
@@ -292,143 +292,6 @@ module.exports = {"container":"_214PO8uBvJTHYS7HDSVKrl","theme":"_11dEsV8NWnssA_
 /* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(17);
-
-
-/***/ }),
-/* 9 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-if (false) { var throwOnDirectAccess, ReactIs; } else {
-  // By explicitly using `prop-types` you are opting into new production behavior.
-  // http://fb.me/prop-types-in-prod
-  module.exports = __webpack_require__(10)();
-}
-
-
-/***/ }),
-/* 10 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-
-
-var ReactPropTypesSecret = __webpack_require__(11);
-
-function emptyFunction() {}
-function emptyFunctionWithReset() {}
-emptyFunctionWithReset.resetWarningCache = emptyFunction;
-
-module.exports = function() {
-  function shim(props, propName, componentName, location, propFullName, secret) {
-    if (secret === ReactPropTypesSecret) {
-      // It is still safe when called from React.
-      return;
-    }
-    var err = new Error(
-      'Calling PropTypes validators directly is not supported by the `prop-types` package. ' +
-      'Use PropTypes.checkPropTypes() to call them. ' +
-      'Read more at http://fb.me/use-check-prop-types'
-    );
-    err.name = 'Invariant Violation';
-    throw err;
-  };
-  shim.isRequired = shim;
-  function getShim() {
-    return shim;
-  };
-  // Important!
-  // Keep this list in sync with production version in `./factoryWithTypeCheckers.js`.
-  var ReactPropTypes = {
-    array: shim,
-    bool: shim,
-    func: shim,
-    number: shim,
-    object: shim,
-    string: shim,
-    symbol: shim,
-
-    any: shim,
-    arrayOf: getShim,
-    element: shim,
-    elementType: shim,
-    instanceOf: getShim,
-    node: shim,
-    objectOf: getShim,
-    oneOf: getShim,
-    oneOfType: getShim,
-    shape: getShim,
-    exact: getShim,
-
-    checkPropTypes: emptyFunctionWithReset,
-    resetWarningCache: emptyFunction
-  };
-
-  ReactPropTypes.PropTypes = ReactPropTypes;
-
-  return ReactPropTypes;
-};
-
-
-/***/ }),
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-
-
-var ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
-
-module.exports = ReactPropTypesSecret;
-
-
-/***/ }),
-/* 12 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/** @license React v16.13.1
- * react-is.production.min.js
- *
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-var b="function"===typeof Symbol&&Symbol.for,c=b?Symbol.for("react.element"):60103,d=b?Symbol.for("react.portal"):60106,e=b?Symbol.for("react.fragment"):60107,f=b?Symbol.for("react.strict_mode"):60108,g=b?Symbol.for("react.profiler"):60114,h=b?Symbol.for("react.provider"):60109,k=b?Symbol.for("react.context"):60110,l=b?Symbol.for("react.async_mode"):60111,m=b?Symbol.for("react.concurrent_mode"):60111,n=b?Symbol.for("react.forward_ref"):60112,p=b?Symbol.for("react.suspense"):60113,q=b?
-Symbol.for("react.suspense_list"):60120,r=b?Symbol.for("react.memo"):60115,t=b?Symbol.for("react.lazy"):60116,v=b?Symbol.for("react.block"):60121,w=b?Symbol.for("react.fundamental"):60117,x=b?Symbol.for("react.responder"):60118,y=b?Symbol.for("react.scope"):60119;
-function z(a){if("object"===typeof a&&null!==a){var u=a.$$typeof;switch(u){case c:switch(a=a.type,a){case l:case m:case e:case g:case f:case p:return a;default:switch(a=a&&a.$$typeof,a){case k:case n:case t:case r:case h:return a;default:return u}}case d:return u}}}function A(a){return z(a)===m}exports.AsyncMode=l;exports.ConcurrentMode=m;exports.ContextConsumer=k;exports.ContextProvider=h;exports.Element=c;exports.ForwardRef=n;exports.Fragment=e;exports.Lazy=t;exports.Memo=r;exports.Portal=d;
-exports.Profiler=g;exports.StrictMode=f;exports.Suspense=p;exports.isAsyncMode=function(a){return A(a)||z(a)===l};exports.isConcurrentMode=A;exports.isContextConsumer=function(a){return z(a)===k};exports.isContextProvider=function(a){return z(a)===h};exports.isElement=function(a){return"object"===typeof a&&null!==a&&a.$$typeof===c};exports.isForwardRef=function(a){return z(a)===n};exports.isFragment=function(a){return z(a)===e};exports.isLazy=function(a){return z(a)===t};
-exports.isMemo=function(a){return z(a)===r};exports.isPortal=function(a){return z(a)===d};exports.isProfiler=function(a){return z(a)===g};exports.isStrictMode=function(a){return z(a)===f};exports.isSuspense=function(a){return z(a)===p};
-exports.isValidElementType=function(a){return"string"===typeof a||"function"===typeof a||a===e||a===m||a===g||a===f||a===p||a===q||"object"===typeof a&&null!==a&&(a.$$typeof===t||a.$$typeof===r||a.$$typeof===h||a.$$typeof===k||a.$$typeof===n||a.$$typeof===w||a.$$typeof===x||a.$$typeof===y||a.$$typeof===v)};exports.typeOf=z;
-
-
-/***/ }),
-/* 13 */
-/***/ (function(module, exports, __webpack_require__) {
-
 "use strict";
 /** @license React v17.0.2
  * react-dom.production.min.js
@@ -441,7 +304,7 @@ exports.isValidElementType=function(a){return"string"===typeof a||"function"===t
 /*
  Modernizr 3.0.0pre (Custom Build) | MIT
 */
-var aa=__webpack_require__(0),m=__webpack_require__(14),r=__webpack_require__(15);function y(a){for(var b="https://reactjs.org/docs/error-decoder.html?invariant="+a,c=1;c<arguments.length;c++)b+="&args[]="+encodeURIComponent(arguments[c]);return"Minified React error #"+a+"; visit "+b+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings."}if(!aa)throw Error(y(227));var ba=new Set,ca={};function da(a,b){ea(a,b);ea(a+"Capture",b)}
+var aa=__webpack_require__(0),m=__webpack_require__(9),r=__webpack_require__(10);function y(a){for(var b="https://reactjs.org/docs/error-decoder.html?invariant="+a,c=1;c<arguments.length;c++)b+="&args[]="+encodeURIComponent(arguments[c]);return"Minified React error #"+a+"; visit "+b+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings."}if(!aa)throw Error(y(227));var ba=new Set,ca={};function da(a,b){ea(a,b);ea(a+"Capture",b)}
 function ea(a,b){ca[a]=b;for(a=0;a<b.length;a++)ba.add(b[a])}
 var fa=!("undefined"===typeof window||"undefined"===typeof window.document||"undefined"===typeof window.document.createElement),ha=/^[:A-Z_a-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD][:A-Z_a-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD\-.0-9\u00B7\u0300-\u036F\u203F-\u2040]*$/,ia=Object.prototype.hasOwnProperty,
 ja={},ka={};function la(a){if(ia.call(ka,a))return!0;if(ia.call(ja,a))return!1;if(ha.test(a))return ka[a]=!0;ja[a]=!0;return!1}function ma(a,b,c,d){if(null!==c&&0===c.type)return!1;switch(typeof b){case "function":case "symbol":return!0;case "boolean":if(d)return!1;if(null!==c)return!c.acceptsBooleans;a=a.toLowerCase().slice(0,5);return"data-"!==a&&"aria-"!==a;default:return!1}}
@@ -730,7 +593,7 @@ exports.unstable_renderSubtreeIntoContainer=function(a,b,c,d){if(!rk(c))throw Er
 
 
 /***/ }),
-/* 14 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -827,19 +690,19 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 
 /***/ }),
-/* 15 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 if (true) {
-  module.exports = __webpack_require__(16);
+  module.exports = __webpack_require__(11);
 } else {}
 
 
 /***/ }),
-/* 16 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -866,6 +729,142 @@ exports.unstable_wrapCallback=function(a){var b=P;return function(){var c=P;P=b;
 
 
 /***/ }),
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+if (false) { var throwOnDirectAccess, ReactIs; } else {
+  // By explicitly using `prop-types` you are opting into new production behavior.
+  // http://fb.me/prop-types-in-prod
+  module.exports = __webpack_require__(14)();
+}
+
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+
+
+var ReactPropTypesSecret = __webpack_require__(15);
+
+function emptyFunction() {}
+function emptyFunctionWithReset() {}
+emptyFunctionWithReset.resetWarningCache = emptyFunction;
+
+module.exports = function() {
+  function shim(props, propName, componentName, location, propFullName, secret) {
+    if (secret === ReactPropTypesSecret) {
+      // It is still safe when called from React.
+      return;
+    }
+    var err = new Error(
+      'Calling PropTypes validators directly is not supported by the `prop-types` package. ' +
+      'Use PropTypes.checkPropTypes() to call them. ' +
+      'Read more at http://fb.me/use-check-prop-types'
+    );
+    err.name = 'Invariant Violation';
+    throw err;
+  };
+  shim.isRequired = shim;
+  function getShim() {
+    return shim;
+  };
+  // Important!
+  // Keep this list in sync with production version in `./factoryWithTypeCheckers.js`.
+  var ReactPropTypes = {
+    array: shim,
+    bool: shim,
+    func: shim,
+    number: shim,
+    object: shim,
+    string: shim,
+    symbol: shim,
+
+    any: shim,
+    arrayOf: getShim,
+    element: shim,
+    elementType: shim,
+    instanceOf: getShim,
+    node: shim,
+    objectOf: getShim,
+    oneOf: getShim,
+    oneOfType: getShim,
+    shape: getShim,
+    exact: getShim,
+
+    checkPropTypes: emptyFunctionWithReset,
+    resetWarningCache: emptyFunction
+  };
+
+  ReactPropTypes.PropTypes = ReactPropTypes;
+
+  return ReactPropTypes;
+};
+
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+
+
+var ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
+
+module.exports = ReactPropTypesSecret;
+
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/** @license React v16.13.1
+ * react-is.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+var b="function"===typeof Symbol&&Symbol.for,c=b?Symbol.for("react.element"):60103,d=b?Symbol.for("react.portal"):60106,e=b?Symbol.for("react.fragment"):60107,f=b?Symbol.for("react.strict_mode"):60108,g=b?Symbol.for("react.profiler"):60114,h=b?Symbol.for("react.provider"):60109,k=b?Symbol.for("react.context"):60110,l=b?Symbol.for("react.async_mode"):60111,m=b?Symbol.for("react.concurrent_mode"):60111,n=b?Symbol.for("react.forward_ref"):60112,p=b?Symbol.for("react.suspense"):60113,q=b?
+Symbol.for("react.suspense_list"):60120,r=b?Symbol.for("react.memo"):60115,t=b?Symbol.for("react.lazy"):60116,v=b?Symbol.for("react.block"):60121,w=b?Symbol.for("react.fundamental"):60117,x=b?Symbol.for("react.responder"):60118,y=b?Symbol.for("react.scope"):60119;
+function z(a){if("object"===typeof a&&null!==a){var u=a.$$typeof;switch(u){case c:switch(a=a.type,a){case l:case m:case e:case g:case f:case p:return a;default:switch(a=a&&a.$$typeof,a){case k:case n:case t:case r:case h:return a;default:return u}}case d:return u}}}function A(a){return z(a)===m}exports.AsyncMode=l;exports.ConcurrentMode=m;exports.ContextConsumer=k;exports.ContextProvider=h;exports.Element=c;exports.ForwardRef=n;exports.Fragment=e;exports.Lazy=t;exports.Memo=r;exports.Portal=d;
+exports.Profiler=g;exports.StrictMode=f;exports.Suspense=p;exports.isAsyncMode=function(a){return A(a)||z(a)===l};exports.isConcurrentMode=A;exports.isContextConsumer=function(a){return z(a)===k};exports.isContextProvider=function(a){return z(a)===h};exports.isElement=function(a){return"object"===typeof a&&null!==a&&a.$$typeof===c};exports.isForwardRef=function(a){return z(a)===n};exports.isFragment=function(a){return z(a)===e};exports.isLazy=function(a){return z(a)===t};
+exports.isMemo=function(a){return z(a)===r};exports.isPortal=function(a){return z(a)===d};exports.isProfiler=function(a){return z(a)===g};exports.isStrictMode=function(a){return z(a)===f};exports.isSuspense=function(a){return z(a)===p};
+exports.isValidElementType=function(a){return"string"===typeof a||"function"===typeof a||a===e||a===m||a===g||a===f||a===p||a===q||"object"===typeof a&&null!==a&&(a.$$typeof===t||a.$$typeof===r||a.$$typeof===h||a.$$typeof===k||a.$$typeof===n||a.$$typeof===w||a.$$typeof===x||a.$$typeof===y||a.$$typeof===v)};exports.typeOf=z;
+
+
+/***/ }),
 /* 17 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -873,9 +872,19 @@ exports.unstable_wrapCallback=function(a){var b=P;return function(){var c=P;P=b;
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, "default", function() { return /* binding */ src_Demo; });
+
 // EXTERNAL MODULE: external {"root":"React","commonjs2":"react","commonjs":"react","amd":"react"}
 var external_root_React_commonjs2_react_commonjs_react_amd_react_ = __webpack_require__(0);
 var external_root_React_commonjs2_react_commonjs_react_amd_react_default = /*#__PURE__*/__webpack_require__.n(external_root_React_commonjs2_react_commonjs_react_amd_react_);
+
+// EXTERNAL MODULE: ./node_modules/react-dom/index.js
+var react_dom = __webpack_require__(3);
+var react_dom_default = /*#__PURE__*/__webpack_require__.n(react_dom);
+
+// EXTERNAL MODULE: ./demo/src/index.css
+var src = __webpack_require__(12);
 
 // CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/inheritsLoose.js
 function _inheritsLoose(subClass, superClass) {
@@ -1623,7 +1632,7 @@ if (false) {}
 
 
 // EXTERNAL MODULE: ./node_modules/prop-types/index.js
-var prop_types = __webpack_require__(9);
+var prop_types = __webpack_require__(13);
 
 // CONCATENATED MODULE: ./node_modules/react-redux/es/components/Context.js
 
@@ -2934,10 +2943,6 @@ var useSelector_useSelector = /*#__PURE__*/createSelectorHook();
 
 
 
-
-// EXTERNAL MODULE: ./node_modules/react-dom/index.js
-var react_dom = __webpack_require__(3);
-var react_dom_default = /*#__PURE__*/__webpack_require__.n(react_dom);
 
 // CONCATENATED MODULE: ./node_modules/react-redux/es/utils/reactBatchedUpdates.js
 /* eslint-disable import/no-unresolved */
@@ -12153,158 +12158,125 @@ var ContextMenu_module = __webpack_require__(2);
 var ContextMenu_module_default = /*#__PURE__*/__webpack_require__.n(ContextMenu_module);
 
 // CONCATENATED MODULE: ./src/dockable/ContextMenu.js
-function ContextMenu_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function ContextMenu_inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; ContextMenu_setPrototypeOf(subClass, superClass); }
+ // TODO:
+// handle bool is unused or unfinished
 
-function ContextMenu_setPrototypeOf(o, p) { ContextMenu_setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return ContextMenu_setPrototypeOf(o, p); }
+function ContextMenu(_ref) {
+  var left = _ref.left,
+      top = _ref.top,
+      actions = _ref.actions,
+      onClickOut = _ref.onClickOut;
 
-function ContextMenu_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+  var _useState = Object(external_root_React_commonjs2_react_commonjs_react_amd_react_["useState"])({
+    x: 0,
+    y: 0
+  }),
+      offset = _useState[0],
+      setOffset = _useState[1];
 
+  var containerRef = Object(external_root_React_commonjs2_react_commonjs_react_amd_react_["useRef"])(null);
+  Object(external_root_React_commonjs2_react_commonjs_react_amd_react_["useEffect"])(function () {
+    if (!containerRef.current) return;
+    var x = 0,
+        y = 0;
+    var menuBox = containerRef.current.getBoundingClientRect();
+    var viewPort = {
+      width: window.innerWidth,
+      height: window.innerHeight
+    };
 
-
-
-var ContextMenu_ContextMenu = /*#__PURE__*/function (_Component) {
-  ContextMenu_inheritsLoose(ContextMenu, _Component);
-
-  function ContextMenu() {
-    var _this;
-
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
+    if (left + menuBox.width > viewPort.width) {
+      x -= left + menuBox.width - viewPort.width;
     }
 
-    _this = _Component.call.apply(_Component, [this].concat(args)) || this;
+    if (top + menuBox.height > viewPort.height) {
+      y -= top + menuBox.height - viewPort.height;
+    }
 
-    ContextMenu_defineProperty(ContextMenu_assertThisInitialized(_this), "state", {
-      offset: {
-        x: 0,
-        y: 0
-      }
+    setOffset({
+      x: x,
+      y: y
     });
+  }, [containerRef, left, top]);
 
-    ContextMenu_defineProperty(ContextMenu_assertThisInitialized(_this), "containerRef", external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createRef());
-
-    ContextMenu_defineProperty(ContextMenu_assertThisInitialized(_this), "handleClickOut", function (e) {
-      _this.props.onClickOut();
-    });
-
-    ContextMenu_defineProperty(ContextMenu_assertThisInitialized(_this), "handleAction", function (action) {
-      action();
-
-      _this.props.onClickOut();
-    });
-
-    ContextMenu_defineProperty(ContextMenu_assertThisInitialized(_this), "handleSelection", function (callback, i) {
-      callback(i);
-
-      _this.props.onClickOut();
-    });
-
-    ContextMenu_defineProperty(ContextMenu_assertThisInitialized(_this), "handleBool", function (toggleFunction) {
-      toggleFunction();
-
-      _this.props.onClickOut();
-    });
-
-    return _this;
+  function handleClickOut(e) {
+    onClickOut();
   }
 
-  var _proto = ContextMenu.prototype;
+  function handleAction(action) {
+    action();
+    onClickOut();
+  }
 
-  _proto.componentDidMount = function componentDidMount() {
-    if (this.containerRef.current) {
-      var x = 0,
-          y = 0;
-      var menuBox = this.containerRef.current.getBoundingClientRect();
-      var viewPort = {
-        width: window.innerWidth,
-        height: window.innerHeight
-      };
-      if (this.props.left + menuBox.width > viewPort.width) x -= this.props.left + menuBox.width - viewPort.width;
-      if (this.props.top + menuBox.height > viewPort.height) y -= this.props.top + menuBox.height - viewPort.height;
-      this.setState({
-        offset: {
-          x: x,
-          y: y
-        }
-      });
-    }
-  };
+  function handleSelection(callback, i) {
+    callback(i);
+    onClickOut();
+  }
 
-  _proto.render = function render() {
-    var _this2 = this;
+  function handleBool(toggleFunction) {
+    toggleFunction();
+    onClickOut();
+  }
 
-    return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("div", {
-      className: ContextMenu_module_default.a.container,
-      onClick: this.handleClickOut
-    }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("div", {
-      style: {
-        left: this.props.left + this.state.offset.x,
-        top: this.props.top + this.state.offset.y
+  return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("div", {
+    className: ContextMenu_module_default.a.container,
+    onClick: handleClickOut
+  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("div", {
+    style: {
+      left: left + offset.x,
+      top: top + offset.y
+    },
+    className: ContextMenu_module_default.a.contextMenu,
+    ref: containerRef
+  }, actions.map(function (actionGroup, i, arr) {
+    var types = {
+      actions: function actions() {
+        return Object.keys(actionGroup.actions).map(function (action, a, arr) {
+          return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("div", {
+            key: a,
+            className: ContextMenu_module_default.a.contextMenuItem,
+            onClick: handleAction.bind(null, actionGroup.actions[action])
+          }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("div", null, action), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("div", {
+            style: {
+              marginLeft: 16,
+              color: "#666"
+            }
+          }, "Ctrl+Z"));
+        });
       },
-      className: ContextMenu_module_default.a.contextMenu,
-      ref: this.containerRef
-    }, this.props.actions.map(function (actionGroup, i, arr) {
-      switch (actionGroup.type) {
-        case "actions":
-          return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Fragment, {
-            key: i
-          }, Object.keys(actionGroup.actions).map(function (action, a, arr) {
-            return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("div", {
-              key: a,
-              className: ContextMenu_module_default.a.contextMenuItem,
-              onClick: _this2.handleAction.bind(null, actionGroup.actions[action])
-            }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("div", null, action), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("div", {
-              style: {
-                marginLeft: 16,
-                color: "#666"
-              }
-            }, "Ctrl+Z"));
-          }), i !== arr.length - 1 ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("div", {
-            className: ContextMenu_module_default.a.contextMenuDivider
-          }) : null);
-
-        case "enum":
-          return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Fragment, {
-            key: i
-          }, actionGroup.options.map(function (action, a, arr) {
-            return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("div", {
-              key: a,
-              className: ContextMenu_module_default.a.contextMenuItem,
-              onClick: _this2.handleSelection.bind(null, actionGroup.onChange, a)
-            }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("div", {
-              className: ContextMenu_module_default.a.radio
-            }, actionGroup.selected === a ? "⚫" : "⚪"), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("span", null, action));
-          }), i !== arr.length - 1 ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("div", {
-            className: ContextMenu_module_default.a.contextMenuDivider
-          }) : null);
-
-        case "bools":
-          return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Fragment, {
-            key: i
-          }, Object.keys(actionGroup.options).map(function (option, a, arr) {
-            return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("div", {
-              key: a,
-              className: ContextMenu_module_default.a.contextMenuItem,
-              onClick: _this2.handleAction.bind(null, actionGroup.options[option]["function"])
-            }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("div", {
-              className: ContextMenu_module_default.a.checkbox
-            }, actionGroup.options[option].value === true ? "✔" : " "), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("span", null, option));
-          }), i !== arr.length - 1 ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("div", {
-            className: ContextMenu_module_default.a.contextMenuDivider
-          }) : null);
-
-        default:
-          return null;
+      "enum": function _enum() {
+        return actionGroup.options.map(function (action, a, arr) {
+          return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("div", {
+            key: a,
+            className: ContextMenu_module_default.a.contextMenuItem,
+            onClick: handleSelection.bind(null, actionGroup.onChange, a)
+          }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("div", {
+            className: ContextMenu_module_default.a.radio
+          }, actionGroup.selected === a ? "⚫" : "⚪"), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("span", null, action));
+        });
+      },
+      bools: function bools() {
+        return Object.keys(actionGroup.options).map(function (option, a, arr) {
+          return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("div", {
+            key: a,
+            className: ContextMenu_module_default.a.contextMenuItem,
+            onClick: handleAction.bind(null, actionGroup.options[option]["function"])
+          }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("div", {
+            className: ContextMenu_module_default.a.checkbox
+          }, actionGroup.options[option].value === true ? "✔" : " "), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("span", null, option));
+        });
       }
-    }, this)));
-  };
+    };
+    return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Fragment, {
+      key: i
+    }, types[actionGroup.type](), i !== arr.length - 1 ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("div", {
+      className: ContextMenu_module_default.a.contextMenuDivider
+    }) : null);
+  })));
+}
 
-  return ContextMenu;
-}(external_root_React_commonjs2_react_commonjs_react_amd_react_["Component"]);
-
-/* harmony default export */ var dockable_ContextMenu = (ContextMenu_ContextMenu);
+/* harmony default export */ var dockable_ContextMenu = (ContextMenu);
 // EXTERNAL MODULE: ./src/dockable/css/Window.module.css
 var Window_module = __webpack_require__(1);
 var Window_module_default = /*#__PURE__*/__webpack_require__.n(Window_module);
@@ -12343,11 +12315,12 @@ var Window_Window = /*#__PURE__*/function (_Component) {
     Window_defineProperty(Window_assertThisInitialized(_this), "defaultActions", [{
       type: "actions",
       actions: {
-        "Default Thing": function DefaultThing() {
-          console.log("I did the default thing");
+        "Close Tab": function CloseTab() {
+          // console.log
+          _this.props.onTabClosed(_this.props.windowId, _this.props.windowId);
         },
-        "Another Default Thing": function AnotherDefaultThing() {
-          console.log("I did another default thing");
+        "Close Tab Group": function CloseTabGroup() {
+          _this.props.onWindowClosed(_this.props.windowId);
         }
       }
     }]);
@@ -12360,13 +12333,11 @@ var Window_Window = /*#__PURE__*/function (_Component) {
     });
 
     Window_defineProperty(Window_assertThisInitialized(_this), "handleContextClick", function (e) {
-      var ref = _this.widgetRef.current;
-      var actions = ref.props.actions ? ref.props.actions.call(ref, ref).concat(_this.defaultActions) : _this.defaultActions;
+      var ref = _this.GetSelectedWidget();
+
       var clientRect = e.target.getBoundingClientRect(); //this.refs.contextMenuButton.getBoundingClientRect();
 
-      console.log(clientRect);
-
-      _this.props.onContextClick(actions, clientRect.left, clientRect.top + clientRect.height);
+      _this.props.onContextClick(_this.getActions(ref), clientRect.left, clientRect.top + clientRect.height);
     });
 
     Window_defineProperty(Window_assertThisInitialized(_this), "renderBorders", function () {
@@ -12402,10 +12373,24 @@ var Window_Window = /*#__PURE__*/function (_Component) {
     this.props.onTabSwitch(this.getSize(this.props.selected));
   };
 
+  _proto.getActions = function getActions(ref, includeDefault) {
+    if (includeDefault === void 0) {
+      includeDefault = true;
+    }
+
+    var defaultActions = includeDefault ? this.defaultActions : [];
+    return ref.props.actions ? ref.props.actions.call(ref, ref).concat(defaultActions) : defaultActions;
+  };
+
+  _proto.GetSelectedWidget = function GetSelectedWidget() {
+    return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Children.toArray(this.props.children)[this.props.selected];
+  };
+
   _proto.render = function render() {
     var _this2 = this;
 
     var selected = Math.min(Math.max(this.props.selected, 0), this.props.children.length - 1);
+    var selectedWidget = this.GetSelectedWidget();
     return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("div", {
       className: Window_module_default.a.container,
       ref: this.containerRef,
@@ -12427,13 +12412,12 @@ var Window_Window = /*#__PURE__*/function (_Component) {
       windowId: this.props.windowId,
       hoverBorder: this.props.hoverBorder,
       onClose: this.props.onTabClosed.bind(this, this.props.windowId),
-      hideMenu: this.props.hideMenu,
+      hideMenu: // hide the context menu if there aren't any actions to show
+      this.props.hideMenu || !this.getActions(selectedWidget).length,
       tabHeight: this.props.tabHeight
     }), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("div", {
       className: Window_module_default.a.content
-    }, this.props.children ? external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.cloneElement(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Children.toArray(this.props.children)[this.props.selected], {
-      ref: this.widgetRef
-    }) : null)), this.renderBorders());
+    }, selectedWidget)), this.renderBorders());
   };
 
   return Window;
@@ -12565,9 +12549,20 @@ var createWidget = function createWidget(WrappedComponent, widgetDef) {
     minHeight: widgetDef && widgetDef.minHeight ? widgetDef.minHeight : 100
   });
   return Widget;
-};
+}; // Not sure if I need a HOC anymore, so this is a wrapper component for widgets
 
-/* harmony default export */ var Widget = (createWidget);
+
+function Widget(_ref) {
+  var id = _ref.id,
+      _ref$title = _ref.title,
+      title = _ref$title === void 0 ? id : _ref$title,
+      actions = _ref.actions,
+      _ref$minHeight = _ref.minHeight,
+      minHeight = _ref$minHeight === void 0 ? 100 : _ref$minHeight,
+      children = _ref.children;
+  return children;
+}
+/* harmony default export */ var dockable_Widget = (createWidget);
 // EXTERNAL MODULE: ./src/dockable/css/WindowPanel.module.css
 var WindowPanel_module = __webpack_require__(4);
 var WindowPanel_module_default = /*#__PURE__*/__webpack_require__.n(WindowPanel_module);
@@ -12586,7 +12581,7 @@ function WindowPanel_setPrototypeOf(o, p) { WindowPanel_setPrototypeOf = Object.
 
 
 
-var MissingWidget = Widget( /*#__PURE__*/function (_Component) {
+var MissingWidget = dockable_Widget( /*#__PURE__*/function (_Component) {
   WindowPanel_inheritsLoose(_class, _Component);
 
   function _class() {
@@ -12745,6 +12740,13 @@ var WindowPanel_WindowPanel = /*#__PURE__*/function (_Component2) {
 
           _this4.props.onTabClosed(parseInt(panelId, 10), parseInt(windowId, 10), tabId);
         },
+        onWindowClosed: function onWindowClosed(winId) {
+          var _winId$split2 = winId.split(","),
+              panelId = _winId$split2[0],
+              windowId = _winId$split2[1];
+
+          _this4.props.onWindowClosed(parseInt(panelId, 10), parseInt(windowId, 10));
+        },
         hideTabs: thisWindow.hideTabs || _this4.props.hideTabs,
         hideMenu: _this4.props.hideMenus,
         style: thisWindow.style,
@@ -12799,16 +12801,7 @@ var Dockable_Dockable = /*#__PURE__*/function (_Component) {
     _this = _Component.call.apply(_Component, [this].concat(args)) || this;
 
     Dockable_defineProperty(Dockable_assertThisInitialized(_this), "state", {
-      contextMenu: {
-        show: false,
-        position: {
-          x: 0,
-          y: 0
-        },
-        actions: [{
-          poop: function poop() {}
-        }]
-      },
+      contextMenu: null,
       panels: [],
       draggingTab: false,
       hoverBorder: null
@@ -12881,19 +12874,27 @@ var Dockable_Dockable = /*#__PURE__*/function (_Component) {
     });
 
     Dockable_defineProperty(Dockable_assertThisInitialized(_this), "handleTabClosed", function (panelId, windowId, tabId) {
-      console.log("CLOSING", panelId, windowId, tabId); // let callback = React.Children.toArray(this.props.children).find(widget => {
+      var newPanels = JSON.parse(JSON.stringify(_this.getPanels()));
+      newPanels[panelId].windows[windowId].widgets.splice(tabId, 1);
+      newPanels = _this.cleanup(newPanels);
+
+      _this.updatePanels(newPanels); // TODO: for some reason I commented out code for an onclose callback, should revisit
+      // let callback = React.Children.toArray(this.props.children).find(widget => {
       //   return (
       //     widget.props.id ===
       //     this.getPanels()[panelId].windows[windowId].widgets[tabId]
       //   );
       // }).props.onClose;
+      // if (callback) callback();
 
+    });
+
+    Dockable_defineProperty(Dockable_assertThisInitialized(_this), "handleWindowClosed", function (panelId, windowId) {
       var newPanels = JSON.parse(JSON.stringify(_this.getPanels()));
-      newPanels[panelId].windows[windowId].widgets.splice(tabId, 1);
+      newPanels[panelId].windows[windowId].widgets = [];
       newPanels = _this.cleanup(newPanels);
 
-      _this.updatePanels(newPanels); // if (callback) callback();
-
+      _this.updatePanels(newPanels);
     });
 
     Dockable_defineProperty(Dockable_assertThisInitialized(_this), "handleDragStart", function (result) {
@@ -13044,6 +13045,7 @@ var Dockable_Dockable = /*#__PURE__*/function (_Component) {
         widgets: _this3.props.children,
         onUpdate: _this3.handleWindowResize,
         onTabClosed: _this3.handleTabClosed,
+        onWindowClosed: _this3.handleWindowClosed,
         spacing: _this3.props.spacing || 0,
         hideMenus: _this3.props.hideMenus,
         hideTabs: _this3.props.hideTabs,
@@ -13052,7 +13054,7 @@ var Dockable_Dockable = /*#__PURE__*/function (_Component) {
         tabHeight: _this3.props.tabHeight,
         hidden: _this3.props.hidden || {}
       });
-    }))), this.state.contextMenu.show && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(dockable_ContextMenu, {
+    }))), this.state.contextMenu && this.state.contextMenu.show && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(dockable_ContextMenu, {
       left: this.state.contextMenu.position.x,
       top: this.state.contextMenu.position.y,
       actions: this.state.contextMenu.actions,
@@ -13079,9 +13081,100 @@ Dockable_defineProperty(Dockable_Dockable, "defaultProps", {
 
 /* harmony default export */ var dockable = (dockable_Dockable);
 
-// CONCATENATED MODULE: ./src/index.js
+// CONCATENATED MODULE: ./demo/src/index.js
+function src_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-/* harmony default export */ var src = __webpack_exports__["default"] = (dockable);
+function src_inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; src_setPrototypeOf(subClass, superClass); }
+
+function src_setPrototypeOf(o, p) { src_setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return src_setPrototypeOf(o, p); }
+
+function src_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+ // import css from "./theme.module.css";
+
+
+
+var src_Demo = /*#__PURE__*/function (_Component) {
+  src_inheritsLoose(Demo, _Component);
+
+  function Demo() {
+    var _this;
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _Component.call.apply(_Component, [this].concat(args)) || this;
+
+    src_defineProperty(src_assertThisInitialized(_this), "state", {
+      panels: [{
+        windows: [{
+          selected: 0,
+          widgets: ["MyComponentA", "MyComponentB", "MyComponentC"]
+        }, {
+          selected: 0,
+          widgets: ["MyComponentC"]
+        }]
+      }]
+    });
+
+    return _this;
+  }
+
+  var _proto = Demo.prototype;
+
+  _proto.render = function render() {
+    var _this2 = this;
+
+    return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("div", {
+      style: {
+        width: "100vw",
+        height: "100vh"
+      }
+    }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(dockable, {
+      initialState: this.state.panels,
+      onUpdate: function onUpdate(workspace) {
+        return _this2.setState({
+          panels: workspace
+        });
+      },
+      spacing: 3 // themeClass={css.theme}
+
+    }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(Widget, {
+      id: "MyComponentA",
+      title: "Component A"
+    }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(MyFuncComponent, {
+      text: "test content"
+    })), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(Widget, {
+      id: "MyComponentB",
+      title: "Component B"
+    }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(MyFuncComponent, {
+      text: "test content"
+    })), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(Widget, {
+      id: "MyComponentC",
+      title: "Component C"
+    }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(MyFuncComponent, {
+      text: "test content"
+    }))));
+  };
+
+  return Demo;
+}(external_root_React_commonjs2_react_commonjs_react_amd_react_["Component"]);
+
+
+
+function MyFuncComponent(_ref) {
+  var text = _ref.text;
+  return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("div", {
+    style: {
+      padding: 8
+    }
+  }, text);
+}
+
+Object(react_dom["render"])( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(src_Demo, null), document.querySelector("#demo"));
 
 /***/ })
 /******/ ])["default"];

@@ -31,11 +31,12 @@ var Window = /*#__PURE__*/function (_Component) {
     _defineProperty(_assertThisInitialized(_this), "defaultActions", [{
       type: "actions",
       actions: {
-        "Default Thing": function DefaultThing() {
-          console.log("I did the default thing");
+        "Close Tab": function CloseTab() {
+          // console.log
+          _this.props.onTabClosed(_this.props.windowId, _this.props.windowId);
         },
-        "Another Default Thing": function AnotherDefaultThing() {
-          console.log("I did another default thing");
+        "Close Tab Group": function CloseTabGroup() {
+          _this.props.onWindowClosed(_this.props.windowId);
         }
       }
     }]);
@@ -48,13 +49,11 @@ var Window = /*#__PURE__*/function (_Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "handleContextClick", function (e) {
-      var ref = _this.widgetRef.current;
-      var actions = ref.props.actions ? ref.props.actions.call(ref, ref).concat(_this.defaultActions) : _this.defaultActions;
+      var ref = _this.GetSelectedWidget();
+
       var clientRect = e.target.getBoundingClientRect(); //this.refs.contextMenuButton.getBoundingClientRect();
 
-      console.log(clientRect);
-
-      _this.props.onContextClick(actions, clientRect.left, clientRect.top + clientRect.height);
+      _this.props.onContextClick(_this.getActions(ref), clientRect.left, clientRect.top + clientRect.height);
     });
 
     _defineProperty(_assertThisInitialized(_this), "renderBorders", function () {
@@ -90,10 +89,24 @@ var Window = /*#__PURE__*/function (_Component) {
     this.props.onTabSwitch(this.getSize(this.props.selected));
   };
 
+  _proto.getActions = function getActions(ref, includeDefault) {
+    if (includeDefault === void 0) {
+      includeDefault = true;
+    }
+
+    var defaultActions = includeDefault ? this.defaultActions : [];
+    return ref.props.actions ? ref.props.actions.call(ref, ref).concat(defaultActions) : defaultActions;
+  };
+
+  _proto.GetSelectedWidget = function GetSelectedWidget() {
+    return React.Children.toArray(this.props.children)[this.props.selected];
+  };
+
   _proto.render = function render() {
     var _this2 = this;
 
     var selected = Math.min(Math.max(this.props.selected, 0), this.props.children.length - 1);
+    var selectedWidget = this.GetSelectedWidget();
     return /*#__PURE__*/React.createElement("div", {
       className: css.container,
       ref: this.containerRef,
@@ -115,13 +128,12 @@ var Window = /*#__PURE__*/function (_Component) {
       windowId: this.props.windowId,
       hoverBorder: this.props.hoverBorder,
       onClose: this.props.onTabClosed.bind(this, this.props.windowId),
-      hideMenu: this.props.hideMenu,
+      hideMenu: // hide the context menu if there aren't any actions to show
+      this.props.hideMenu || !this.getActions(selectedWidget).length,
       tabHeight: this.props.tabHeight
     }), /*#__PURE__*/React.createElement("div", {
       className: css.content
-    }, this.props.children ? React.cloneElement(React.Children.toArray(this.props.children)[this.props.selected], {
-      ref: this.widgetRef
-    }) : null)), this.renderBorders());
+    }, selectedWidget)), this.renderBorders());
   };
 
   return Window;

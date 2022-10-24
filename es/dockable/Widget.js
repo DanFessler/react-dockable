@@ -27,6 +27,17 @@ var createWidget = function createWidget(WrappedComponent, widgetDef) {
     minHeight: widgetDef && widgetDef.minHeight ? widgetDef.minHeight : 100
   });
   return Widget;
-};
+}; // Not sure if I need a HOC anymore, so this is a wrapper component for widgets
 
+
+export function Widget(_ref) {
+  var id = _ref.id,
+      _ref$title = _ref.title,
+      title = _ref$title === void 0 ? id : _ref$title,
+      actions = _ref.actions,
+      _ref$minHeight = _ref.minHeight,
+      minHeight = _ref$minHeight === void 0 ? 100 : _ref$minHeight,
+      children = _ref.children;
+  return children;
+}
 export default createWidget;
