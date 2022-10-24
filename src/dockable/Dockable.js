@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import { DragDropContext } from "react-beautiful-dnd";
 import { arrayMoveImmutable as arrayMove } from "array-move";
 import PanelGroup from "../react-panelgroup";
@@ -7,30 +7,81 @@ import WindowPanel from "./WindowPanel";
 
 import css from "./css/Dockable.module.css";
 
-class Dockable extends Component {
-  static defaultProps = {
-    spacing: 1,
-  };
+// TODO declarative API
+// <Dockable>
+//   <Panel>
+//     <Window>
+//       <Tab title="Widget A" component={MyWidgetA} />
+//       <Tab title="Widget B" component={MyWidgetB} />
+//       <Tab title="Widget C" component={MyWidgetC} />
+//     </Window>
+//   </Panel>
+// </Dockable>
 
-  state = {
+function Dockable({
+  initialState,
+  hidden,
+  onUpdate,
+  onActive,
+  themeClass,
+  theme,
+  spacing = 1,
+  hideMenus,
+  hideTabs,
+  active,
+  tabHeight,
+  children,
+}) {
+  const [state, setState] = useState({
     contextMenu: null,
     panels: [],
     draggingTab: false,
     hoverBorder: null,
-  };
+  });
 
-  getPanels() {
-    return this.props.initialState;
+  // load internal panels state from initial props
+  // OR build state based on supplied child widgets
+  useEffect(() => {
+    if (initialState) {
+      setState((state) => ({
+        ...state,
+        panels: initialState,
+      }));
+    } else {
+      updatePanels([
+        {
+          size: 277,
+          minSize: 277,
+          resize: "stretch",
+          windows: [
+            {
+              selected: 0,
+              widgets: React.Children.map(children, (widget) => ({
+                component: widget.type.displayName,
+              })),
+            },
+          ],
+        },
+      ]);
+    }
+  }, [initialState]);
+
+  // TODO this line seems wrong. it shouldn't get initial state but current state right?
+  // I dont trust myself enough to change it right now
+  function getPanels() {
+    return initialState;
   }
 
-  getFilteredPanels() {
-    if (!this.props.hidden) return this.getPanels();
+  // Get only the panels which haven't been specified as hidden
+  // via the props.hidden array
+  function getFilteredPanels() {
+    if (!hidden) return getPanels();
 
-    return this.props.initialState.filter((panel) => {
+    return initialState.filter((panel) => {
       return (
-        panel.windows.filter((windows) => {
+        panel.windows.filter((window) => {
           return (
-            windows.widgets.filter((widget) => {
+            window.widgets.filter((widget) => {
               return !this.props.hidden[widget];
             }).length > 0
           );
@@ -39,95 +90,70 @@ class Dockable extends Component {
     });
   }
 
-  componentDidMount() {
-    if (this.props.initialState) {
-      this.setState({ panels: this.props.initialState });
-    } else {
-      let newPanels = [
-        {
-          size: 277,
-          minSize: 277,
-          resize: "stretch",
-          windows: [
-            {
-              selected: 0,
-              widgets: React.Children.map(this.props.children, (widget) => ({
-                component: widget.type.displayName,
-              })),
-            },
-          ],
-        },
-      ];
-      this.updatePanels(newPanels);
-    }
-  }
-
-  handleContextClick = (actions, x, y) => {
-    this.setState({
+  function handleContextClick(actions, x, y) {
+    setState({
+      ...state,
       contextMenu: {
         show: true,
         position: { x: x, y: y },
         actions: actions,
       },
     });
-  };
+  }
 
-  updatePanels = (newPanels) => {
-    this.setState(({ items }) => ({
-      panels: newPanels,
-    }));
-    this.props.onUpdate && this.props.onUpdate(newPanels);
-  };
+  function updatePanels(newPanels) {
+    setState({ ...state, panels: newPanels });
+    onUpdate && onUpdate(newPanels);
+  }
 
-  handlePanelResize = (panels) => {
-    let newPanels = this.getPanels().map((oldPanel, i) => ({
-      ...oldPanel,
-      ...panels[i],
-    }));
-    this.updatePanels(newPanels);
-  };
+  function handlePanelResize(panels) {
+    updatePanels(
+      getPanels().map((oldPanel, i) => ({
+        ...oldPanel,
+        ...panels[i],
+      }))
+    );
+  }
 
-  handleWindowResize = (panelId, windows) => {
-    let newWindows = this.getPanels()[panelId].windows.map((oldWindow, i) => ({
+  function handleWindowResize(panelId, windows) {
+    let newWindows = getPanels()[panelId].windows.map((oldWindow, i) => ({
       ...oldWindow,
       ...windows[i],
     }));
-    let newPanels = [...this.getPanels()];
+    let newPanels = [...getPanels()];
     newPanels[panelId].windows = newWindows;
-    this.updatePanels(newPanels);
-  };
+    updatePanels(newPanels);
+  }
 
-  handleTabSort = (panelIndex, windowIndex, tabStart, tabEnd) => {
-    let newPanels = [...this.getPanels()];
+  function handleTabSort(panelIndex, windowIndex, tabStart, tabEnd) {
+    let newPanels = [...getPanels()];
     newPanels[panelIndex].windows[windowIndex].widgets = arrayMove(
       newPanels[panelIndex].windows[windowIndex].widgets,
       tabStart,
       tabEnd
     );
-    this.updatePanels(newPanels);
-  };
+    updatePanels(newPanels);
+  }
 
-  handleTabSelect = (panelId, windowId, tabId, componentId) => {
-    let newPanels = [...this.getPanels()];
+  function handleTabSelect(panelId, windowId, tabId, componentId) {
+    let newPanels = [...getPanels()];
     newPanels[panelId].windows[windowId].selected = tabId;
-    this.updatePanels(newPanels);
-    // this.props.onTabSwitch(this.getSize(panelId, windowId, tabId));
-    this.handleOnActive(componentId);
-  };
+    updatePanels(newPanels);
+    handleOnActive(componentId);
+  }
 
-  handleOnActive = (id) => {
-    if (this.props.onActive) {
-      this.props.onActive(id);
-    }
-  };
+  function handleOnActive(id) {
+    if (onActive) onActive(id);
+  }
 
-  handleTabClosed = (panelId, windowId, tabId) => {
-    let newPanels = JSON.parse(JSON.stringify(this.getPanels()));
+  function handleTabClosed(panelId, windowId, tabId) {
+    let newPanels = JSON.parse(JSON.stringify(getPanels()));
     newPanels[panelId].windows[windowId].widgets.splice(tabId, 1);
-    newPanels = this.cleanup(newPanels);
-    this.updatePanels(newPanels);
+    newPanels = cleanup(newPanels);
+    updatePanels(newPanels);
 
     // TODO: for some reason I commented out code for an onclose callback, should revisit
+    // this was also when this was still a class function
     // let callback = React.Children.toArray(this.props.children).find(widget => {
     //   return (
     //     widget.props.id ===
@@ -135,27 +161,27 @@ class Dockable extends Component {
     //   );
     // }).props.onClose;
     // if (callback) callback();
-  };
+  }
 
-  handleWindowClosed = (panelId, windowId) => {
-    let newPanels = JSON.parse(JSON.stringify(this.getPanels()));
+  function handleWindowClosed(panelId, windowId) {
+    let newPanels = JSON.parse(JSON.stringify(getPanels()));
 
     newPanels[panelId].windows[windowId].widgets = [];
-    newPanels = this.cleanup(newPanels);
+    newPanels = cleanup(newPanels);
 
-    this.updatePanels(newPanels);
-  };
+    updatePanels(newPanels);
+  }
 
-  handleDragStart = (result) => {
-    this.setState({ draggingTab: true });
-  };
+  function handleDragStart() {
+    setState({ ...state, draggingTab: true });
+  }
 
-  handleDragEnd = (result) => {
-    let newPanels = JSON.parse(JSON.stringify(this.getPanels()));
+  function handleDragEnd(result) {
+    let newPanels = JSON.parse(JSON.stringify(getPanels()));
     let source = result.source.droppableId.split(",");
 
     // If we dropped on a tab bar
-    if (result.destination && this.state.hoverBorder == null) {
+    if (result.destination && state.hoverBorder == null) {
       // remove from source
       let item = newPanels[source[0]].windows[source[1]].widgets.splice(
         result.source.index,
@@ -179,7 +205,7 @@ class Dockable extends Component {
     }
 
     // If we dropped between panels
-    else if (this.state.hoverBorder !== null) {
+    else if (state.hoverBorder !== null) {
       // remove from source
       let item = newPanels[source[0]].windows[source[1]].widgets.splice(
         result.source.index,
@@ -189,9 +215,9 @@ class Dockable extends Component {
       // Add to destination
 
       // If we dropped between windows
-      if (this.state.hoverBorder[1] !== null) {
-        newPanels[this.state.hoverBorder[0]].windows.splice(
-          this.state.hoverBorder[1],
+      if (state.hoverBorder[1] !== null) {
+        newPanels[state.hoverBorder[0]].windows.splice(
+          state.hoverBorder[1],
           0,
           {
             selected: 0,
@@ -201,7 +227,7 @@ class Dockable extends Component {
       }
       // If we dropped between panels
       else {
-        newPanels.splice(this.state.hoverBorder[0], 0, {
+        newPanels.splice(state.hoverBorder[0], 0, {
           ...newPanels[source[0]],
           windows: [
             {
@@ -213,13 +239,13 @@ class Dockable extends Component {
       }
     }
 
-    newPanels = this.cleanup(newPanels);
+    newPanels = cleanup(newPanels);
 
-    this.updatePanels(newPanels);
-    this.setState({ draggingTab: false, hoverBorder: null });
-  };
+    updatePanels(newPanels);
+    setState({ ...state, draggingTab: false, hoverBorder: null });
+  }
 
-  cleanup = (panels) => {
+  function cleanup(panels) {
     // Cleanup unused empty windows
     panels = panels.map((panel) => {
       return {
@@ -232,69 +258,65 @@ class Dockable extends Component {
     panels = panels.filter((panel) => panel.windows.length > 0);
 
     return panels;
-  };
-
-  render() {
-    return (
-      <div
-        className={`Dockable_root ${css.container} ${
-          this.props.themeClass ? this.props.themeClass : css.theme
-        }`}
-        style={this.props.theme}
-      >
-        <DragDropContext
-          onDragEnd={this.handleDragEnd}
-          onDragStart={this.handleDragStart}
-        >
-          <PanelGroup
-            spacing={this.props.spacing || 0}
-            borderColor={"transparent"}
-            panelWidths={this.getFilteredPanels()}
-            // onResizeEnd={this.handlePanelResize}
-            onUpdate={this.handlePanelResize}
-          >
-            {this.getFilteredPanels().map((thisPanel, panelIndex) => (
-              <WindowPanel
-                key={panelIndex}
-                index={panelIndex}
-                isLast={panelIndex === this.getPanels().length - 1}
-                draggingTab={this.state.draggingTab}
-                hoverBorder={this.state.hoverBorder}
-                onHoverBorder={(i) => this.setState({ hoverBorder: i })}
-                windows={thisPanel.windows}
-                onTabSort={this.handleTabSort}
-                onTabSelect={this.handleTabSelect}
-                onContextClick={this.handleContextClick}
-                widgets={this.props.children}
-                onUpdate={this.handleWindowResize}
-                onTabClosed={this.handleTabClosed}
-                onWindowClosed={this.handleWindowClosed}
-                spacing={this.props.spacing || 0}
-                hideMenus={this.props.hideMenus}
-                hideTabs={this.props.hideTabs}
-                active={this.props.active}
-                onActive={this.handleOnActive}
-                tabHeight={this.props.tabHeight}
-                hidden={this.props.hidden || {}}
-              />
-            ))}
-          </PanelGroup>
-        </DragDropContext>
-        {this.state.contextMenu && this.state.contextMenu.show && (
-          <ContextMenu
-            left={this.state.contextMenu.position.x}
-            top={this.state.contextMenu.position.y}
-            actions={this.state.contextMenu.actions}
-            onClickOut={() =>
-              this.setState({
-                contextMenu: { ...this.state.contextMenu, show: false },
-              })
-            }
-          />
-        )}
-      </div>
-    );
   }
+
+  return (
+    <div
+      className={`Dockable_root ${css.container} ${
+        themeClass ? themeClass : css.theme
+      }`}
+      style={theme}
+    >
+      <DragDropContext onDragEnd={handleDragEnd} onDragStart={handleDragStart}>
+        <PanelGroup
+          spacing={spacing || 0}
+          borderColor={"transparent"}
+          panelWidths={getFilteredPanels()}
+          // onResizeEnd={handlePanelResize}
+          onUpdate={handlePanelResize}
+        >
+          {getFilteredPanels().map((thisPanel, panelIndex) => (
+            <WindowPanel
+              key={panelIndex}
+              index={panelIndex}
+              isLast={panelIndex === getPanels().length - 1}
+              draggingTab={state.draggingTab}
+              hoverBorder={state.hoverBorder}
+              onHoverBorder={(i) => setState({ ...state, hoverBorder: i })}
+              windows={thisPanel.windows}
+              onTabSort={handleTabSort}
+              onTabSelect={handleTabSelect}
+              onContextClick={handleContextClick}
+              widgets={children}
+              onUpdate={handleWindowResize}
+              onTabClosed={handleTabClosed}
+              onWindowClosed={handleWindowClosed}
+              spacing={spacing || 0}
+              hideMenus={hideMenus}
+              hideTabs={hideTabs}
+              active={active}
+              onActive={handleOnActive}
+              tabHeight={tabHeight}
+              hidden={hidden || {}}
+            />
+          ))}
+        </PanelGroup>
+      </DragDropContext>
+      {state.contextMenu && state.contextMenu.show && (
+        <ContextMenu
+          left={state.contextMenu.position.x}
+          top={state.contextMenu.position.y}
+          actions={state.contextMenu.actions}
+          onClickOut={() =>
+            setState({
+              ...state,
+              contextMenu: { ...state.contextMenu, show: false },
+            })
+          }
+        />
+      )}
+    </div>
+  );
 }
 
 export default Dockable;
