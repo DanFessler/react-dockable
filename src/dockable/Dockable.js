@@ -153,7 +153,7 @@ function Dockable({
     updatePanels(newPanels);
 
     // TODO: for some reason I commented out code for an onclose callback, should revisit
-    // this was also when this was still a class function
+    // This was also when this was still a class function
     // let callback = React.Children.toArray(this.props.children).find(widget => {
     //   return (
     //     widget.props.id ===
