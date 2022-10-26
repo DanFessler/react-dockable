@@ -2,6 +2,13 @@ import React, { createRef } from "react";
 import Panel from "./Panel.js";
 import Divider from "./Divider.js";
 
+/*
+  PanelGroup is the component responsible for
+  managing drag-resizable columns and rows. It has
+  special functionality for cascading the resize
+  to neighboring panels when resized beyond min/max
+*/
+
 class PanelGroup extends React.Component {
   state = {
     panels: [],
