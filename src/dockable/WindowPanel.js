@@ -1,197 +1,178 @@
-import React, { Component } from "react";
+import React, { useRef } from "react";
 import PanelGroup from "../react-panelgroup";
 import Window from "./Window";
-import widget from "./Widget";
+import { Widget } from "./Widget";
 
 import css from "./css/WindowPanel.module.css";
 
-const MissingWidget = widget(
-  class extends Component {
-    render() {
-      return null;
-    }
-  },
-  {
-    title: "Missing Widget",
-  }
-);
+function WindowPanel({
+  index,
+  isLast,
+  draggingTab,
+  hoverBorder,
+  onHoverBorder,
+  windows,
+  onTabSort,
+  onTabSelect,
+  onContextClick,
+  widgets,
+  onUpdate,
+  onTabClosed,
+  onWindowClosed,
+  spacing,
+  hideMenus,
+  hideTabs,
+  active,
+  onActive,
+  tabHeight,
+  hidden,
+}) {
+  const containerRef = useRef();
+  let windowRefs = [];
 
-class WindowPanel extends Component {
-  containerRef = React.createRef();
-  state = {
-    panelWidths: [
-      React.Children.map(this.props.children, (panelWindow, i) => {
-        return {
-          size: 10,
-          minSize: 10,
-          resize: "dynamic",
-        };
-      }),
-    ],
-  };
-  windowRefs = [];
-  handleTabSwitch = (i, size) => {
+  function handleTabSwitch(i, size) {
     // exit early if size didn't change
-    if (this.props.windows[i].minSize === size) return;
+    if (windows[i].minSize === size) return;
 
-    let newPanels = this.props.windows.slice();
+    let newPanels = windows.slice();
     newPanels[i].minSize = size;
-    if (newPanels[i].size < newPanels[i].minSize)
+    if (newPanels[i].size < newPanels[i].minSize) {
       newPanels[i].size = newPanels[i].minSize;
+    }
 
-    this.handleResize(newPanels);
-  };
-  handleResize = (windows) => {
-    this.props.onUpdate(this.props.index, windows);
-  };
-  renderBorders = () => [
-    this.containerRef.current && this.props.draggingTab ? (
-      <div
-        key={0}
-        className={css.dropBorder}
-        onMouseOver={this.props.onHoverBorder.bind(this, [
-          this.props.index,
-          null,
-        ])}
-        onMouseOut={this.props.onHoverBorder.bind(this, null)}
-        style={{
-          height: this.containerRef.current.getBoundingClientRect().height,
-          top: this.containerRef.current.getBoundingClientRect().top,
-          left: this.containerRef.current.getBoundingClientRect().left - 9,
-        }}
-      />
-    ) : null,
-    this.containerRef.current && this.props.draggingTab && this.props.isLast ? (
-      <div
-        key={1}
-        className={css.dropBorder}
-        onMouseOver={this.props.onHoverBorder.bind(this, [
-          this.props.index + 1,
-          null,
-        ])}
-        onMouseOut={this.props.onHoverBorder.bind(this, null)}
-        style={{
-          height: this.containerRef.current.getBoundingClientRect().height,
-          top: this.containerRef.current.getBoundingClientRect().top,
-          left:
-            this.containerRef.current.getBoundingClientRect().left +
-            this.containerRef.current.getBoundingClientRect().width -
-            6,
-        }}
-      />
-    ) : null,
-  ];
-  filterVisibleWidgets(thisWindow) {
+    handleResize(newPanels);
+  }
+
+  function handleResize(windows) {
+    onUpdate(index, windows);
+  }
+
+  function renderBorders() {
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+
+    return [
+      draggingTab && (
+        <div
+          key={0}
+          className={css.dropBorder}
+          onMouseOver={onHoverBorder.bind(this, [index, null])}
+          onMouseOut={onHoverBorder.bind(this, null)}
+          style={{
+            height: rect.height,
+            top: rect.top,
+            left: rect.left - 9,
+          }}
+        />
+      ),
+      draggingTab && isLast && (
+        <div
+          key={1}
+          className={css.dropBorder}
+          onMouseOver={onHoverBorder.bind(this, [index + 1, null])}
+          onMouseOut={onHoverBorder.bind(this, null)}
+          style={{
+            height: rect.height,
+            top: rect.top,
+            left: rect.left + rect.width - 6,
+          }}
+        />
+      ),
+    ];
+  }
+
+  function filterVisibleWidgets(thisWindow) {
     return thisWindow.widgets.filter(
-      (widget) =>
-        !(
-          this.getWidgetComponent(widget).props.hidden ||
-          this.props.hidden[widget]
-        )
+      (widget) => !(getWidgetComponent(widget).props.hidden || hidden[widget])
     );
   }
 
-  getFilteredWindows() {
-    if (!this.props.hidden) return this.props.windows;
+  function getFilteredWindows() {
+    if (!hidden) return windows;
 
-    return this.props.windows.filter((windows) => {
+    return windows.filter((windows) => {
       return (
         windows.widgets.filter((widget) => {
-          return !this.props.hidden[widget];
+          return !hidden[widget];
         }).length > 0
       );
     });
   }
 
-  getWidgetComponent(id) {
-    return React.Children.toArray(this.props.widgets).find(
+  function getWidgetComponent(id) {
+    return React.Children.toArray(widgets).find(
       (child) => child.props.id === id
     );
   }
-  render() {
-    return (
-      <div className={css.container} ref={this.containerRef}>
-        <PanelGroup
-          direction={"column"}
-          spacing={this.props.spacing || 0}
-          borderColor={"transparent"}
-          panelWidths={this.getFilteredWindows()}
-          // onUpdate={panels => this.setState({ panelWidths: panels.slice() })}
-          onUpdate={this.handleResize}
-        >
-          {this.getFilteredWindows().map((thisWindow, windowIndex) => {
-            const filteredWidgets = this.filterVisibleWidgets(thisWindow);
-            return filteredWidgets.length ? (
-              <Window
-                key={windowIndex}
-                index={windowIndex}
-                active={this.props.active}
-                onActive={this.props.onActive}
-                windowId={`${this.props.index},${windowIndex}`}
-                onContextClick={this.props.onContextClick}
-                isLast={windowIndex === this.props.windows.length - 1}
-                draggingTab={this.props.draggingTab}
-                hoverBorder={this.props.hoverBorder}
-                onHoverBorder={(i) => {
-                  this.props.onHoverBorder(
-                    i === null ? null : [this.props.index, i]
-                  );
-                }}
-                onSort={this.props.onTabSort.bind(
-                  this,
-                  this.props.index,
-                  windowIndex
-                )}
-                selected={Math.min(
-                  thisWindow.selected,
-                  filteredWidgets.length - 1
-                )}
-                onTabSelect={(i, componentId) => {
-                  this.props.onTabSelect(
-                    this.props.index,
-                    windowIndex,
-                    i,
-                    componentId
-                  );
-                }}
-                ref={(input) => {
-                  this.windowRefs[windowIndex] = input;
-                }}
-                onTabSwitch={this.handleTabSwitch.bind(null, windowIndex)}
-                onTabClosed={(winId, tabId) => {
-                  var [panelId, windowId] = winId.split(",");
-                  this.props.onTabClosed(
-                    parseInt(panelId, 10),
-                    parseInt(windowId, 10),
-                    tabId
-                  );
-                }}
-                onWindowClosed={(winId) => {
-                  var [panelId, windowId] = winId.split(",");
-                  this.props.onWindowClosed(
-                    parseInt(panelId, 10),
-                    parseInt(windowId, 10)
-                  );
-                }}
-                hideTabs={thisWindow.hideTabs || this.props.hideTabs}
-                hideMenu={this.props.hideMenus}
-                style={thisWindow.style}
-                tabHeight={this.props.tabHeight}
-              >
-                {filteredWidgets.map((widget, i) => {
-                  // Find component with the desired name
-                  let Component = this.getWidgetComponent(widget);
-                  if (!Component) Component = <MissingWidget />;
-                  return Component;
-                })}
-              </Window>
-            ) : null;
-          })}
-        </PanelGroup>
-        {this.renderBorders()}
-      </div>
-    );
-  }
+
+  return (
+    <div className={css.container} ref={containerRef}>
+      <PanelGroup
+        direction={"column"}
+        spacing={spacing || 0}
+        borderColor={"transparent"}
+        panelWidths={getFilteredWindows()}
+        // onUpdate={panels => setState({ panelWidths: panels.slice() })}
+        onUpdate={handleResize}
+      >
+        {getFilteredWindows().map((thisWindow, windowIndex) => {
+          const filteredWidgets = filterVisibleWidgets(thisWindow);
+          return filteredWidgets.length ? (
+            <Window
+              key={windowIndex}
+              index={windowIndex}
+              active={active}
+              onActive={onActive}
+              windowId={`${index},${windowIndex}`}
+              onContextClick={onContextClick}
+              isLast={windowIndex === windows.length - 1}
+              draggingTab={draggingTab}
+              hoverBorder={hoverBorder}
+              onHoverBorder={(i) => {
+                onHoverBorder(i === null ? null : [index, i]);
+              }}
+              onSort={onTabSort.bind(this, index, windowIndex)}
+              selected={Math.min(
+                thisWindow.selected,
+                filteredWidgets.length - 1
+              )}
+              onTabSelect={(i, componentId) => {
+                onTabSelect(index, windowIndex, i, componentId);
+              }}
+              ref={(input) => {
+                windowRefs[windowIndex] = input;
+              }}
+              onTabSwitch={handleTabSwitch.bind(null, windowIndex)}
+              onTabClosed={(winId, tabId) => {
+                var [panelId, windowId] = winId.split(",");
+                onTabClosed(
+                  parseInt(panelId, 10),
+                  parseInt(windowId, 10),
+                  tabId
+                );
+              }}
+              onWindowClosed={(winId) => {
+                var [panelId, windowId] = winId.split(",");
+                onWindowClosed(parseInt(panelId, 10), parseInt(windowId, 10));
+              }}
+              hideTabs={thisWindow.hideTabs || hideTabs}
+              hideMenu={hideMenus}
+              style={thisWindow.style}
+              tabHeight={tabHeight}
+            >
+              {filteredWidgets.map((widget, i) => {
+                // Find component with the desired name
+                let Component = getWidgetComponent(widget);
+                if (!Component) Component = <Widget title="Missing Widget" />;
+                return Component;
+              })}
+            </Window>
+          ) : null;
+        })}
+      </PanelGroup>
+      {renderBorders()}
+    </div>
+  );
 }
 
 export default WindowPanel;
