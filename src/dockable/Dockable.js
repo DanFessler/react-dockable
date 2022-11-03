@@ -240,7 +240,6 @@ function Dockable({
     }
 
     newPanels = cleanup(newPanels);
-    console.log(newPanels);
 
     // updatePanels(newPanels);
     setState((state) => ({
