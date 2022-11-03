@@ -28,7 +28,7 @@ function WindowPanel({
   hidden,
 }) {
   const containerRef = useRef();
-  let windowRefs = [];
+  // let windowRefs = [];
 
   function handleTabSwitch(i, size) {
     // exit early if size didn't change
@@ -139,9 +139,9 @@ function WindowPanel({
               onTabSelect={(i, componentId) => {
                 onTabSelect(index, windowIndex, i, componentId);
               }}
-              ref={(input) => {
-                windowRefs[windowIndex] = input;
-              }}
+              // ref={(input) => {
+              //   windowRefs[windowIndex] = input;
+              // }}
               onTabSwitch={handleTabSwitch.bind(null, windowIndex)}
               onTabClosed={(winId, tabId) => {
                 var [panelId, windowId] = winId.split(",");

@@ -1,4 +1,4 @@
-import React, { createRef } from "react";
+import React, { createRef, useEffect, useState, useRef } from "react";
 import Panel from "./Panel.js";
 import Divider from "./Divider.js";
 
@@ -9,102 +9,92 @@ import Divider from "./Divider.js";
   to neighboring panels when resized beyond min/max
 */
 
-class PanelGroup extends React.Component {
-  state = {
+function PanelGroup({
+  onUpdate,
+  onResizeStart,
+  onResizeEnd,
+  panelWidths,
+  children,
+  defaultPanel = {},
+  direction = "row",
+  spacing = 2,
+  className,
+  panelClassName,
+  dividerClassName,
+  panelColor = "default",
+  borderColor = "default",
+}) {
+  const [state, setState] = useState({
     panels: [],
     dragging: null,
     lastSize: null,
-  };
+  });
 
-  containerRef = createRef();
-  panelRefs = [];
+  const containerRef = useRef();
+  // const panelRefs = useRef([]);
+  const [panelRefs, setPanelRefs] = useState([]);
 
-  static defaultProps = {
-    spacing: 2,
-    direction: "row",
-    borderColor: "default",
-    panelColor: "default",
-    defaultPanel: {},
-  };
-
-  static defaultPanel = {
+  const DEFAULT_PANEL = {
     size: 256,
     minSize: 48,
     maxSize: 0,
     resize: "stretch",
   };
 
-  isControlled(props) {
-    return props.onUpdate || props.onResizeStart || props.onResizeEnd
-      ? true
-      : false;
+  function isControlled() {
+    return onUpdate || onResizeStart || onResizeEnd ? true : false;
   }
 
-  constructor(props) {
-    super(props);
-
-    // if uncontrolled, setup default panels in props
-    if (!this.isControlled(props)) {
-      this.state.panels = props.panelWidths
-        ? this.applyDefaults(props.panelWidths)
-        : React.Children.map(this.props.children, (child) =>
-            this.getDefaultPanel()
-          );
-    }
+  function getDefaultPanel() {
+    return { ...DEFAULT_PANEL, ...defaultPanel };
   }
 
-  getDefaultPanel() {
-    return { ...PanelGroup.defaultPanel, ...this.props.defaultPanel };
-  }
+  // mount / unmount
+  useEffect(() => {
+    if (!containerRef.current) return;
 
-  componentDidMount() {
     // Listen to size changes on container
-    this.resizeObserver = new ResizeObserver(this.handleResizeDOM);
-    this.resizeObserver.observe(this.containerRef.current);
+    const resizeObserver = new ResizeObserver(handleResizeDOM);
+    resizeObserver.observe(containerRef.current);
+
+    return () => {
+      resizeObserver.disconnect();
+    };
+  }, [containerRef, panelRefs]);
+
+  // didUpdate
+  useEffect(() => {
+    updatePanelSizesFromDOM();
+  }, [panelRefs]);
+
+  function updatePanels(panels) {
+    if (isControlled()) onUpdate && onUpdate(panels);
+    else setState({ ...state, panels: panels });
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevProps.panelWidths.length !== this.props.panelWidths.length) {
-      this.updatePanelSizesFromDOM();
-    }
+  function getPanels() {
+    return isControlled() ? applyDefaults(panelWidths) : state.panels;
   }
 
-  componentWillUnmount() {
-    this.resizeObserver.disconnect();
+  function applyDefaults(panels) {
+    return panels.map((panel) => ({ ...getDefaultPanel(), ...panel }));
   }
 
-  updatePanels(panels) {
-    if (this.isControlled(this.props))
-      this.props.onUpdate && this.props.onUpdate(panels);
-    else this.setState({ panels: panels });
-  }
-
-  getPanels() {
-    return this.isControlled(this.props)
-      ? this.applyDefaults(this.props.panelWidths)
-      : this.state.panels;
-  }
-
-  applyDefaults(panels) {
-    return panels.map((panel) => ({ ...this.getDefaultPanel(), ...panel }));
-  }
-
-  updatePanelSizesFromDOM = () => {
-    const newPanels = this.panelRefs.map((ref, i) => {
+  function updatePanelSizesFromDOM() {
+    const newPanels = panelRefs.map((el, i) => {
       // TODO: Need to handle ref tracking better when adding/removing panels
-      if (!ref) return null;
-      const element = ref.element.current;
-      let box = element.getBoundingClientRect();
+      if (!el) return null;
+      let box = el.getBoundingClientRect();
       return {
-        ...this.getPanels()[i],
-        size: box[this.props.direction === "row" ? "width" : "height"],
+        ...getPanels()[i],
+        size: box[direction === "row" ? "width" : "height"],
       };
     });
 
-    this.updatePanels(newPanels);
-  };
+    updatePanels(newPanels);
+  }
 
-  handleResizeDOM = (entries) => {
+  function handleResizeDOM(entries) {
     let entry = entries[0];
 
     if (entry.borderBoxSize) {
@@ -112,150 +102,150 @@ class PanelGroup extends React.Component {
 
       // only do this if the change is in the direction that matters
       if (
-        !this.state.lastSize ||
-        (this.props.direction === "row" &&
-          this.state.lastSize.width !== width) ||
-        (this.props.direction === "column" &&
-          this.state.lastSize.height !== height)
+        !state.lastSize ||
+        (direction === "row" && state.lastSize.width !== width) ||
+        (direction === "column" && state.lastSize.height !== height)
       ) {
-        this.updatePanelSizesFromDOM();
-        this.setState({ lastSize: { width, height } });
+        setState((state) => ({ ...state, lastSize: { width, height } }));
         return;
       }
     }
-  };
+  }
 
-  resizePanels(dividerIndex, delta, panels) {
+  function resizePanels(dividerIndex, delta, panels) {
     // make the changes and deal with the consequences later
     panels[dividerIndex].size += delta;
     panels[dividerIndex + 1].size -= delta;
 
     // resolve invalid panel sizes
-    this.resolvePanel(dividerIndex, -1, panels);
-    this.resolvePanel(dividerIndex, 1, panels);
+    resolvePanel(dividerIndex, -1, panels);
+    resolvePanel(dividerIndex, 1, panels);
   }
 
-  resolvePanel(dividerIndex, direction, panels) {
+  function resolvePanel(dividerIndex, direction, panels) {
     let panel = panels[dividerIndex + (direction < 0 ? 0 : 1)];
 
     // if we made the panel too small
     if (panel.size < panel.minSize) {
-      delegate.call(this, panel.minSize - panel.size);
+      delegate(panel.minSize - panel.size);
     }
 
     // if we made the panel too big
     if (panel.maxSize && panel.size > panel.maxSize) {
-      delegate.call(this, panel.maxSize - panel.size);
+      delegate(panel.maxSize - panel.size);
     }
 
     function delegate(delta) {
       let nextIndex = dividerIndex + direction;
       if (nextIndex >= 0 && nextIndex <= panels.length - 2) {
-        this.resizePanels(nextIndex, delta * direction, panels);
+        resizePanels(nextIndex, delta * direction, panels);
       } else {
-        this.resizePanels(dividerIndex, -delta * direction, panels);
+        resizePanels(dividerIndex, -delta * direction, panels);
       }
     }
   }
 
-  handleDragStart = (panelIndex, e) => {
-    window.addEventListener("pointermove", this.handleDrag);
-    window.addEventListener("pointerup", this.handleDragEnd);
-
-    this.setState({
+  function handleDragStart(panelIndex, e) {
+    setState({
+      ...state,
       dragging: {
         index: panelIndex,
         extended: false,
       },
     });
-    this.updatePanelSizesFromDOM();
+    updatePanelSizesFromDOM();
 
-    this.props.onResizeStart && this.props.onResizeStart([...this.getPanels()]);
-  };
+    onResizeStart && onResizeStart([...getPanels()]);
+  }
 
-  handleDrag = (e) => {
-    const panels = [...this.getPanels()];
-    this.resizePanels(this.state.dragging.index, this.getMousePos(e), panels);
-    this.updatePanels(panels);
-  };
+  function handleDrag(e) {
+    if (!state.dragging) return;
+    const panels = [...getPanels()];
+    resizePanels(state.dragging.index, getMousePos(e), panels);
+    updatePanels(panels);
+  }
 
-  handleDragEnd = (e) => {
-    window.removeEventListener("pointermove", this.handleDrag);
-    window.removeEventListener("pointerup", this.handleDragEnd);
+  function handleDragEnd(e) {
+    if (!state.dragging) return;
+    setState({ ...state, dragging: null });
+    onResizeEnd && onResizeEnd([...getPanels()]);
+  }
 
-    this.setState({ dragging: null });
-
-    this.props.onResizeEnd && this.props.onResizeEnd([...this.getPanels()]);
-  };
-
-  getCursor() {
-    if (this.state.dragging) {
-      return this.props.direction === "row" ? "ns-resize" : "ew-resize";
+  function getCursor() {
+    if (state.dragging) {
+      return direction === "row" ? "ns-resize" : "ew-resize";
     } else {
       return "auto";
     }
   }
 
-  getMousePos(e, panelIndex) {
-    let index = this.state.dragging.index;
+  function getMousePos(e, panelIndex) {
+    let index = state.dragging.index;
 
-    let panels = this.getPanels();
-    let size = index * this.props.spacing + this.props.spacing / 2;
+    let panels = getPanels();
+    let size = index * spacing + spacing / 2;
     for (let i = 0; i <= index; i++) {
       size += panels[i].size;
     }
 
-    const box = this.containerRef.current.getBoundingClientRect();
-    if (this.props.direction === "row") {
+    const box = containerRef.current.getBoundingClientRect();
+    if (direction === "row") {
       return e.clientX - size - box.left;
     } else {
       return e.clientY - size - box.top;
     }
   }
 
-  render() {
-    return (
-      <div
-        className={`pg-panelGroup ${this.props.className || ""}`}
-        ref={this.containerRef}
-        style={{
-          cursor: this.getCursor(),
-          flexDirection: this.props.direction,
-          display: "flex",
-          height: "100%",
-          flexGrow: 1,
-        }}
-      >
-        {React.Children.map(this.props.children, (child, i) => {
-          return [
-            // Render Panel
-            <Panel
-              className={this.props.panelClassName}
-              color={this.props.panelColor}
-              data={this.getPanels()[i] || this.getDefaultPanel()}
-              ref={(component) => {
-                this.panelRefs[i] = component;
-              }}
-              direction={this.props.direction}
-            >
-              {child}
-            </Panel>,
+  return (
+    <div
+      className={`pg-panelGroup ${className || ""}`}
+      ref={containerRef}
+      style={{
+        cursor: getCursor(),
+        flexDirection: direction,
+        display: "flex",
+        height: "100%",
+        flexGrow: 1,
+      }}
+      onPointerMove={handleDrag}
+      onPointerUp={handleDragEnd}
+    >
+      {React.Children.map(children, (child, i) => {
+        return [
+          // Render Panel
+          <Panel
+            className={panelClassName}
+            color={panelColor}
+            data={getPanels()[i] || getDefaultPanel()}
+            // ref={(element) => {
+            //   panelRefs.current[i] = element;
+            // }}
+            direction={direction}
+            onMount={(element) => {
+              setPanelRefs((panelRefs) => {
+                const newRefs = [...panelRefs];
+                newRefs[i] = element;
+                return newRefs;
+              });
+            }}
+          >
+            {child}
+          </Panel>,
 
-            // Render border handle
-            i + 1 < React.Children.count(this.props.children) && (
-              <Divider
-                className={this.props.dividerClassName}
-                onDragStart={(e) => this.handleDragStart(i, e)}
-                size={this.props.spacing}
-                color={this.props.borderColor}
-                direction={this.props.direction}
-              />
-            ),
-          ];
-        })}
-      </div>
-    );
-  }
+          // Render border handle
+          i + 1 < React.Children.count(children) && (
+            <Divider
+              className={dividerClassName}
+              onDragStart={(e) => handleDragStart(i, e)}
+              size={spacing}
+              color={borderColor}
+              direction={direction}
+            />
+          ),
+        ];
+      })}
+    </div>
+  );
 }
 
 export default PanelGroup;

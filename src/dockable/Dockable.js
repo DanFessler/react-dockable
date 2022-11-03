@@ -240,9 +240,17 @@ function Dockable({
     }
 
     newPanels = cleanup(newPanels);
+    console.log(newPanels);
 
-    updatePanels(newPanels);
-    setState({ ...state, draggingTab: false, hoverBorder: null });
+    // updatePanels(newPanels);
+    setState((state) => ({
+      ...state,
+      panels: newPanels,
+      draggingTab: false,
+      hoverBorder: null,
+    }));
+
+    onUpdate && onUpdate(newPanels);
   }
 
   function cleanup(panels) {

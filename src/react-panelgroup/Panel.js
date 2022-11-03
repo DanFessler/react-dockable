@@ -1,10 +1,21 @@
-import React, { createRef } from "react";
+import React, { createRef, useRef, forwardRef, useEffect } from "react";
 
-class Panel extends React.Component {
-  element = createRef();
+const Panel = function ({
+  className,
+  color,
+  data,
+  direction,
+  children,
+  onMount,
+}) {
+  const ref = useRef();
 
-  getPropertyName(type, inverse) {
-    let isRow = this.props.direction === "row";
+  useEffect(() => {
+    if (ref.current) onMount(ref.current);
+  }, [ref]);
+
+  function getPropertyName(type, inverse) {
+    let isRow = direction === "row";
     if (inverse) isRow = !isRow;
 
     switch (type) {
@@ -19,28 +30,23 @@ class Panel extends React.Component {
     }
   }
 
-  render() {
-    return (
-      <div
-        className={`pg-panel ${this.props.className || ""}`}
-        ref={this.element}
-        style={{
-          [this.getPropertyName("size")]: this.props.data.size,
-          [this.getPropertyName("minSize")]: this.props.data.minSize,
-          [this.getPropertyName("maxSize")]: this.props.data.maxSize || "auto",
-          flexGrow:
-            !this.props.data.maxSize && this.props.data.resize === "stretch"
-              ? "1"
-              : "0",
-          backgroundColor: this.props.color,
-          userSelect: "none",
-          display: "flex",
-        }}
-      >
-        {this.props.children}
-      </div>
-    );
-  }
-}
+  return (
+    <div
+      className={`pg-panel ${className || ""}`}
+      ref={ref}
+      style={{
+        [getPropertyName("size")]: data.size,
+        [getPropertyName("minSize")]: data.minSize,
+        [getPropertyName("maxSize")]: data.maxSize || "auto",
+        flexGrow: !data.maxSize && data.resize === "stretch" ? "1" : "0",
+        backgroundColor: color,
+        userSelect: "none",
+        display: "flex",
+      }}
+    >
+      {children}
+    </div>
+  );
+};
 
 export default Panel;
