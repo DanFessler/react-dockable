@@ -1,4 +1,4 @@
-import React, { createRef, useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Panel from "./Panel.js";
 import Divider from "./Divider.js";
 
@@ -24,56 +24,38 @@ function PanelGroup({
   panelColor = "default",
   borderColor = "default",
 }) {
-  const [state, setState] = useState({
-    panels: [],
-    dragging: null,
-    lastSize: null,
-  });
+  const [panels, setPanels] = useState([]);
+  const [dragIndex, setDragIndex] = useState(null);
 
-  const containerRef = useRef();
-  // const panelRefs = useRef([]);
-  const [panelRefs, setPanelRefs] = useState([]);
+  const panelRefs = useRef([]);
+  const containerRef = useRef(null);
 
-  const DEFAULT_PANEL = {
-    size: 256,
-    minSize: 48,
-    maxSize: 0,
-    resize: "stretch",
-  };
+  // Update panel sizes on mount
+  useEffect(() => {
+    updatePanelSizesFromDOM();
+  }, [panelRefs]);
 
   function isControlled() {
     return onUpdate || onResizeStart || onResizeEnd ? true : false;
   }
 
   function getDefaultPanel() {
-    return { ...DEFAULT_PANEL, ...defaultPanel };
-  }
-
-  // mount / unmount
-  useEffect(() => {
-    if (!containerRef.current) return;
-
-    // Listen to size changes on container
-    const resizeObserver = new ResizeObserver(handleResizeDOM);
-    resizeObserver.observe(containerRef.current);
-
-    return () => {
-      resizeObserver.disconnect();
+    return {
+      size: 256,
+      minSize: 48,
+      maxSize: 0,
+      resize: "stretch",
+      ...defaultPanel,
     };
-  }, [containerRef, panelRefs]);
-
-  // didUpdate
-  useEffect(() => {
-    updatePanelSizesFromDOM();
-  }, [panelRefs]);
+  }
 
   function updatePanels(panels) {
     if (isControlled()) onUpdate && onUpdate(panels);
-    else setState({ ...state, panels: panels });
+    else setPanels(panels);
   }
 
   function getPanels() {
-    return isControlled() ? applyDefaults(panelWidths) : state.panels;
+    return isControlled() ? applyDefaults(panelWidths) : applyDefaults(panels);
   }
 
   function applyDefaults(panels) {
@@ -81,7 +63,7 @@ function PanelGroup({
   }
 
   function updatePanelSizesFromDOM() {
-    const newPanels = panelRefs.map((el, i) => {
+    const newPanels = panelRefs.current.map((el, i) => {
       // TODO: Need to handle ref tracking better when adding/removing panels
       if (!el) return null;
       let box = el.getBoundingClientRect();
@@ -92,24 +74,6 @@ function PanelGroup({
     });
 
     updatePanels(newPanels);
-  }
-
-  function handleResizeDOM(entries) {
-    let entry = entries[0];
-
-    if (entry.borderBoxSize) {
-      let [width, height] = entry.borderBoxSize;
-
-      // only do this if the change is in the direction that matters
-      if (
-        !state.lastSize ||
-        (direction === "row" && state.lastSize.width !== width) ||
-        (direction === "column" && state.lastSize.height !== height)
-      ) {
-        setState((state) => ({ ...state, lastSize: { width, height } }));
-        return;
-      }
-    }
   }
 
   function resizePanels(dividerIndex, delta, panels) {
@@ -146,54 +110,43 @@ function PanelGroup({
   }
 
   function handleDragStart(panelIndex, e) {
-    setState({
-      ...state,
-      dragging: {
-        index: panelIndex,
-        extended: false,
-      },
-    });
+    setDragIndex(panelIndex);
     updatePanelSizesFromDOM();
-
     onResizeStart && onResizeStart([...getPanels()]);
   }
 
   function handleDrag(e) {
-    if (!state.dragging) return;
+    if (dragIndex === null) return;
     const panels = [...getPanels()];
-    resizePanels(state.dragging.index, getMousePos(e), panels);
+    resizePanels(dragIndex, getMousePos(e), panels);
     updatePanels(panels);
   }
 
   function handleDragEnd(e) {
-    if (!state.dragging) return;
-    setState({ ...state, dragging: null });
+    if (dragIndex === null) return;
+    setDragIndex(null);
     onResizeEnd && onResizeEnd([...getPanels()]);
   }
 
   function getCursor() {
-    if (state.dragging) {
+    if (dragIndex !== null) {
       return direction === "row" ? "ns-resize" : "ew-resize";
     } else {
       return "auto";
     }
   }
 
-  function getMousePos(e, panelIndex) {
-    let index = state.dragging.index;
-
+  function getMousePos(e) {
     let panels = getPanels();
-    let size = index * spacing + spacing / 2;
-    for (let i = 0; i <= index; i++) {
+    let size = dragIndex * spacing + spacing / 2;
+    for (let i = 0; i <= dragIndex; i++) {
       size += panels[i].size;
     }
 
     const box = containerRef.current.getBoundingClientRect();
-    if (direction === "row") {
-      return e.clientX - size - box.left;
-    } else {
-      return e.clientY - size - box.top;
-    }
+    return direction === "row"
+      ? e.clientX - size - box.left
+      : e.clientY - size - box.top;
   }
 
   return (
@@ -217,17 +170,10 @@ function PanelGroup({
             className={panelClassName}
             color={panelColor}
             data={getPanels()[i] || getDefaultPanel()}
-            // ref={(element) => {
-            //   panelRefs.current[i] = element;
-            // }}
-            direction={direction}
-            onMount={(element) => {
-              setPanelRefs((panelRefs) => {
-                const newRefs = [...panelRefs];
-                newRefs[i] = element;
-                return newRefs;
-              });
+            ref={(element) => {
+              panelRefs.current[i] = element;
             }}
+            direction={direction}
           >
             {child}
           </Panel>,

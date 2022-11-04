@@ -1,19 +1,9 @@
-import React, { createRef, useRef, forwardRef, useEffect } from "react";
+import React, { forwardRef } from "react";
 
-const Panel = function ({
-  className,
-  color,
-  data,
-  direction,
-  children,
-  onMount,
-}) {
-  const ref = useRef();
-
-  useEffect(() => {
-    if (ref.current) onMount(ref.current);
-  }, [ref]);
-
+const Panel = forwardRef(function (
+  { className, color, data, direction, children },
+  ref
+) {
   function getPropertyName(type, inverse) {
     let isRow = direction === "row";
     if (inverse) isRow = !isRow;
@@ -47,6 +37,6 @@ const Panel = function ({
       {children}
     </div>
   );
-};
+});
 
 export default Panel;
