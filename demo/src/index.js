@@ -1,12 +1,12 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import { render } from "react-dom";
 import "./index.css";
 // import css from "./theme.module.css";
 
 import Dockable, { Widget } from "../../src/dockable";
 
-export default class Demo extends Component {
-  state = {
+function Demo() {
+  const [state, setState] = useState({
     panels: [
       {
         windows: [
@@ -21,41 +21,35 @@ export default class Demo extends Component {
         ],
       },
     ],
-  };
+  });
 
-  render() {
-    return (
-      <div
-        style={{
-          width: "100vw",
-          height: "100vh",
-        }}
+  return (
+    <div
+      style={{
+        width: "100vw",
+        height: "100vh",
+      }}
+    >
+      <Dockable
+        initialState={state.panels}
+        onUpdate={(workspace) => setState({ panels: workspace })}
+        spacing={3}
+        // themeClass={css.theme}
       >
-        <Dockable
-          initialState={this.state.panels}
-          onUpdate={(workspace) => this.setState({ panels: workspace })}
-          spacing={3}
-          // themeClass={css.theme}
-        >
-          <Widget id="MyComponentA" title="Component A">
-            <MyFuncComponent text="test content" />
-          </Widget>
+        <Widget id="MyComponentA" title="Component A">
+          <div>test content</div>
+        </Widget>
 
-          <Widget id="MyComponentB" title="Component B">
-            <MyFuncComponent text="test content" />
-          </Widget>
+        <Widget id="MyComponentB" title="Component B">
+          <div>test content</div>
+        </Widget>
 
-          <Widget id="MyComponentC" title="Component C">
-            <MyFuncComponent text="test content" />
-          </Widget>
-        </Dockable>
-      </div>
-    );
-  }
-}
-
-function MyFuncComponent({ text }) {
-  return <div style={{ padding: 8 }}>{text}</div>;
+        <Widget id="MyComponentC" title="Component C">
+          <div>test content</div>
+        </Widget>
+      </Dockable>
+    </div>
+  );
 }
 
 render(<Demo />, document.querySelector("#demo"));
