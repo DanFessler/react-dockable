@@ -1,0 +1,3 @@
+.handle:hover {
+  background: var(--selected);
+}
