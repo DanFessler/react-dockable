@@ -6,11 +6,14 @@
   "files": [
     "dist"
   ],
+  "main": "./dist/react-dockable.umd.cjs",
+  "module": "./dist/react-dockable.js",
+  "types": "./dist/react-dockable.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/react-dockable.d.ts",
-      "require": "./dist/react-dockable.js",
-      "import": "./dist/react-dockable.mjs"
+      "import": "./dist/react-dockable.js",
+      "require": "./dist/react-dockable.cjs",
+      "types": "./dist/react-dockable.d.ts"
     },
     "./style.css": "./dist/react-dockable.css"
   },
