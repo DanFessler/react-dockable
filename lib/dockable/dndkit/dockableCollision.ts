@@ -1,7 +1,7 @@
 import {
-  CollisionDetection,
-  DroppableContainer,
-  Collision,
+  type CollisionDetection,
+  type DroppableContainer,
+  type Collision,
   rectIntersection,
   closestCenter,
 } from "@dnd-kit/core";

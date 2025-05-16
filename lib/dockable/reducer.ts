@@ -1,5 +1,9 @@
 import createReducer from "./utils/createReducer";
-import { ParsedNode, PanelNode, WindowNode } from "./utils/serializeLayout";
+import type {
+  ParsedNode,
+  PanelNode,
+  WindowNode,
+} from "./utils/serializeLayout";
 import { arrayMove } from "@dnd-kit/sortable";
 // import { current } from "immer";
 

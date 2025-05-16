@@ -1,7 +1,7 @@
 import React, { useReducer, useEffect, useState } from "react";
 import PanelView from "../components/Panel";
 import appReducer from "../reducer";
-import serializeLayout, { ParsedNode } from "../utils/serializeLayout";
+import serializeLayout, { type ParsedNode } from "../utils/serializeLayout";
 import colors from "../colors";
 import {
   DndContext,
@@ -20,12 +20,12 @@ import { dockableCollision } from "../dndkit/dockableCollision";
 import DroppableDivider from "../dndkit/DroppableDivider";
 import Droppable from "../dndkit/Droppable";
 import {
-  MoveTabAction,
-  ReorderTabsAction,
-  SplitWindowAction,
-  InsertPanelAction,
+  type MoveTabAction,
+  type ReorderTabsAction,
+  type SplitWindowAction,
+  type InsertPanelAction,
 } from "../reducer";
-import { ViewProps } from "..";
+import { type ViewProps } from "..";
 
 type DockableProps = {
   orientation?: "row" | "column";

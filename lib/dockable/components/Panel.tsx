@@ -1,7 +1,11 @@
 import TabView from "./Window";
 import PanelGroup from "../../panelgroup/PanelGroup";
 import React from "react";
-import { LayoutNode, PanelNode, WindowNode } from "../utils/serializeLayout";
+import type {
+  LayoutNode,
+  PanelNode,
+  WindowNode,
+} from "../utils/serializeLayout";
 import { useDockable } from "../store";
 import DroppableDivider from "../dndkit/DroppableDivider";
 import styles from "./Panel.module.css";

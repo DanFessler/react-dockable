@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ParsedNode } from "./utils/serializeLayout";
+import type { ParsedNode } from "./utils/serializeLayout";
 import { Dockable } from "./components/Root";
 
 export function useDockableLocalStorage(version: number) {
