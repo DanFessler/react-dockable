@@ -58,3 +58,4 @@
 - top and bottom window edge dropzones should have different collision strategy
 - panel minsize should consider the minsize of its children
 - when drag-resizing beyond the bottom or right edges, dragging abruptly cancels
+- sometimes I can get the inlining grandchildren operation to not work as expected
