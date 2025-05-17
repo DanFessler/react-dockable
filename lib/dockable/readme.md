@@ -3,9 +3,7 @@
 ## publish to github
 
 - remove dependency on index.css styles
-- remove context menu (for now)
 - readme documentation
-- free license
 
 ## official launch
 
