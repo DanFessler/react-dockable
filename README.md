@@ -72,7 +72,7 @@ function App() {
   );
 }
 ```
-![image](https://github.com/user-attachments/assets/b30c82c0-323c-4f1c-95fb-39fd11e53abf)
+![image](https://github.com/user-attachments/assets/2979b900-950d-4a2b-a6c3-a2206e2a7055)
 
 > 💡 Note, Panels and Windows can have defined sizes provided as Fr units. See documentation for all props.
 
