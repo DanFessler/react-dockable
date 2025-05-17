@@ -19,25 +19,31 @@ import "react-dockable/style.css";
 
 # Basic Usage
 
-The quickest way to get started is simply to provide `Dockable` with `View` children components and let the user manage their desired layout from there
+The quickest way to get started is simply to provide `Dockable` with `View` children components and let the user manage their desired layout from there. By default, `Views` are displayed in a horizontal layout.
+
+> 💡 Each `View` must have a unique id to avoid undefined behavior
 
 ```js
 function App() {
   return (
     <Dockable.Root orientation="row">
       <Dockable.View id="1" name="Tab 1">
-        First panel
+        First View
       </Dockable.View>
       <Dockable.View id="2" name="Tab 2">
-        Second Panel
+        Second View
       </Dockable.View>
       <Dockable.View id="3" name="Tab 3">
-        Third Panel
+        Third View
       </Dockable.View>
     </Dockable.Root>
   );
 }
 ```
+
+# Predefined Layouts
+
+You can also define an initial layout using `Panel` and `Window` components. Each nested `Panel` will alternate between row and column layouts allowing you to build complex configurations.
 
 # Persisted Layouts
 
@@ -81,7 +87,3 @@ function App() {
   );
 }
 ```
-
-# Predefined Layouts
-
-WIP
