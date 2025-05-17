@@ -52,19 +52,19 @@ You can compose the initial layout using `Panel` and `Window` components. Each n
 function App() {
   return (
     <Dockable.Root>
-      <Dockable.View id="view-1" name="View 1">
-        view
+      <Dockable.View id="view-1" name="Left">
+        {/* view */}
       </Dockable.View>
       <Dockable.Panel size={3}>
-        <Dockable.View id="view-2" name="View 2">
-          view
+        <Dockable.View id="view-2" name="Top">
+          {/* view */}
         </Dockable.View>
         <Dockable.Window>
-          <Dockable.View id="view-3" name="View 3">
-            view
+          <Dockable.View id="view-3" name="Tab 1">
+            {/* view */}
           </Dockable.View>
-          <Dockable.View id="view-4" name="View 4">
-            view
+          <Dockable.View id="view-4" name="Tab 2">
+            {/* view */}
           </Dockable.View>
         </Dockable.Window>
       </Dockable.Panel>
