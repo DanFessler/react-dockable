@@ -40,6 +40,7 @@ function App() {
   );
 }
 ```
+![image](https://github.com/user-attachments/assets/9358bb45-573a-4fe1-b033-3bb864035a8d)
 
 # Predefined Layouts
 
@@ -71,6 +72,7 @@ function App() {
   );
 }
 ```
+![image](https://github.com/user-attachments/assets/b30c82c0-323c-4f1c-95fb-39fd11e53abf)
 
 > 💡 Note, Panels and Windows can have defined sizes provided as Fr units. See documentation for all props.
 
