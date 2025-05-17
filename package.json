@@ -11,9 +11,9 @@
   "types": "./dist/react-dockable.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/react-dockable.d.ts",
       "import": "./dist/react-dockable.js",
-      "require": "./dist/react-dockable.cjs",
-      "types": "./dist/react-dockable.d.ts"
+      "require": "./dist/react-dockable.cjs"
     },
     "./style.css": "./dist/react-dockable.css"
   },
