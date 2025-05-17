@@ -23,22 +23,18 @@ The quickest way to get started is simply to provide `Dockable` with `View` chil
 
 > 💡 Note, each `View` must have a unique id to avoid undefined behavior
 
-```js
-function App() {
-  return (
-    <Dockable.Root orientation="row">
-      <Dockable.View id="1" name="Tab 1">
-        First View
-      </Dockable.View>
-      <Dockable.View id="2" name="Tab 2">
-        Second View
-      </Dockable.View>
-      <Dockable.View id="3" name="Tab 3">
-        Third View
-      </Dockable.View>
-    </Dockable.Root>
-  );
-}
+```jsx
+<Dockable.Root orientation="row">
+  <Dockable.View id="1" name="Tab 1">
+    First View
+  </Dockable.View>
+  <Dockable.View id="2" name="Tab 2">
+    Second View
+  </Dockable.View>
+  <Dockable.View id="3" name="Tab 3">
+    Third View
+  </Dockable.View>
+</Dockable.Root>
 ```
 ![image](https://github.com/user-attachments/assets/9358bb45-573a-4fe1-b033-3bb864035a8d)
 
@@ -48,29 +44,25 @@ Child components are not intended to be dynamic or managed manually, instead the
 
 You can compose the initial layout using `Panel` and `Window` components. Each nested Panel alternates between row and column layouts. Windows can contain multiple Views which are displayed as tabs. `Views` are automatically wrapped in a Window one isn't supplied
 
-```js
-function App() {
-  return (
-    <Dockable.Root>
-      <Dockable.View id="view-1" name="Left">
+```jsx
+<Dockable.Root>
+  <Dockable.View id="view-1" name="Left">
+    {/* view */}
+  </Dockable.View>
+  <Dockable.Panel size={3}>
+    <Dockable.View id="view-2" name="Top">
+      {/* view */}
+    </Dockable.View>
+    <Dockable.Window>
+      <Dockable.View id="view-3" name="Tab 1">
         {/* view */}
       </Dockable.View>
-      <Dockable.Panel size={3}>
-        <Dockable.View id="view-2" name="Top">
-          {/* view */}
-        </Dockable.View>
-        <Dockable.Window>
-          <Dockable.View id="view-3" name="Tab 1">
-            {/* view */}
-          </Dockable.View>
-          <Dockable.View id="view-4" name="Tab 2">
-            {/* view */}
-          </Dockable.View>
-        </Dockable.Window>
-      </Dockable.Panel>
-    </Dockable.Root>
-  );
-}
+      <Dockable.View id="view-4" name="Tab 2">
+        {/* view */}
+      </Dockable.View>
+    </Dockable.Window>
+  </Dockable.Panel>
+</Dockable.Root>
 ```
 ![image](https://github.com/user-attachments/assets/2979b900-950d-4a2b-a6c3-a2206e2a7055)
 
