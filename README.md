@@ -13,11 +13,11 @@ Unfortunately, there weren't many great existing solutions for this for web, and
 ## Key features
 
 - **Beautiful and polished**  
-  React-dockable puts a priority on the user experience and get out of the way of the user
+  React-dockable puts a priority on the user experience and gets out of the way of the user and what they want to do.
 - **Fully customizable layouts**  
   Layouts are fully dynamic and user customizable right out of the box. No work necessary.
 - **Simple declarative configuration**  
-  No complicated data structures to learn, define your Layouts the React way with a simple declarative component API
+  No complicated data structures to learn, define your Layouts the React Way™ with a simple declarative component API
 - **Imparative API (Coming Soon)**  
   need more control? We also offer an imperative API to dynamically control the Dockable workspace
 
