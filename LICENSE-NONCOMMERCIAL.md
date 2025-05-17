@@ -4,8 +4,6 @@ Copyright © Dan Fessler 2025
 
 This software is licensed under the terms below:
 
----
-
 ## 1. Permission for Non-Commercial Use
 
 You are free to:
@@ -19,8 +17,6 @@ You are free to:
 - You do not use the software, directly or indirectly, for any commercial purpose.
 - You retain this license file and attribution in all copies.
 
----
-
 ## 2. Prohibited Commercial Use
 
 You may **not**:
@@ -28,8 +24,6 @@ You may **not**:
 - Use this software in a product, service, or internal tool that generates revenue, is used by a for-profit organization, or is part of any business operation
 - Sell, license, or otherwise commercialize any part of this software
 - Use this software at a company with more than one employee or developer, unless explicitly licensed
-
----
 
 ## 3. Commercial Licensing
 
@@ -41,12 +35,8 @@ If you want to use this software for commercial purposes, including internal bus
 - Companies with **more than 10 developers** require an **Enterprise License** — contact:
   `dan@danfessler.com`
 
----
-
 ## 4. No Warranty
 
 This software is provided “as-is” without any warranty. Use it at your own risk.
-
----
 
 By using this software, you agree to the terms of this license.
