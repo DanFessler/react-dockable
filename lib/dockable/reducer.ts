@@ -1,6 +1,6 @@
 import createReducer from "./utils/createReducer";
 import type {
-  ParsedNode,
+  LayoutNode,
   PanelNode,
   WindowNode,
 } from "./utils/serializeLayout";
@@ -19,7 +19,7 @@ export type ResizeAction = {
 
 export type AddPanelAction = {
   type: "addPanel";
-  panel: ParsedNode;
+  panel: LayoutNode;
 };
 
 export type ReorderTabsAction = {
@@ -237,8 +237,8 @@ const appReducer = createReducer<State, Action>({
   },
 });
 
-function cleanup(root: ParsedNode) {
-  const children = root.children as ParsedNode[];
+function cleanup(root: LayoutNode) {
+  const children = root.children as LayoutNode[];
   for (let i = children.length - 1; i >= 0; i--) {
     const node = children[i];
 
@@ -257,7 +257,7 @@ function cleanup(root: ParsedNode) {
 
       // if a panel-child has a single child that is also a panel, we can inline the grandchildren
       // TODO we may have to consider the sizing implications of inlining panels
-      const newChildren: ParsedNode[] = [];
+      const newChildren: LayoutNode[] = [];
       panelNode.children.forEach((child) => {
         if (
           child.type === "Panel" &&
@@ -290,7 +290,7 @@ function cleanup(root: ParsedNode) {
   }
 }
 
-function normalize(children: ParsedNode[]) {
+function normalize(children: LayoutNode[]) {
   const totalSize = children.reduce((acc, child) => {
     const size = child.size || 1;
     return acc + size;
@@ -300,11 +300,11 @@ function normalize(children: ParsedNode[]) {
   });
 }
 
-function getNodeFromAddress(root: ParsedNode, address: number[]): ParsedNode {
+function getNodeFromAddress(root: LayoutNode, address: number[]): LayoutNode {
   // if the address is empty, we found the node
   if (address.length === 0) return root;
 
-  const children = root.children as ParsedNode[];
+  const children = root.children as LayoutNode[];
 
   // if the address has only one element, we return the panel at that index
   if (address.length === 1) return children[address[0]];

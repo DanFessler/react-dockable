@@ -1,7 +1,7 @@
 import React from "react";
-import { Panel, Window, View } from "..";
+import { Panel, Window, Tab } from "..";
 
-export type ParsedNode = LayoutNode;
+export type LayoutNode = PanelNode | WindowNode;
 
 type ViewId = string;
 
@@ -21,16 +21,14 @@ export type PanelNode = {
   children: LayoutNode[];
 };
 
-export type LayoutNode = PanelNode | WindowNode;
-
-import type { PanelProps, WindowProps, ViewProps } from "..";
+import type { PanelProps, WindowProps, TabProps } from "..";
 
 let idNonce = 0;
 
 function serializeLayout(
   element: React.ReactElement,
   views: React.ReactElement[]
-): ParsedNode {
+): LayoutNode {
   if (!React.isValidElement(element)) {
     console.log(element);
     throw new Error("Invalid element");
@@ -82,7 +80,7 @@ function serializeLayout(
   }
 
   // automatically wrap a <View> in a <Window> if it is not already a <Window>
-  if (element.type === View) {
+  if (element.type === Tab) {
     return {
       type: "Window",
       id: `window-${idNonce++}`,
@@ -93,11 +91,11 @@ function serializeLayout(
   }
 
   function parseView(child: React.ReactElement): string {
-    if (!React.isValidElement(child) || child.type !== View) {
+    if (!React.isValidElement(child) || child.type !== Tab) {
       throw new Error("Windows can only contain <View> elements");
     }
 
-    const childProps = child.props as ViewProps;
+    const childProps = child.props as TabProps;
 
     const viewId = childProps.id;
     if (typeof viewId !== "string") {

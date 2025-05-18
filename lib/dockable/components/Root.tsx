@@ -1,7 +1,7 @@
 import React, { useReducer, useEffect, useState } from "react";
 import PanelView from "../components/Panel";
 import appReducer from "../reducer";
-import serializeLayout, { type ParsedNode } from "../utils/serializeLayout";
+import serializeLayout, { type LayoutNode } from "../utils/serializeLayout";
 import colors from "../colors";
 import {
   DndContext,
@@ -25,13 +25,13 @@ import {
   type SplitWindowAction,
   type InsertPanelAction,
 } from "../reducer";
-import { type ViewProps } from "..";
+import { type TabProps } from "..";
 
 type DockableProps = {
   orientation?: "row" | "column";
-  panels?: ParsedNode[];
+  panels?: LayoutNode[];
   children: React.ReactNode;
-  onChange?: (panels: ParsedNode[]) => void;
+  onChange?: (panels: LayoutNode[]) => void;
   gap?: number;
   radius?: number;
 };
@@ -44,7 +44,7 @@ export function Dockable({
   gap = 4,
   radius = 4,
 }: DockableProps) {
-  const views: React.ReactElement<ViewProps>[] = [];
+  const views: React.ReactElement<TabProps>[] = [];
   const [active, setActive] = useState<{
     id: string;
     type: string;

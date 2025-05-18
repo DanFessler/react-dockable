@@ -47,6 +47,10 @@
 - super cascading panelgroup resizing
 - right click handler on tab
 - double click to maximize/minimize
+- fix tab children type to allow for null children
+- allow orientation props (currently it's implicit only)
+- make logo
+- rename to trellis?
 
 ## bugs
 

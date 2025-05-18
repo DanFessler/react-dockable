@@ -21,9 +21,9 @@ function App() {
 
 function createView(id: string, name: string) {
   return (
-    <Dockable.View id={id} name={name}>
+    <Dockable.Tab id={id} name={name}>
       view
-    </Dockable.View>
+    </Dockable.Tab>
   );
 }
 export default App;
