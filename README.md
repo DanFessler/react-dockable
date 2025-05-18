@@ -6,14 +6,14 @@ React library to create beautiful dockable tabbed interfaces for tools, dashboar
 
 ## Motivation
 
-Writing tools is hard, and half the battle is constantly redesigning your UI to accommodate for new features. This is why many companies implement robust dockable UI systems in tools like Unity, Unreal, and Photoshop, which ensures every new feature has a home and puts user is in control of their workflow.
+Writing tools is hard, and half the battle is constantly redesigning your UI to accommodate for new features. This is why many companies implement robust dockable UI systems in tools like Unity, Unreal, and Photoshop, which ensures every new feature has a home and puts the user in control of their workflow.
 
 Unfortunately, there weren't many great existing solutions for this for web, and rolling your own is complicated and expensive. React-Dockable was created to handle that complexity for you, so you can focus on shipping.
 
 ## Key features
 
 - **Beautifully polished**  
-  React-dockable prioritizes the user experience and by staying intuitive and unobtrusive. It gets out of the way of the user and what they want to do.
+  React-dockable prioritizes the user experience by staying intuitive and unobtrusive. It gets out of the way of the user and what they want to do.
 - **Fully customizable layouts**  
   Layouts are fully dynamic and user customizable right out of the box. No work necessary.
 - **Simple declarative configuration**  
@@ -63,25 +63,25 @@ The quickest way to get started is simply to provide `Dockable` with `Tab` child
 
 ## Predefined Layouts
 
-Children are not intended to be managed manually, instead they are the initial configuration of the layout and contain the definitions for each `Tab` to be managed internally.
+Children are not intended to be managed manually. Instead, they are the initial configuration of the layout and contain the definitions for each `Tab` which is managed internally by React-Dockable.
 
-You can compose the initial layout using `Panel`, `Window`, and `Tab` components. Each nested Panel alternates between row and column flows. `Tabs` are automatically wrapped in a Window if one isn't supplied
+You can compose the initial layout using `Panel`, `Window`, and `Tab` components. Each nested Panel alternates between row and column flows. Windows can contain multiple Tabs. Tabs are automatically wrapped in a Window if one isn't supplied
 
 ```jsx
 <Dockable.Root>
   <Dockable.Tab id="view-1" name="Left">
-    {/* view */}
+    Left Component
   </Dockable.Tab>
   <Dockable.Panel size={3}>
     <Dockable.Tab id="view-2" name="Top">
-      {/* view */}
+      Top Component
     </Dockable.Tab>
     <Dockable.Window>
       <Dockable.Tab id="view-3" name="Tab 1">
-        {/* view */}
+        Bottom Component 1
       </Dockable.Tab>
       <Dockable.Tab id="view-4" name="Tab 2">
-        {/* view */}
+        Bottom Component 2
       </Dockable.Tab>
     </Dockable.Window>
   </Dockable.Panel>
@@ -106,7 +106,7 @@ function App() {
   }
 
   return (
-    <Dockable.Root orientation="row" panels={layout} onChange={handleChange}>
+    <Dockable.Root orientation="row" layout={layout} onChange={handleChange}>
       {/* Layout */}
     </Dockable.Root>
   );
@@ -122,7 +122,7 @@ function App() {
   const { layout, setLayout } = useDockableLocalStorage(1);
 
   return (
-    <Dockable.Root orientation="row" panels={layout} onChange={setLayout}>
+    <Dockable.Root layout={layout} onChange={setLayout}>
       {/* Layout */}
     </Dockable.Root>
   );
@@ -135,38 +135,101 @@ function App() {
 
 ### `Dockable.Root`
 
-| Prop         | Type                             | Description                                                 |
-| ------------ | -------------------------------- | ----------------------------------------------------------- |
-| orientation? | `"row" \| "column"`              | The direction panels will be arranged. Defaults to `"row"`. |
-| panels?      | `LayoutNode[]`                   | Optional controlled layout state.                           |
-| onChange?    | `(panels: LayoutNode[]) => void` | Callback fired when layout changes in controlled mode.      |
-| children     | `ReactNode`                      | The panels and windows to render.                           |
-| gap?         | `number`                         | The pixel spacing between panels.                           |
-| radius?      | `number`                         | The corner radius of the windows                            |
+| Prop         | Value                                                                                            |
+| ------------ | ------------------------------------------------------------------------------------------------ |
+| orientation? | `"row" \| "column"`<br>The direction panels will be arranged. Defaults to `"row"`.               |
+| layout?      | `LayoutNode[]`<br>Optional controlled layout state.                                              |
+| onChange?    | `(panels: LayoutNode[]) => void`<br>Callback fired when layout changes in controlled mode.       |
+| children     | `React.ReactElement<PanelProps \| WindowProps \| TabProps>`<br>The panels and windows to render. |
+| gap?         | `number`<br>The pixel spacing between panels.                                                    |
+| radius?      | `number`<br>The corner radius of the windows                                                     |
 
 ### `Dockable.Panel`
 
-| Prop         | Type                | Description                                                                        |
-| ------------ | ------------------- | ---------------------------------------------------------------------------------- |
-| orientation? | `"row" \| "column"` | The direction child panels will be arranged. Defaults to the inverse of its parent |
-| size?        | `number`            | Optional size in Fr units. defaults to 1                                           |
-| children     | `ReactNode`         | The panels and windows to render.                                                  |
+| Prop         | Value                                                                                                     |
+| ------------ | --------------------------------------------------------------------------------------------------------- |
+| orientation? | `"row" \| "column"`<br>The direction child panels will be arranged. Defaults to the inverse of its parent |
+| size?        | `number`<br>Optional size in Fr units. defaults to 1                                                      |
+| children     | `React.ReactElement<PanelProps \| WindowProps \| TabProps>`<br>The layout to render.                      |
 
 ### `Dockable.Window`
 
-| Prop      | Type        | Description                                          |
-| --------- | ----------- | ---------------------------------------------------- |
-| size?     | `number`    | Optional size in Fr units. Defaults to `1`           |
-| selected? | `number`    | Index of the initially selected tab. Defaults to `0` |
-| children  | `ReactNode` | The tabs to render.                                  |
+| Prop      | Value                                                            |
+| --------- | ---------------------------------------------------------------- |
+| size?     | `number`<br>Optional size in Fr units. Defaults to `1`           |
+| selected? | `number`<br>Index of the initially selected tab. Defaults to `0` |
+| children  | `React.ReactElement<TabProps>`<br>The tabs to render.            |
 
 ### `Dockable.Tab`
 
-| Prop      | Type        | Description                    |
-| --------- | ----------- | ------------------------------ |
-| id        | `string`    | Unique identifier for the tab. |
-| name      | `string`    | Display name shown in the tab. |
-| children? | `ReactNode` | The content to render.         |
+| Prop      | Value                                      |
+| --------- | ------------------------------------------ |
+| id        | `string`<br>Unique identifier for the tab. |
+| name      | `string`<br>Display name shown in the tab. |
+| children? | `ReactNode`<br>The content to render.      |
+
+## Layout State
+
+You can also manage the layout state object directly to define layouts or to add custom functionality. Window children ids must match an id prop of a child `Tab` component. When Dockable first mounts, it serializes the children component layout into this format.
+
+> ⚠️ Note: We will soon be releasing an imperative API to make manipulating this object easier.
+
+```js
+[
+  {
+    type: "Window",
+    id: "window-0",
+    children: ["tab-1"],
+    size: 1,
+    selected: "tab-1",
+  },
+  {
+    type: "Panel",
+    id: "panel-3",
+    children: [
+      {
+        type: "Window",
+        id: "window-1",
+        children: ["tab-2"],
+        size: 1,
+        selected: "tab-2",
+      },
+      {
+        type: "Window",
+        id: "window-2",
+        children: ["tab-3", "tab-4"],
+        size: 1,
+        selected: "tab-3",
+      },
+    ],
+    size: 3,
+  },
+];
+```
+
+The Layout object is an array of LayoutNodes
+
+### LayoutNode `PanelNode | WindowNode`
+
+### PanelNode
+
+| Property     | Value                                                                            |
+| ------------ | -------------------------------------------------------------------------------- |
+| id           | `string`<br>Unique identifier for the panel.                                     |
+| type         | `"Panel"`<br>Discriminator to identify panel nodes.                              |
+| orientation? | `"row" \| "column"`<br>The direction child panels will be arranged.              |
+| size?        | `number`<br>Optional size in Fr units. Defaults to 1.                            |
+| children     | `LayoutNode[]`<br>Array of child panel and window nodes that make up this panel. |
+
+### WindowNode
+
+| Property | Value                                                    |
+| -------- | -------------------------------------------------------- |
+| id       | `string`<br>Unique identifier for the window.            |
+| type     | `"Window"`<br>Discriminator to identify window nodes.    |
+| selected | `string`<br>ID of the currently selected tab.            |
+| children | `string[]`<br>Array of tab IDs contained in this window. |
+| size?    | `number`<br>Optional size in Fr units. Defaults to 1.    |
 
 ## License
 

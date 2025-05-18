@@ -22,7 +22,7 @@ export function useDockableLocalStorage(version: number) {
 }
 
 export type WindowProps = {
-  children: React.ReactNode;
+  children: React.ReactElement<TabProps> | React.ReactElement<TabProps>[];
   size?: number;
   selected?: number;
 };
@@ -44,7 +44,9 @@ export function Tab(props: TabProps) {
 export type PanelProps = {
   orientation?: "row" | "column";
   size?: number;
-  children: React.ReactNode;
+  children:
+    | React.ReactElement<PanelProps | WindowProps | TabProps>
+    | React.ReactElement<PanelProps | WindowProps | TabProps>[];
 };
 
 export function Panel(props: PanelProps) {

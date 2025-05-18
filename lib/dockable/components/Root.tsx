@@ -25,12 +25,14 @@ import {
   type SplitWindowAction,
   type InsertPanelAction,
 } from "../reducer";
-import { type TabProps } from "..";
+import { type TabProps, type PanelProps, type WindowProps } from "..";
 
 type DockableProps = {
   orientation?: "row" | "column";
-  panels?: LayoutNode[];
-  children: React.ReactNode;
+  layout?: LayoutNode[];
+  children:
+    | React.ReactElement<PanelProps | WindowProps | TabProps>
+    | React.ReactElement<PanelProps | WindowProps | TabProps>[];
   onChange?: (panels: LayoutNode[]) => void;
   gap?: number;
   radius?: number;
@@ -39,7 +41,7 @@ type DockableProps = {
 export function Dockable({
   orientation = "row",
   children,
-  panels: controledPanels,
+  layout: controledPanels,
   onChange,
   gap = 4,
   radius = 4,

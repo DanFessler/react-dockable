@@ -3,13 +3,13 @@ import { Panel, Window, Tab } from "..";
 
 export type LayoutNode = PanelNode | WindowNode;
 
-type ViewId = string;
+type TabId = string;
 
 export type WindowNode = {
   id: string;
   type: "Window";
-  selected: ViewId;
-  children: ViewId[];
+  selected: TabId;
+  children: TabId[];
   size?: number;
 };
 
