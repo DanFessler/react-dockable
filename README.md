@@ -135,38 +135,38 @@ function App() {
 
 ### `Dockable.Root`
 
-| Prop         | Value                                                                                            |
-| ------------ | ------------------------------------------------------------------------------------------------ |
-| orientation? | `"row" \| "column"`<br>The direction panels will be arranged. Defaults to `"row"`.               |
-| layout?      | `LayoutNode[]`<br>Optional controlled layout state.                                              |
-| onChange?    | `(panels: LayoutNode[]) => void`<br>Callback fired when layout changes in controlled mode.       |
-| children     | `React.ReactElement<PanelProps \| WindowProps \| TabProps>`<br>The panels and windows to render. |
-| gap?         | `number`<br>The pixel spacing between panels.                                                    |
-| radius?      | `number`<br>The corner radius of the windows                                                     |
+| Prop         | Value                            | description                                                 |
+| ------------ | -------------------------------- | ----------------------------------------------------------- |
+| orientation? | `"row" \| "column"`              | The direction panels will be arranged. Defaults to `"row"`. |
+| layout?      | `LayoutNode[]`                   | Optional controlled layout state.                           |
+| onChange?    | `(panels: LayoutNode[]) => void` | Callback fired when layout changes in controlled mode.      |
+| children     | `Panel \| Window \| Tab`         | The panels and windows to render.                           |
+| gap?         | `number`                         | The pixel spacing between panels.                           |
+| radius?      | `number`                         | The corner radius of the windows                            |
 
 ### `Dockable.Panel`
 
-| Prop         | Value                                                                                                     |
-| ------------ | --------------------------------------------------------------------------------------------------------- |
-| orientation? | `"row" \| "column"`<br>The direction child panels will be arranged. Defaults to the inverse of its parent |
-| size?        | `number`<br>Optional size in Fr units. defaults to 1                                                      |
-| children     | `React.ReactElement<PanelProps \| WindowProps \| TabProps>`<br>The layout to render.                      |
+| Prop         | Value                    | description                                                                        |
+| ------------ | ------------------------ | ---------------------------------------------------------------------------------- |
+| orientation? | `"row" \| "column"`      | The direction child panels will be arranged. Defaults to the inverse of its parent |
+| size?        | `number`                 | Optional size in Fr units. defaults to 1                                           |
+| children     | `Panel \| Window \| Tab` | The layout to render.                                                              |
 
 ### `Dockable.Window`
 
-| Prop      | Value                                                            |
-| --------- | ---------------------------------------------------------------- |
-| size?     | `number`<br>Optional size in Fr units. Defaults to `1`           |
-| selected? | `number`<br>Index of the initially selected tab. Defaults to `0` |
-| children  | `React.ReactElement<TabProps>`<br>The tabs to render.            |
+| Prop      | Value    | description                                          |
+| --------- | -------- | ---------------------------------------------------- |
+| size?     | `number` | Optional size in Fr units. Defaults to `1`           |
+| selected? | `number` | Index of the initially selected tab. Defaults to `0` |
+| children  | `Tab`    | The tabs to render.                                  |
 
 ### `Dockable.Tab`
 
-| Prop      | Value                                      |
-| --------- | ------------------------------------------ |
-| id        | `string`<br>Unique identifier for the tab. |
-| name      | `string`<br>Display name shown in the tab. |
-| children? | `ReactNode`<br>The content to render.      |
+| Prop      | Value       | description                    |
+| --------- | ----------- | ------------------------------ |
+| id        | `string`    | Unique identifier for the tab. |
+| name      | `string`    | Display name shown in the tab. |
+| children? | `ReactNode` | The content to render.         |
 
 ## Layout State
 
