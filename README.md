@@ -1,3 +1,5 @@
+![header](https://github.com/user-attachments/assets/918c921b-a7c0-448f-bd03-c0811cbbad4e)
+
 # React-Dockable
 
 React library to create beautiful dockable tabbed interfaces for tools, dashboards, and more.
