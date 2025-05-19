@@ -30,10 +30,8 @@ Unfortunately, there weren't many great existing solutions for this for web, and
 
 ## Getting Started
 
-This package hasn't been published to NPM (yet). For now, download the latest release tgz and install in your project
-
 ```
-npm install ./react-dockable-0.2.0.tgz
+npm install @danfessler/react-dockable
 ```
 
 Then import the library and default css into your project
