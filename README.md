@@ -1,11 +1,12 @@
 ![react-dockable-splash](https://github.com/user-attachments/assets/3465dd6d-5ea8-4249-ae9d-09e498d26797)
 
+> ⚠️ This project is currently in pre-release to get early feedback. API may change.
 
 # React-Dockable
 
-React library to create beautiful dockable tabbed interfaces for tools, dashboards, and more.
+React-Dockable is a React library to create beautiful dockable tabbed interfaces for tools, dashboards, and more.
 
-> ⚠️ This project is currently in pre-release to get early feedback. API may change.
+### Live Demo: [dockable.netlify.app](https://dockable.netlify.app/)
 
 ## Motivation
 
@@ -44,9 +45,9 @@ import "react-dockable/style.css";
 
 ## Basic Usage
 
-The quickest way to get started is simply to provide `Dockable` with `Tab` children components and let the user manage their desired layout from there. By default, `Tabs` are displayed in a horizontal layout.
+The quickest way to get started is simply to provide `Dockable` with `Tab` children components and let the user manage their desired layout from there.
 
-> 💡 Note, each `Tab` must have a unique id to avoid undefined behavior
+The `Tab` component is the core primitive of Dockable which renders your App's custom components. Each tab can be thought of as a logic collection of like-features for your app.
 
 ```jsx
 <Dockable.Root>
@@ -62,7 +63,11 @@ The quickest way to get started is simply to provide `Dockable` with `Tab` child
 </Dockable.Root>
 ```
 
+By default, `Tabs` are displayed in a horizontal layout.
+
 ![image](https://github.com/user-attachments/assets/9358bb45-573a-4fe1-b033-3bb864035a8d)
+
+> 💡 Note, each `Tab` must have a unique id to avoid undefined behavior
 
 ## Predefined Layouts
 
@@ -93,7 +98,7 @@ You can compose the initial layout using `Panel`, `Window`, and `Tab` components
 
 ![image](https://github.com/user-attachments/assets/2979b900-950d-4a2b-a6c3-a2206e2a7055)
 
-> 💡 Note, Panels and Windows can have defined sizes provided as Fr units. See documentation for all props.
+> ⚠️ Note, Panels and Windows can have defined sizes provided as Fr units. See documentation for all props.
 
 ## Controlled Layouts
 
@@ -132,7 +137,7 @@ function App() {
 }
 ```
 
-> 💡 Always remember to increase the version argument whenever you make changes to the Tab children as loading a layout with stale IDs will cause your app to crash
+> ⚠️ Always remember to increase the version argument whenever you make changes to the layout as any missing Tab id will cause your app to crash
 
 ## Component Props
 
