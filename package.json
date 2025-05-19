@@ -1,8 +1,8 @@
 {
   "name": "react-dockable",
-  "private": true,
   "version": "0.3.0",
   "type": "module",
+  "license": "SEE LICENSE IN LICENSE.md",
   "files": [
     "dist"
   ],
