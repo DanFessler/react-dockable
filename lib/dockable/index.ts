@@ -1,25 +1,8 @@
-import React, { useEffect, useState } from "react";
-import type { LayoutNode } from "./utils/serializeLayout";
+import React from "react";
 import { Dockable as DockableRoot } from "./components/Root";
 
-export function useDockableLocalStorage(version: number) {
-  const savedLayout = localStorage.getItem("layout");
-  const parsedLayout = savedLayout ? JSON.parse(savedLayout) : undefined;
-  const [layout, setLayout] = useState<LayoutNode[]>(
-    parsedLayout && parsedLayout.version === version
-      ? parsedLayout.layout
-      : undefined
-  );
-
-  useEffect(() => {
-    localStorage.setItem(
-      "layout",
-      JSON.stringify({ version: version, layout: layout })
-    );
-  }, [layout]);
-
-  return { layout, setLayout };
-}
+export type { LayoutNode } from "./utils/serializeLayout";
+export { useDockableLocalStorage } from "./hooks/useDockableLocalStorage";
 
 export type WindowProps = {
   children: React.ReactElement<TabProps> | React.ReactElement<TabProps>[];

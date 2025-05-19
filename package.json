@@ -1,8 +1,11 @@
 {
-  "name": "react-dockable",
-  "private": true,
-  "version": "0.3.0",
+  "name": "@danfessler/react-dockable",
+  "version": "0.4.1",
+  "publishConfig": {
+    "access": "public"
+  },
   "type": "module",
+  "license": "SEE LICENSE IN LICENSE.md",
   "files": [
     "dist"
   ],

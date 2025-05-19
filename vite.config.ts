@@ -14,6 +14,7 @@ export default defineConfig({
       name: "react-dockable",
       fileName: "react-dockable",
     },
+    minify: false, // ✅ Disable minification to preserve component names
     rollupOptions: {
       external: ["react", "react-dom"],
       output: {
