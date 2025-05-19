@@ -12,7 +12,7 @@ See [LICENSE-NONCOMMERCIAL.md](./LICENSE-NONCOMMERCIAL.md) for full terms.
 
 If you're using this software **in a commercial project**, and your organization has **10 or fewer developers**, you must:
 
-- Become a GitHub Sponsor at the **$10/month tier or higher**:  
+- Become a GitHub Sponsor at the required tier:  
   👉 [github.com/sponsors/danfessler](https://github.com/sponsors/danfessler)
 
 Your sponsorship grants you a **commercial license** as long as you're an active sponsor.
@@ -29,11 +29,3 @@ If your organization has **more than 10 developers**, or you require:
 
 You must obtain an **Enterprise License** by contacting:  
 `dan@danfessler.com`
-
-## TL;DR
-
-| Use Case           | License Type | How to Get It                         |
-| ------------------ | ------------ | ------------------------------------- |
-| Personal/Hobby use | Free         | Included by default                   |
-| Small business use | Commercial   | GitHub Sponsorship ($10/mo or higher) |
-| Larger companies   | Enterprise   | Contact for license                   |
