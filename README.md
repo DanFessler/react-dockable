@@ -1,4 +1,5 @@
-![header](https://github.com/user-attachments/assets/918c921b-a7c0-448f-bd03-c0811cbbad4e)
+![react-dockable-splash](https://github.com/user-attachments/assets/3465dd6d-5ea8-4249-ae9d-09e498d26797)
+
 
 # React-Dockable
 
