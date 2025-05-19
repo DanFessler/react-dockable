@@ -12,7 +12,9 @@ function App() {
 
   return (
     <div style={{ width: "100vw", height: "100vh" }}>
-      <Dockable.Root layout={layout}>{views}</Dockable.Root>
+      <Dockable.Root layout={layout} onChange={setLayout}>
+        {views}
+      </Dockable.Root>
     </div>
   );
 }
