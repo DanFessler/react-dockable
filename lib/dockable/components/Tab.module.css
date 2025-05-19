@@ -6,10 +6,11 @@
   font-size: 12px;
   font-weight: bold;
   line-height: 12px;
-  border-radius: var(--radius) var(--radius) 0 0;
+  border-radius: var(--dockable-radius) var(--dockable-radius) 0 0;
   box-sizing: border-box;
   cursor: pointer;
   min-width: 0;
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
 .tabNameContainer {
@@ -28,13 +29,13 @@
 }
 
 .tab.selected {
-  background: var(--headers);
+  background: var(--dockable-colors-headers);
   position: relative;
 }
 
 .tab:not(.selected):hover {
   backdrop-filter: brightness(1.1);
-  border-radius: var(--radius);
+  border-radius: var(--dockable-radius);
   opacity: 1;
   z-index: 1;
 }
@@ -57,10 +58,10 @@
 .tabCornerRight {
   position: absolute;
   bottom: 0;
-  right: calc(var(--radius) * -2);
-  width: calc(var(--radius) * 2);
-  height: calc(var(--radius) * 2);
-  background: var(--headers);
+  right: calc(var(--dockable-radius) * -2);
+  width: calc(var(--dockable-radius) * 2);
+  height: calc(var(--dockable-radius) * 2);
+  background: var(--dockable-colors-headers);
 }
 
 .tabCornerLeft::before {
@@ -70,17 +71,17 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: var(--background);
-  border-radius: 0 0 var(--radius) 0;
+  background: var(--dockable-colors-background);
+  border-radius: 0 0 var(--dockable-radius) 0;
 }
 
 .tabCornerLeft {
   position: absolute;
   bottom: 0;
-  left: calc(var(--radius) * -2);
-  width: calc(var(--radius) * 2);
-  height: calc(var(--radius) * 2);
-  background: var(--headers);
+  left: calc(var(--dockable-radius) * -2);
+  width: calc(var(--dockable-radius) * 2);
+  height: calc(var(--dockable-radius) * 2);
+  background: var(--dockable-colors-headers);
 }
 
 .tabCornerRight::before {
@@ -90,8 +91,8 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: var(--background);
-  border-radius: 0 0 0 var(--radius);
+  background: var(--dockable-colors-background);
+  border-radius: 0 0 0 var(--dockable-radius);
 }
 
 .tab:not(.selected) {

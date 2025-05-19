@@ -1,30 +1,42 @@
+SPDX-License-Identifier: LicenseRef-Danfessler-Commercial-1.0
+
+> ⚠️ This license is only effective if you are a current GitHub Sponsor at the applicable tier or have received explicit written permission for enterprise use.  
+> Reading this document does **not** grant you any rights unless those conditions are met.
+
 # Commercial License
 
+react-dockable Public License v1.0 — Commercial  
 Copyright © Dan Fessler 2025
 
-This license grants commercial usage rights to individuals and organizations
-who maintain an **active GitHub Sponsorship** at the required tier.
+A commercial usage license is available to individuals and organizations
+who maintain an **[active GitHub Sponsorship](https://github.com/sponsors/danfessler)** at the required tier:
+
+- **Individuals**  
+  If you are an active GitHub Sponsor at or above the **$10/month** tier.
+
+- **Studios**  
+  If your organization is **10 members or less**, then a studio-wide license is also available at or above the **$100/mo** tier
+
+- **Enterprise**  
+  If your organization has **more than 10 members**, or you require:
+
+  - Priority support
+  - Custom licensing terms
+  - Legal/SLAs
+
+  You must obtain an **Enterprise License** by contacting:  
+   `dan@danfessler.com`
 
 ## 1. Grant of License
 
-If you are an active GitHub Sponsor at or above the **$10/month** tier at  
-👉 [https://github.com/sponsors/danfessler](https://github.com/sponsors/danfessler),  
-you are granted a non-exclusive, non-transferable license to:
+Once granted, you are you are provided a non-exclusive, non-transferable license to:
 
 - Use this software in commercial projects
 - Modify and integrate the code into your own proprietary software
 - Use it for internal business purposes or client work
 - Bundle it with your software for distribution
 
-## 2. Developer Limit
-
-This license is valid only for organizations with **10 or fewer total developers**.
-
-If your organization has more than 10 developers (full-time, part-time, or contractors),  
-you must obtain an **Enterprise License** — contact:  
-`dan@danfessler.com`
-
-## 3. Attribution
+## 2. Attribution
 
 If this software is used in a product or service that is publicly accessible, you must provide reasonable attribution in one of the following forms:
 
@@ -35,9 +47,7 @@ The attribution must include:
 
 > “Uses react-dockable by DanFessler — github.com/DanFessler/react-dockable”
 
-Attribution is not required for internal tools or private, closed-distribution software.
-
-## 4. Restrictions
+## 3. Restrictions
 
 You may not:
 
@@ -46,7 +56,7 @@ You may not:
 - Share access to the source code in a way that circumvents this licensing model
 - Continue to use the software commercially if your sponsorship lapses
 
-## 5. Termination
+## 4. Termination
 
 If your GitHub Sponsorship ends, your rights under this Commercial License terminate.
 You must either:
@@ -55,19 +65,9 @@ You must either:
 - Renew your sponsorship, or
 - Purchase an alternative commercial or enterprise license
 
-## 6. Warranty Disclaimer
+## 5. Warranty Disclaimer
 
 This software is provided “as-is” without warranties of any kind.  
 You assume full responsibility for its use in production environments.
-
-## 7. Summary
-
-| Use Case                       | Allowed Under This License |
-| ------------------------------ | -------------------------- |
-| Internal business use          | ✅ Yes                     |
-| Client work / SaaS integration | ✅ Yes                     |
-| Organization >10 developers    | ❌ No (Enterprise only)    |
-| Re-selling the source itself   | ❌ No                      |
-| Attribution in public use      | ✅ Required                |
 
 By sponsoring and using this software, you agree to these terms.

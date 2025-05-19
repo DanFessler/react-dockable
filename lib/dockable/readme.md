@@ -3,7 +3,7 @@
 ## publish to github
 
 - remove dependency on index.css styles
-- readme documentation
+- publish to npm
 
 ## official launch
 
@@ -21,8 +21,6 @@
 - theming api
   - remove opinionated styles from default
   - surface classname interface
-  - clean up css variable names
-- commercial license
 - imperative api
   - add
   - remove
@@ -47,6 +45,10 @@
 - super cascading panelgroup resizing
 - right click handler on tab
 - double click to maximize/minimize
+- fix tab children type to allow for null children
+- allow orientation props (currently it's implicit only)
+- make logo
+- rename to trellis?
 
 ## bugs
 
@@ -56,4 +58,4 @@
 - top and bottom window edge dropzones should have different collision strategy
 - panel minsize should consider the minsize of its children
 - when drag-resizing beyond the bottom or right edges, dragging abruptly cancels
-- sometimes I can get the inlining grandchildren operation to not work as expected
+- sometimes I can get the inlining grandchildren operation to not work as expected (when panel and windows are siblings at the root)

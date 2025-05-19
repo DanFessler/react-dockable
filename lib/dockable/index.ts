@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import type { ParsedNode } from "./utils/serializeLayout";
-import { Dockable } from "./components/Root";
+import type { LayoutNode } from "./utils/serializeLayout";
+import { Dockable as DockableRoot } from "./components/Root";
 
 export function useDockableLocalStorage(version: number) {
   const savedLayout = localStorage.getItem("layout");
   const parsedLayout = savedLayout ? JSON.parse(savedLayout) : undefined;
-  const [layout, setLayout] = useState<ParsedNode[]>(
+  const [layout, setLayout] = useState<LayoutNode[]>(
     parsedLayout && parsedLayout.version === version
       ? parsedLayout.layout
       : undefined
@@ -22,7 +22,7 @@ export function useDockableLocalStorage(version: number) {
 }
 
 export type WindowProps = {
-  children: React.ReactNode;
+  children: React.ReactElement<TabProps> | React.ReactElement<TabProps>[];
   size?: number;
   selected?: number;
 };
@@ -31,29 +31,31 @@ export function Window(props: WindowProps) {
   return props.children;
 }
 
-export type ViewProps = {
+export type TabProps = {
   id: string;
   name: string;
   children: React.ReactNode;
 };
 
-export function View(props: ViewProps) {
+export function Tab(props: TabProps) {
   return props.children;
 }
 
 export type PanelProps = {
   orientation?: "row" | "column";
   size?: number;
-  children: React.ReactNode;
+  children:
+    | React.ReactElement<PanelProps | WindowProps | TabProps>
+    | React.ReactElement<PanelProps | WindowProps | TabProps>[];
 };
 
 export function Panel(props: PanelProps) {
   return props.children;
 }
 
-export default {
-  Root: Dockable,
+export const Dockable = {
+  Root: DockableRoot,
   Panel,
   Window,
-  View,
+  Tab,
 };

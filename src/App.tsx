@@ -1,6 +1,6 @@
 import "./App.css";
 
-import Dockable, { useDockableLocalStorage } from "../lib/dockable";
+import { Dockable, useDockableLocalStorage } from "../lib/dockable";
 
 function App() {
   const { layout, setLayout } = useDockableLocalStorage(3);
@@ -12,7 +12,7 @@ function App() {
 
   return (
     <div style={{ width: "100vw", height: "100vh" }}>
-      <Dockable.Root panels={layout} onChange={setLayout}>
+      <Dockable.Root layout={layout} onChange={setLayout}>
         {views}
       </Dockable.Root>
     </div>
@@ -21,9 +21,9 @@ function App() {
 
 function createView(id: string, name: string) {
   return (
-    <Dockable.View id={id} name={name}>
-      view
-    </Dockable.View>
+    <Dockable.Tab id={id} name={name}>
+      {"testing content"}
+    </Dockable.Tab>
   );
 }
 export default App;

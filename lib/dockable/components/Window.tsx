@@ -1,4 +1,3 @@
-import colors from "../colors";
 import styles from "./Window.module.css";
 import Droppable from "../dndkit/Droppable";
 import Tab from "./Tab";
@@ -67,13 +66,7 @@ function TabView({
   const isOverAny = overId == id && activeId !== id;
 
   return (
-    <div
-      className={`${styles.container} ${isOverAny ? styles.isOver : ""}`}
-      style={{
-        background: colors.headers,
-        flex: 1,
-      }}
-    >
+    <div className={`${styles.container} ${isOverAny ? styles.isOver : ""}`}>
       {!hideTabs && (
         <Droppable
           id={id}
@@ -82,9 +75,6 @@ function TabView({
             address,
           }}
           className={styles.tabBar}
-          style={{
-            background: colors.background,
-          }}
         >
           <SortableContext
             items={tabs.map((tab) => tab.id)}
@@ -132,7 +122,6 @@ function TabView({
           overflow: "auto",
           display: "flex",
           flex: 1,
-          // background: colors.content,
         }}
       >
         {tabs.find((tab) => tab.id === selected)?.content}

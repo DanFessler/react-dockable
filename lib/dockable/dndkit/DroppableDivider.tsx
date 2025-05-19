@@ -20,7 +20,7 @@ function DroppableDivider({
         transition: "all 0.1s ease-in-out",
       }}
       overStyle={{
-        backgroundColor: "var(--selected)",
+        backgroundColor: "var(--dockable-colors-selected)",
       }}
     />
   );

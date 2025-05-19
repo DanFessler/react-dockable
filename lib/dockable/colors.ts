@@ -1,4 +1,4 @@
-const colors = {
+export const colors = {
   light: {
     headers: "rgb(225, 229, 233)",
     selected: "rgb(66,137,204)",
@@ -54,11 +54,5 @@ const userPreferredTheme = window.matchMedia("(prefers-color-scheme: dark)")
   : "light";
 
 const currentTheme = colors[userPreferredTheme];
-// const currentTheme = colors.dark;
-
-// Set CSS variables on body for current theme
-Object.entries(currentTheme).forEach(([key, value]) => {
-  document.body.style.setProperty(`--${key}`, value);
-});
 
 export default currentTheme;
