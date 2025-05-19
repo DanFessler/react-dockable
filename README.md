@@ -37,8 +37,8 @@ npm install @danfessler/react-dockable
 Then import the library and default css into your project
 
 ```js
-import { Dockable } from "react-dockable";
-import "react-dockable/style.css";
+import { Dockable } from "@danfessler/react-dockable";
+import "@danfessler/react-dockable/style.css";
 ```
 
 ## Basic Usage
