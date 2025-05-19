@@ -15,12 +15,6 @@ export function useDockableLocalStorage(version: number) {
   );
 
   useEffect(() => {
-    // if we have a version mismatch, we dont want to save the layout
-    if (!parsedLayout || parsedLayout.version !== version) {
-      localStorage.removeItem("layout");
-      return;
-    }
-
     localStorage.setItem(
       "layout",
       JSON.stringify({ version: version, layout: layout })
