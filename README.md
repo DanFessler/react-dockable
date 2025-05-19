@@ -18,15 +18,15 @@ Unfortunately, there weren't many great existing solutions for this for web, and
 
 - **Beautifully polished**  
   React-dockable prioritizes the user experience by staying intuitive and unobtrusive. It gets out of the way of the user and what they want to do.
+
 - **Fully customizable layouts**  
   Layouts are fully dynamic and user customizable right out of the box. No work necessary.
+
 - **Simple declarative configuration**  
   No complicated data structures to learn, define your Layouts the React Way™ with a simple declarative component API
-- **Imparative API (Coming Soon)**  
-  need more control? We also offer an imperative API to dynamically control the Dockable workspace
 
-- **Custom themes (Coming Soon)**  
-  Dockable provides beautiful themes including light and dark modes, and an API for customizing your own.
+- **Color Theme Presets**  
+  Dockable provides 4 beautiful color themes: Light, Medium, Dark, and Darker.
 
 ## Getting Started
 
@@ -39,7 +39,7 @@ npm install ./react-dockable-0.2.0.tgz
 Then import the library and default css into your project
 
 ```js
-import Dockable from "react-dockable";
+import { Dockable } from "react-dockable";
 import "react-dockable/style.css";
 ```
 
@@ -67,7 +67,7 @@ By default, `Tabs` are displayed in a horizontal layout.
 
 ![image](https://github.com/user-attachments/assets/9358bb45-573a-4fe1-b033-3bb864035a8d)
 
-> 💡 Note, each `Tab` must have a unique id to avoid undefined behavior
+> ⚠️ Each `Tab` must have a unique id to avoid undefined behavior
 
 ## Predefined Layouts
 
@@ -98,7 +98,7 @@ You can compose the initial layout using `Panel`, `Window`, and `Tab` components
 
 ![image](https://github.com/user-attachments/assets/2979b900-950d-4a2b-a6c3-a2206e2a7055)
 
-> ⚠️ Note, Panels and Windows can have defined sizes provided as Fr units. See documentation for all props.
+> 💡 Panels and Windows can have defined sizes provided as Fr units. See documentation for all props.
 
 ## Controlled Layouts
 
@@ -137,20 +137,21 @@ function App() {
 }
 ```
 
-> ⚠️ Always remember to increase the version argument whenever you make changes to the layout as any missing Tab id will cause your app to crash
+> ⚠️ Always increase the version argument whenever you make changes to the layout as any missing Tab id will throw an exception
 
 ## Component Props
 
 ### `Dockable.Root`
 
-| Prop         | Value                            | description                                                 |
-| ------------ | -------------------------------- | ----------------------------------------------------------- |
-| orientation? | `"row" \| "column"`              | The direction panels will be arranged. Defaults to `"row"`. |
-| layout?      | `LayoutNode[]`                   | Optional controlled layout state.                           |
-| onChange?    | `(panels: LayoutNode[]) => void` | Callback fired when layout changes in controlled mode.      |
-| children     | `Panel \| Window \| Tab`         | The panels and windows to render.                           |
-| gap?         | `number`                         | The pixel spacing between panels.                           |
-| radius?      | `number`                         | The corner radius of the windows                            |
+| Prop         | Value                                       | description                                                              |
+| ------------ | ------------------------------------------- | ------------------------------------------------------------------------ |
+| orientation? | `"row" \| "column"`                         | The direction panels will be arranged. Defaults to `"row"`.              |
+| layout?      | `LayoutNode[]`                              | Optional controlled layout state.                                        |
+| onChange?    | `(panels: LayoutNode[]) => void`            | Callback fired when layout changes in controlled mode.                   |
+| children     | `Panel \| Window \| Tab`                    | The panels and windows to render.                                        |
+| gap?         | `number`                                    | The pixel spacing between panels.                                        |
+| radius?      | `number`                                    | The corner radius of the windows                                         |
+| theme?       | `"light" \| "medium" \| "dark" \| "darker"` | Color presets. Defaults to light or dark based on user's device settings |
 
 ### `Dockable.Panel`
 
@@ -180,7 +181,7 @@ function App() {
 
 You can also manage the layout state object directly to define layouts or to add custom functionality. Window children ids must match an id prop of a child `Tab` component. When Dockable first mounts, it serializes the children component layout into this format.
 
-> ⚠️ Note: We will soon be releasing an imperative API to make manipulating this object easier.
+Example Layout Object:
 
 ```js
 [
@@ -215,9 +216,13 @@ You can also manage the layout state object directly to define layouts or to add
 ];
 ```
 
-The Layout object is an array of LayoutNodes
+> ⚠️ Note: We will soon be releasing an imperative API to make manipulating this object easier.
 
-### LayoutNode `PanelNode | WindowNode`
+The Layout object is an array of `LayoutNodes`
+
+### LayoutNode
+
+`PanelNode | WindowNode`
 
 ### PanelNode
 
@@ -241,4 +246,6 @@ The Layout object is an array of LayoutNodes
 
 ## License
 
-This project is free to use for non-commercial purposes. If a commercial license is needed, become a Github Sponsor at the minimum $10 tier. Enterprise licenses are also available. [LICENSE.md](./LICENSE.md) for more details
+This project is free to use for non-commercial purposes.  
+For commercial licenses, become a [Github Sponsor](https://github.com/sponsors/DanFessler).  
+See [LICENSE.md](./LICENSE.md) for more details
