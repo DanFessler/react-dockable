@@ -1,6 +1,6 @@
 {
   "name": "@danfessler/react-dockable",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "publishConfig": {
     "access": "public"
   },
@@ -8,6 +8,15 @@
   "license": "SEE LICENSE IN LICENSE.md",
   "files": [
     "dist"
+  ],
+  "repository": "https://github.com/DanFessler/react-dockable",
+  "keywords": [
+    "react",
+    "component",
+    "dockable",
+    "resizable",
+    "splitter",
+    "panel"
   ],
   "main": "./dist/react-dockable.umd.cjs",
   "module": "./dist/react-dockable.js",
