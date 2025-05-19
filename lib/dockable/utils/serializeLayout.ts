@@ -27,8 +27,9 @@ let idNonce = 0;
 
 function serializeLayout(
   element: React.ReactElement,
-  views: React.ReactElement[]
+  tabs: React.ReactElement[]
 ): LayoutNode {
+  console.log({ element, type: element.type });
   if (!React.isValidElement(element)) {
     console.log(element);
     throw new Error("Invalid element");
@@ -43,7 +44,7 @@ function serializeLayout(
       props.children
     ) as React.ReactElement[];
     const parsedChildren = children.map((child) =>
-      serializeLayout(child, views)
+      serializeLayout(child, tabs)
     );
 
     for (const child of parsedChildren) {
@@ -68,7 +69,7 @@ function serializeLayout(
       props.children
     ) as React.ReactElement[];
 
-    const tabIds = children.map(parseView);
+    const tabIds = children.map(parseTab);
 
     return {
       type: "Window",
@@ -79,32 +80,32 @@ function serializeLayout(
     };
   }
 
-  // automatically wrap a <View> in a <Window> if it is not already a <Window>
+  // automatically wrap a <Tab> in a <Window> if it is not already a <Window>
   if (element.type === Tab) {
     return {
       type: "Window",
       id: `window-${idNonce++}`,
-      children: [parseView(element)],
+      children: [parseTab(element)],
       size: 1,
-      selected: parseView(element),
+      selected: parseTab(element),
     };
   }
 
-  function parseView(child: React.ReactElement): string {
+  function parseTab(child: React.ReactElement): string {
     if (!React.isValidElement(child) || child.type !== Tab) {
-      throw new Error("Windows can only contain <View> elements");
+      throw new Error("Windows can only contain <Tab> elements");
     }
 
     const childProps = child.props as TabProps;
 
-    const viewId = childProps.id;
-    if (typeof viewId !== "string") {
-      throw new Error("Each <View> must have an 'id' prop");
+    const tabId = childProps.id;
+    if (typeof tabId !== "string") {
+      throw new Error("Each <Tab> must have an 'id' prop");
     }
 
-    views.push(child);
+    tabs.push(child);
 
-    return viewId;
+    return tabId;
   }
 
   throw new Error(`Unknown component: ${element.type}`);
