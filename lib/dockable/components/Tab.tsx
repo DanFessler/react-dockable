@@ -65,7 +65,7 @@ function Tab({
               <rect
                 width={radius}
                 height={radius}
-                fill="var(--headers)"
+                fill="var(--dockable-colors-headers)"
                 mask="url(#cornerMaskRight)"
               />
             </svg>
@@ -88,7 +88,7 @@ function Tab({
               <rect
                 width={radius}
                 height={radius}
-                fill="var(--headers)"
+                fill="var(--dockable-colors-headers)"
                 mask="url(#cornerMaskLeft)"
               />
             </svg>

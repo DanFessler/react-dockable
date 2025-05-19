@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import type { LayoutNode } from "./utils/serializeLayout";
-import { Dockable } from "./components/Root";
+import { Dockable as DockableRoot } from "./components/Root";
 
 export function useDockableLocalStorage(version: number) {
   const savedLayout = localStorage.getItem("layout");
@@ -34,7 +34,7 @@ export function Window(props: WindowProps) {
 export type TabProps = {
   id: string;
   name: string;
-  children?: React.ReactNode;
+  children: React.ReactNode;
 };
 
 export function Tab(props: TabProps) {
@@ -53,8 +53,8 @@ export function Panel(props: PanelProps) {
   return props.children;
 }
 
-export default {
-  Root: Dockable,
+export const Dockable = {
+  Root: DockableRoot,
   Panel,
   Window,
   Tab,

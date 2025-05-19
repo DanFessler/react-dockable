@@ -1,6 +1,6 @@
 import "./App.css";
 
-import Dockable, { useDockableLocalStorage } from "../lib/dockable";
+import { Dockable, useDockableLocalStorage } from "../lib/dockable";
 
 function App() {
   const { layout, setLayout } = useDockableLocalStorage(3);
@@ -20,6 +20,10 @@ function App() {
 }
 
 function createView(id: string, name: string) {
-  return <Dockable.Tab id={id} name={name}></Dockable.Tab>;
+  return (
+    <Dockable.Tab id={id} name={name}>
+      {"testing content"}
+    </Dockable.Tab>
+  );
 }
 export default App;

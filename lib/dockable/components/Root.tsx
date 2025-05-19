@@ -2,7 +2,7 @@ import React, { useReducer, useEffect, useState } from "react";
 import PanelView from "../components/Panel";
 import appReducer from "../reducer";
 import serializeLayout, { type LayoutNode } from "../utils/serializeLayout";
-import colors from "../colors";
+import { colors } from "../colors";
 import {
   DndContext,
   useSensor,
@@ -26,6 +26,7 @@ import {
   type InsertPanelAction,
 } from "../reducer";
 import { type TabProps, type PanelProps, type WindowProps } from "..";
+import styles from "./Root.module.css";
 
 type DockableProps = {
   orientation?: "row" | "column";
@@ -36,6 +37,7 @@ type DockableProps = {
   onChange?: (panels: LayoutNode[]) => void;
   gap?: number;
   radius?: number;
+  theme?: "light" | "medium" | "dark" | "darker";
 };
 
 export function Dockable({
@@ -45,6 +47,9 @@ export function Dockable({
   onChange,
   gap = 4,
   radius = 4,
+  theme = window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light",
 }: DockableProps) {
   const views: React.ReactElement<TabProps>[] = [];
   const [active, setActive] = useState<{
@@ -68,6 +73,7 @@ export function Dockable({
     size: 1,
   });
 
+  // report the layout
   useEffect(() => {
     if (onChange) {
       onChange(state.children);
@@ -149,43 +155,31 @@ export function Dockable({
     return (
       <>
         <div
+          className={styles.edgeDroppable}
           style={{
             width: gap + 4,
-            height: "100%",
-            position: "absolute",
-            left: 0,
             top: 0,
-            zIndex: 10,
-            overflow: "hidden",
-            borderRadius: 2,
+            left: 0,
           }}
         >
           <DroppableDivider address={[]} index={-1} />
         </div>
         <div
+          className={styles.edgeDroppable}
           style={{
             width: gap + 4,
-            height: "100%",
-            position: "absolute",
             right: 0,
             top: 0,
-            zIndex: 10,
-            overflow: "hidden",
-            borderRadius: 2,
           }}
         >
           <DroppableDivider address={[]} index={state.children.length} />
         </div>
         <div
+          className={styles.edgeDroppable}
           style={{
-            width: "100%",
             height: gap + 4,
-            position: "absolute",
             left: 0,
             bottom: 0,
-            zIndex: 10,
-            overflow: "hidden",
-            borderRadius: 2,
           }}
         >
           <Droppable
@@ -197,29 +191,18 @@ export function Dockable({
               address: [],
               side: "Bottom",
             }}
-            style={{
-              width: "calc(100% + 16px)",
-              height: "calc(100% + 16px)",
-              position: "absolute",
-              top: "-8px",
-              left: "-8px",
-              transition: "all 0.1s ease-in-out",
-            }}
+            className={styles.edgeDroppableHandle}
             overStyle={{
-              backgroundColor: "var(--selected)",
+              backgroundColor: "var(--dockable-colors-selected)",
             }}
           />
         </div>
         <div
+          className={styles.edgeDroppable}
           style={{
-            width: "100%",
             height: gap + 4,
-            position: "absolute",
             left: 0,
             top: 0,
-            zIndex: 10,
-            overflow: "hidden",
-            borderRadius: 2,
           }}
         >
           <Droppable
@@ -231,16 +214,9 @@ export function Dockable({
               address: [],
               side: "Top",
             }}
-            style={{
-              width: "calc(100% + 16px)",
-              height: "calc(100% + 16px)",
-              position: "absolute",
-              top: "-8px",
-              left: "-8px",
-              transition: "all 0.1s ease-in-out",
-            }}
+            className={styles.edgeDroppableHandle}
             overStyle={{
-              backgroundColor: "var(--selected)",
+              backgroundColor: "var(--dockable-colors-selected)",
             }}
           />
         </div>
@@ -251,15 +227,16 @@ export function Dockable({
   return (
     <StoreContext.Provider value={{ state, dispatch }}>
       <div
+        className={styles.container}
         style={{
-          width: "100%",
-          height: "100%",
-          padding: gap,
-          color: colors.text,
-          background: colors.gap,
-          boxSizing: "border-box",
           // @ts-expect-error - radius is variable
-          "--radius": radius + "px",
+          "--dockable-radius": radius + "px",
+          "--dockable-gap": gap + "px",
+          ...Object.entries(colors[theme]).reduce((acc, [key, value]) => {
+            // @ts-expect-error - custom variables variable
+            acc[`--dockable-colors-${key}`] = value;
+            return acc;
+          }, {}),
         }}
       >
         <DndContext
