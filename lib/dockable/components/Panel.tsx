@@ -38,7 +38,6 @@ function PanelView({
   >[];
 
   function handleResizeEnd(sizes: number[]) {
-    // console.log(sizes);
     dispatch({ type: "resize", sizes, address });
   }
 
@@ -59,7 +58,6 @@ function PanelView({
             const panelTabs = panel.children.map((tabId) => {
               const tab = childArray.find(({ props }) => props.id === tabId);
               if (!tab) {
-                console.log("tabid", tabId);
                 throw new Error(`Tab ${tabId} not found`);
               }
               return {

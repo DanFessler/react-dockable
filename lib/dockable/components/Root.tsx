@@ -93,9 +93,7 @@ export function Dockable({
     setActive({ id: active.id.toString(), type, children });
   }
 
-  function handleDragCancel() {
-    // console.log("drag cancel");
-  }
+  function handleDragCancel() {}
 
   function handleDragEnd({ active, over }: DragEndEvent) {
     if (!over) return;
@@ -148,7 +146,6 @@ export function Dockable({
 
   function handleDragOver({ over }: DragOverEvent) {
     if (!over) return;
-    console.log(over.data.current?.type);
   }
 
   function renderEdgeDroppables() {

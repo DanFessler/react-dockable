@@ -6,8 +6,6 @@ export function useDockableLocalStorage(version: number) {
   const savedLayout = localStorage.getItem("layout");
   const parsedLayout = savedLayout ? JSON.parse(savedLayout) : undefined;
 
-  // console.log(parsedLayout, parsedLayout && parsedLayout.version === version);
-
   const [layout, setLayout] = useState<LayoutNode[]>(
     parsedLayout && parsedLayout.version === version
       ? parsedLayout.layout

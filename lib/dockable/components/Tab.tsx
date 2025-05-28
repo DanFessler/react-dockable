@@ -36,9 +36,6 @@ function Tab({
       <span
         className={styles.tab + (selected ? " " + styles.selected : "")}
         onPointerDown={onClick}
-        onDoubleClick={(e) => {
-          console.log("double click", e);
-        }}
         title={name}
       >
         <span className={styles.tabNameContainer}>
