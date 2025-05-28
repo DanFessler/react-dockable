@@ -21,7 +21,7 @@
   bottom: 0;
   border-radius: inherit;
   pointer-events: none;
-  z-index: 1;
+  /* z-index: 1; */
 }
 
 .tabBar {
@@ -30,6 +30,9 @@
   position: relative;
 }
 
+.isOver {
+  display: inherit;
+}
 .isOver.container::after {
   content: "";
   position: absolute;

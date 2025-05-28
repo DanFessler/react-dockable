@@ -9,6 +9,7 @@ import type {
 import { useDockable } from "../store";
 import DroppableDivider from "../dndkit/DroppableDivider";
 import styles from "./Panel.module.css";
+import type { CustomItems } from "./DropdownMenu";
 
 type PanelProps = {
   orientation: "row" | "column";
@@ -64,6 +65,7 @@ function PanelView({
                 id: tab.props.id,
                 name: tab.props.name,
                 content: tab,
+                actions: tab.props.actions,
               };
             });
             return (
@@ -104,6 +106,7 @@ type WindowProps = {
   id: string;
   name: string;
   children: React.ReactNode;
+  actions?: CustomItems;
 };
 
 export const View: React.FC<WindowProps> = ({ children }) => <>{children}</>;

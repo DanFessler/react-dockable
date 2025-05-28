@@ -1,8 +1,9 @@
 import React from "react";
 import { Dockable as DockableRoot } from "./components/Root";
-
-export type { LayoutNode } from "./utils/serializeLayout";
 export { useDockableLocalStorage } from "./hooks/useDockableLocalStorage";
+import type { CustomItems } from "./components/DropdownMenu";
+export type { LayoutNode } from "./utils/serializeLayout";
+import Menu from "./components/DropdownMenu";
 
 export type WindowProps = {
   children: React.ReactElement<TabProps> | React.ReactElement<TabProps>[];
@@ -18,6 +19,7 @@ export type TabProps = {
   id: string;
   name: string;
   children: React.ReactNode;
+  actions?: CustomItems;
 };
 
 export function Tab(props: TabProps) {
@@ -41,4 +43,5 @@ export const Dockable = {
   Panel,
   Window,
   Tab,
+  Menu,
 };
