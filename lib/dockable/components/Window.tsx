@@ -1,22 +1,29 @@
-import styles from "./Window.module.css";
-import Droppable from "../dndkit/Droppable";
-import Tab from "./Tab";
+import React from "react";
+
+// dnd-kit
 import {
   SortableContext,
   horizontalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { useDndContext } from "@dnd-kit/core";
+import Droppable from "../dndkit/Droppable";
+
+import Tab from "./Tab";
 import { useDockable } from "../store";
+import { HiDotsVertical } from "react-icons/hi";
+import Menu, { type CustomItems } from "./DropdownMenu";
+
+import styles from "./Window.module.css";
+
+export type tabGroupObject = tabObject[];
+
 export type tabObject = {
   id: string;
   name: string;
   content: React.ReactNode;
   renderTabs?: boolean;
+  actions?: CustomItems;
 };
-
-// import { HiDotsVertical } from "react-icons/hi";
-
-export type tabGroupObject = tabObject[];
 
 function isSame(activeAddress: number[], overAddress: number[]) {
   if (!activeAddress || !overAddress) return false;
@@ -65,6 +72,9 @@ function TabView({
   // made slightly more verbose because we need to check if it's over a tab or the tabBar
   const isOverAny = overId == id && activeId !== id;
 
+  const selectedTab = tabs.find((tab) => tab.id === selected);
+  const content = selectedTab?.content;
+
   return (
     <div className={`${styles.container} ${isOverAny ? styles.isOver : ""}`}>
       {!hideTabs && (
@@ -99,21 +109,23 @@ function TabView({
             ))}
           </SortableContext>
           <div style={{ flex: 1 }} />
-          {/* <div
-            style={{
-              height: "100%",
-              width: "24px",
-              aspectRatio: 1,
-              padding: 3,
-              boxSizing: "border-box",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              zIndex: 1,
-            }}
-          >
-            <HiDotsVertical style={{ width: 14, height: 14 }} />
-          </div> */}
+          <Menu id={id} customItems={selectedTab?.actions}>
+            <div
+              style={{
+                height: "100%",
+                width: "24px",
+                aspectRatio: 1,
+                padding: 3,
+                boxSizing: "border-box",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                zIndex: 1,
+              }}
+            >
+              <HiDotsVertical style={{ width: 14, height: 14 }} />
+            </div>
+          </Menu>
         </Droppable>
       )}
 
@@ -124,7 +136,7 @@ function TabView({
           flex: 1,
         }}
       >
-        {tabs.find((tab) => tab.id === selected)?.content}
+        {content}
       </div>
 
       <DroppableTargets
