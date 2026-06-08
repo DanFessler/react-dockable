@@ -43,7 +43,7 @@
 
   &[data-disabled] {
     color: var(--disabled);
-    pointer-events: "none";
+    pointer-events: none;
   }
 
   &[data-highlighted] {

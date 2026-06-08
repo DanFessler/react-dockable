@@ -14,6 +14,8 @@ type Item =
       label: string;
       onClick: () => void;
       shortcut?: string;
+      /** When true, the item is shown greyed-out and cannot be selected. */
+      disabled?: boolean;
     }
   | ItemSection; // for submenus
 
@@ -34,13 +36,14 @@ function Menu({
   const NameSpace = mode === "dropdown" ? DropdownMenu : ContextMenu;
 
   function renderMenuItem(
-    item: { label: string; onClick: () => void; shortcut?: string },
+    item: { label: string; onClick: () => void; shortcut?: string; disabled?: boolean },
     key: number
   ) {
     return (
       <NameSpace.Item
         key={key}
         className={styles.Item}
+        disabled={item.disabled}
         onSelect={item.onClick}
         onMouseDown={(e) => {
           e.stopPropagation();
