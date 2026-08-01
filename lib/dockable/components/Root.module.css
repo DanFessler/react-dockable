@@ -1,7 +1,8 @@
 .container {
   width: 100%;
   height: 100%;
-  padding: var(--dockable-gap);
+  /* Edge padding is separate from inter-panel gap (grid gap on PanelGroup). */
+  padding: 0;
   color: var(--dockable-colors-text);
   background: var(--dockable-colors-gap);
   box-sizing: border-box;

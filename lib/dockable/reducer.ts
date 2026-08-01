@@ -58,6 +58,11 @@ export type InsertPanelAction = {
   targetAddress: number[];
 };
 
+export type ReplaceLayoutAction = {
+  type: "replaceLayout";
+  layout: LayoutNode[];
+};
+
 type Action =
   | ResizeAction
   | AddPanelAction
@@ -65,7 +70,8 @@ type Action =
   | SelectTabAction
   | MoveTabAction
   | SplitWindowAction
-  | InsertPanelAction;
+  | InsertPanelAction
+  | ReplaceLayoutAction;
 
 const appReducer = createReducer<State, Action>({
   resize: (state, { sizes, address }: ResizeAction) => {
@@ -79,6 +85,10 @@ const appReducer = createReducer<State, Action>({
 
   addPanel: (state, { panel }: AddPanelAction) => {
     state.children.push(panel);
+  },
+
+  replaceLayout: (state, { layout }: ReplaceLayoutAction) => {
+    state.children = layout;
   },
 
   insertPanel: (

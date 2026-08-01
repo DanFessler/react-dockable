@@ -1,8 +1,8 @@
-import React, { useReducer, useEffect, useState } from "react";
+import React, { useReducer, useEffect, useState, useRef, useLayoutEffect } from "react";
 import PanelView from "../components/Panel";
 import appReducer from "../reducer";
 import serializeLayout, { type LayoutNode } from "../utils/serializeLayout";
-import { colors } from "../colors";
+import { getPreferredTheme, getThemeCssVariables } from "../colors";
 import {
   DndContext,
   useSensor,
@@ -24,6 +24,7 @@ import {
   type ReorderTabsAction,
   type SplitWindowAction,
   type InsertPanelAction,
+  type ReplaceLayoutAction,
 } from "../reducer";
 import { type TabProps, type PanelProps, type WindowProps } from "..";
 import styles from "./Root.module.css";
@@ -47,9 +48,7 @@ export function Dockable({
   onChange,
   gap = 4,
   radius = 4,
-  theme = window.matchMedia("(prefers-color-scheme: dark)").matches
-    ? "dark"
-    : "light",
+  theme = getPreferredTheme(),
 }: DockableProps) {
   const views: React.ReactElement<TabProps>[] = [];
   const [active, setActive] = useState<{
@@ -73,12 +72,40 @@ export function Dockable({
     size: 1,
   });
 
+  const skipNextOnChange = useRef(false);
+  const layoutKeyRef = useRef<string | null>(
+    controledPanels ? JSON.stringify(controledPanels) : null
+  );
+
+  useLayoutEffect(() => {
+    if (!controledPanels) return;
+
+    const nextKey = JSON.stringify(controledPanels);
+    if (nextKey === layoutKeyRef.current) return;
+
+    layoutKeyRef.current = nextKey;
+    skipNextOnChange.current = true;
+    dispatch({
+      type: "replaceLayout",
+      layout: controledPanels,
+    } as ReplaceLayoutAction);
+  }, [controledPanels]);
+
   // report the layout
   useEffect(() => {
-    if (onChange) {
-      onChange(state.children);
+    if (!onChange) return;
+
+    if (skipNextOnChange.current) {
+      skipNextOnChange.current = false;
+      return;
     }
-  }, [state, onChange]);
+
+    onChange(state.children);
+
+    if (controledPanels) {
+      layoutKeyRef.current = JSON.stringify(state.children);
+    }
+  }, [state, onChange, controledPanels]);
 
   const pointerSensor = useSensor(PointerSensor, {
     activationConstraint: {
@@ -226,14 +253,7 @@ export function Dockable({
       <div
         className={styles.container}
         style={{
-          // @ts-expect-error - radius is variable
-          "--dockable-radius": radius + "px",
-          "--dockable-gap": gap + "px",
-          ...Object.entries(colors[theme]).reduce((acc, [key, value]) => {
-            // @ts-expect-error - custom variables variable
-            acc[`--dockable-colors-${key}`] = value;
-            return acc;
-          }, {}),
+          ...getThemeCssVariables(theme, { gap, radius }),
         }}
       >
         <DndContext
@@ -247,6 +267,7 @@ export function Dockable({
           <PanelView
             orientation={orientation}
             panels={state.children}
+            declarativePanels={declarativePanels}
             address={[]}
             gap={gap}
           >

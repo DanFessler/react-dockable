@@ -45,14 +45,54 @@ export const colors = {
     input: "rgba(0,0,0,0.2)",
     inputText: "rgb(200, 207, 211)",
   },
+} as const;
+
+export type DockableTheme = keyof typeof colors;
+
+export type DockableThemeColors = (typeof colors)[DockableTheme];
+
+export function getThemeColors(theme: DockableTheme): DockableThemeColors {
+  return colors[theme];
+}
+
+export type ThemeCssVariablesOptions = {
+  gap?: number;
+  radius?: number;
 };
 
-// get the user's preferred theme
-const userPreferredTheme = window.matchMedia("(prefers-color-scheme: dark)")
-  .matches
-  ? "dark"
-  : "light";
+export function getThemeCssVariables(
+  theme: DockableTheme,
+  options: ThemeCssVariablesOptions = {}
+): Record<string, string> {
+  const vars: Record<string, string> = {};
 
-const currentTheme = colors[userPreferredTheme];
+  if (options.radius !== undefined) {
+    vars["--dockable-radius"] = `${options.radius}px`;
+  }
 
-export default currentTheme;
+  if (options.gap !== undefined) {
+    vars["--dockable-gap"] = `${options.gap}px`;
+  }
+
+  for (const [key, value] of Object.entries(colors[theme])) {
+    vars[`--dockable-colors-${key}`] = value;
+  }
+
+  return vars;
+}
+
+export function applyThemeCssVariables(
+  theme: DockableTheme,
+  target: HTMLElement = document.documentElement,
+  options: ThemeCssVariablesOptions = {}
+) {
+  for (const [name, value] of Object.entries(getThemeCssVariables(theme, options))) {
+    target.style.setProperty(name, value);
+  }
+}
+
+export function getPreferredTheme(): DockableTheme {
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
+}

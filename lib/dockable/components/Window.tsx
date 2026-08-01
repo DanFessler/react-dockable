@@ -137,15 +137,7 @@ function TabView({
         </Droppable>
       )}
 
-      <div
-        style={{
-          overflow: "auto",
-          display: "flex",
-          flex: 1,
-        }}
-      >
-        {content}
-      </div>
+      <div className={styles.content}>{content}</div>
 
       <DroppableTargets
         id={id}

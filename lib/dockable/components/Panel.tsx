@@ -19,7 +19,32 @@ type PanelProps = {
   address: number[];
   gap?: number;
   panels: LayoutNode[];
+  declarativePanels?: LayoutNode[];
 };
+
+function getWindowChrome(
+  windowNode: WindowNode,
+  declarativeNode?: LayoutNode,
+  tabCount = 0
+) {
+  const declarativeWindow =
+    declarativeNode?.type === "Window"
+      ? (declarativeNode as WindowNode)
+      : undefined;
+
+  const hideTabsWhenSingle =
+    declarativeWindow?.hideTabsWhenSingle ?? windowNode.hideTabsWhenSingle;
+
+  const hideTabs =
+    Boolean(declarativeWindow?.hideTabs) ||
+    Boolean(windowNode.hideTabs) ||
+    (Boolean(hideTabsWhenSingle) && tabCount <= 1);
+
+  return {
+    hideTabs,
+    chromeless: declarativeWindow?.chromeless ?? windowNode.chromeless,
+  };
+}
 
 // a list of TabViews with horizontal or vertical orientation
 function PanelView({
@@ -28,6 +53,7 @@ function PanelView({
   address,
   gap,
   panels,
+  declarativePanels,
 }: PanelProps) {
   const { dispatch } = useDockable();
 
@@ -69,16 +95,18 @@ function PanelView({
               };
             });
             const windowNode = panel as WindowNode;
-            const hideTabs =
-              windowNode.hideTabs ||
-              (windowNode.hideTabsWhenSingle && panelTabs.length <= 1);
+            const { hideTabs, chromeless } = getWindowChrome(
+              windowNode,
+              declarativePanels?.[index],
+              panelTabs.length
+            );
 
             return (
               <TabView
                 id={panel.id}
                 tabs={panelTabs}
                 hideTabs={hideTabs}
-                chromeless={windowNode.chromeless}
+                chromeless={chromeless}
                 selected={windowNode.selected.toString()}
                 orientation={orientation}
                 address={address.concat(index)}
@@ -86,6 +114,8 @@ function PanelView({
             );
           } else {
             const _panel = panel as PanelNode;
+            const declarativeChild = declarativePanels?.[index];
+
             return (
               <PanelView
                 key={index}
@@ -97,6 +127,11 @@ function PanelView({
                     : "row"
                 }
                 panels={_panel.children}
+                declarativePanels={
+                  declarativeChild?.type === "Panel"
+                    ? declarativeChild.children
+                    : undefined
+                }
                 children={children}
                 address={address.concat(index)}
                 gap={gap}

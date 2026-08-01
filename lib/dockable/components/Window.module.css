@@ -5,6 +5,8 @@
   border-radius: var(--dockable-radius);
   overflow: hidden;
   flex: 1;
+  min-height: 0;
+  min-width: 0;
   /* position: relative; */
   /* margin-left: 64px; */
   transition: margin 0.1s ease-in-out;
@@ -148,4 +150,16 @@
   height: 100%;
   transform: scaleX(1) scaleY(1);
   background-color: var(--dockable-colors-selected);
+}
+
+/* Tab body: column flex + default align-items:stretch so children fill
+   the cross axis (width) without width:100% (which overflows margins). */
+.content {
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
 }

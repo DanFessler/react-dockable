@@ -1,6 +1,18 @@
 import React from "react";
 import { Dockable as DockableRoot } from "./components/Root";
 export { useDockableLocalStorage } from "./hooks/useDockableLocalStorage";
+export {
+  applyThemeCssVariables,
+  colors,
+  getPreferredTheme,
+  getThemeColors,
+  getThemeCssVariables,
+} from "./colors";
+export type {
+  DockableTheme,
+  DockableThemeColors,
+  ThemeCssVariablesOptions,
+} from "./colors";
 import type { CustomItems } from "./components/DropdownMenu";
 export type { LayoutNode } from "./utils/serializeLayout";
 import Menu from "./components/DropdownMenu";
