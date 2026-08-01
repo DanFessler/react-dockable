@@ -35,6 +35,7 @@ function isSame(activeAddress: number[], overAddress: number[]) {
 type TabViewProps = {
   tabs: tabGroupObject;
   hideTabs?: boolean;
+  chromeless?: boolean;
   selected: string;
   id: string;
   orientation: "row" | "column";
@@ -43,6 +44,7 @@ type TabViewProps = {
 function TabView({
   tabs,
   hideTabs = false,
+  chromeless = false,
   selected,
   id,
   orientation,
@@ -76,7 +78,13 @@ function TabView({
   const content = selectedTab?.content;
 
   return (
-    <div className={`${styles.container} ${isOverAny ? styles.isOver : ""}`}>
+    <div
+      className={[
+        styles.container,
+        isOverAny ? styles.isOver : "",
+        chromeless ? styles.chromeless : "",
+      ].join(" ")}
+    >
       {!hideTabs && (
         <Droppable
           id={id}

@@ -9,6 +9,9 @@ export type WindowProps = {
   children: React.ReactElement<TabProps> | React.ReactElement<TabProps>[];
   size?: number;
   selected?: number;
+  hideTabs?: boolean;
+  hideTabsWhenSingle?: boolean;
+  chromeless?: boolean;
 };
 
 export function Window(props: WindowProps) {
@@ -20,6 +23,9 @@ export type TabProps = {
   name: string;
   children: React.ReactNode;
   actions?: CustomItems;
+  hideTabs?: boolean;
+  hideTabsWhenSingle?: boolean;
+  chromeless?: boolean;
 };
 
 export function Tab(props: TabProps) {

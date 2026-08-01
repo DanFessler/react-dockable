@@ -68,11 +68,18 @@ function PanelView({
                 actions: tab.props.actions,
               };
             });
+            const windowNode = panel as WindowNode;
+            const hideTabs =
+              windowNode.hideTabs ||
+              (windowNode.hideTabsWhenSingle && panelTabs.length <= 1);
+
             return (
               <TabView
                 id={panel.id}
                 tabs={panelTabs}
-                selected={(panel as WindowNode).selected.toString()}
+                hideTabs={hideTabs}
+                chromeless={windowNode.chromeless}
+                selected={windowNode.selected.toString()}
                 orientation={orientation}
                 address={address.concat(index)}
               />

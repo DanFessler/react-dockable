@@ -11,6 +11,9 @@ export type WindowNode = {
   selected: TabId;
   children: TabId[];
   size?: number;
+  hideTabs?: boolean;
+  hideTabsWhenSingle?: boolean;
+  chromeless?: boolean;
 };
 
 export type PanelNode = {
@@ -75,17 +78,25 @@ function serializeLayout(
       children: tabIds,
       size: props.size || 1,
       selected: tabIds[props.selected || 0],
+      hideTabs: props.hideTabs,
+      hideTabsWhenSingle: props.hideTabsWhenSingle,
+      chromeless: props.chromeless,
     };
   }
 
   // automatically wrap a <Tab> in a <Window> if it is not already a <Window>
   if (element.type === Tab) {
+    const props = element.props as TabProps;
+
     return {
       type: "Window",
       id: `window-${idNonce++}`,
       children: [parseTab(element)],
       size: 1,
       selected: parseTab(element),
+      hideTabs: props.hideTabs,
+      hideTabsWhenSingle: props.hideTabsWhenSingle,
+      chromeless: props.chromeless,
     };
   }
 
